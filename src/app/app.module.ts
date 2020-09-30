@@ -9,9 +9,10 @@ import { AppComponent } from './app.component';
 import { InMemoryDataService } from './shared/services/in-memory-data.service';
 import { LoginComponent } from './views/components/login/login.component';
 import { HomeComponent } from './views/components/home/home.component';
+import { RegisterComponent } from './views/components/register/register.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, RegisterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

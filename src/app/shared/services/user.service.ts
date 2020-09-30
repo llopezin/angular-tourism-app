@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import User from '../models/user.model';
 import { Observable } from 'rxjs';
 
@@ -8,6 +8,12 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   private usersUrl = 'api/users'; // URL to web api
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+
   constructor(private http: HttpClient) {}
 
   /** GET users from the server */
@@ -17,5 +23,13 @@ export class UserService {
 
   getUser(id: number): Observable<User> {
     return this.http.get<User>(`api/users/${id}`);
+  }
+
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.usersUrl, user, this.httpOptions);
+  }
+
+  modifyUser(user: User): Observable<User> {
+    return this.http.put<User>(this.usersUrl, user, this.httpOptions);
   }
 }
