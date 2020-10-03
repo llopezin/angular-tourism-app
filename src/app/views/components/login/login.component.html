@@ -17,6 +17,6 @@
         <span *ngIf="signInForm.get('password').errors?.pattern">Password Must Be At Least 5 Characters Long</span>
     </span>
 
-    <span *ngIf="!userValidated && formSubmited">User Email or Password Invalid</span>
+    <span *ngIf="!userValidated && formSubmited" class="form__validation-message">User Email or Password Invalid</span>
     <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
 </form>

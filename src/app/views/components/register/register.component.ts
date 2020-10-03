@@ -8,6 +8,8 @@ import {
 import User from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { MatchingFields } from 'src/app/shared/directives/custom-validators/matchingFields.validator';
+import { StoreUserService } from 'src/app/shared/services/store-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +25,8 @@ export class RegisterComponent implements OnInit {
   public password: FormControl;
   public passwordRepeat: FormControl;
   public registerForm: FormGroup;
+  public userValidated: boolean;
+  public formSubmited: boolean = false;
   public patterns: any = {
     email: '^[a-z0-9+_.-]+@[a-z]+.[a-z]+$',
     name: '^[a-zA-Z-]+$',
@@ -30,7 +34,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private storeUserService: StoreUserService,
+    private router: Router
   ) {
     this.name = new FormControl('', [
       Validators.required,
@@ -74,10 +80,32 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    this.formSubmited = true;
     this.saveFormInput();
+    this.userService
+      .getUsers()
+      .subscribe((users) => this.handleResponse(users));
   }
 
-  getUsers() {}
+  handleResponse(users: User[]) {
+    let userValid = this.isNewUser(users);
+    this.userValidated = userValid;
+    userValid ? this.afterUserValid(this.user) : '';
+  }
+
+  afterUserValid(user: User) {
+    this.postUser();
+    this.storeUserService.user = user;
+    this.navigateHome();
+  }
+
+  navigateHome() {
+    this.router.navigate(['']);
+  }
+
+  isNewUser(users: User[]) {
+    return !users.some((user) => user.email === this.user.email);
+  }
 
   postUser() {
     this.userService.createUser(this.user).subscribe((data) => {
@@ -88,6 +116,5 @@ export class RegisterComponent implements OnInit {
   saveFormInput() {
     delete this.registerForm.value.passwordRepeat;
     this.user = this.registerForm.value;
-    console.log(this.user);
   }
 }
