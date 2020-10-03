@@ -1,0 +1,16 @@
+<header>
+    <a title="home">This is a logo</a>
+    <nav id="main-navigation">
+        <ul>
+            <li *ngIf="!user" routerLink="sign-in">Sign In</li>
+            <li *ngIf="!user" routerLink="join-now">Join Now</li>
+            <li *ngIf="user" routerLink="">Home</li>
+            <li *ngIf="user?.isAdmin" routerLink="admin">Admin</li>
+            <li *ngIf="user && !user.isAdmin" routerLink="favourites">Favourites</li>
+            <li *ngIf="user && !user.isAdmin" routerLink="my-activities">My Activities</li>
+            <li *ngIf="user" routerLink="profile">Profile</li>
+            <li *ngIf="user">Log Out</li>
+            <li routerLink="app">Load app</li>
+        </ul>
+    </nav>
+</header>

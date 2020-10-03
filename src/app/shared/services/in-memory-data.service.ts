@@ -19,8 +19,8 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         id: 2,
         email: 'sonia@yahoo.com',
-        name: 'testUser',
-        password: 'pass1234',
+        name: 'Sonia',
+        password: '12345',
         isAdmin: false,
         activitiesEnrolled: [],
       },
@@ -39,10 +39,6 @@ export class InMemoryDataService implements InMemoryDbService {
         category: 'culture',
         subcategory: 'walks',
         price: 20,
-      },
-      {
-        id: 2,
-        activitiesEnrolled: [],
       },
     ];
     return { users, activities };

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
@@ -10,13 +10,33 @@ import { InMemoryDataService } from './shared/services/in-memory-data.service';
 import { LoginComponent } from './views/components/login/login.component';
 import { HomeComponent } from './views/components/home/home.component';
 import { RegisterComponent } from './views/components/register/register.component';
+import { FavouritesComponent } from './views/components/favourites/favourites.component';
+import { ProfileComponent } from './views/components/profile/profile.component';
+import { AdminComponent } from './views/components/admin/admin.component';
+import { MyActivitiesComponent } from './views/components/my-activities/my-activities.component';
+import { LogoutComponent } from './views/components/logout/logout.component';
+import { HeaderComponent } from './views/components/header/header.component';
+import { FooterComponent } from './views/components/footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent,
+    FavouritesComponent,
+    ProfileComponent,
+    AdminComponent,
+    MyActivitiesComponent,
+    LogoutComponent,
+    HeaderComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

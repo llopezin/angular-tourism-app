@@ -4,17 +4,17 @@ import { Language } from './language';
 
 export default class User {
   id?: number;
-  email: string;
   name: string;
+  surname: string;
+  email: string;
   password: string;
   isAdmin: false;
-  activitiesEnrolled: activity[];
-  surname: string;
-  dob: string;
-  telephone: number;
-  natianality: string;
-  NIF: number;
-  description: string;
-  education: Education[];
-  languages: Language[];
+  activitiesEnrolled?: activity[];
+  dob?: string;
+  telephone?: number;
+  natianality?: string;
+  NIF?: number;
+  description?: string;
+  education?: Education[];
+  languages?: Language[];
 }
