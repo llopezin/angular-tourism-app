@@ -26,12 +26,6 @@ export class ProfileComponent implements OnInit {
   public NIF: FormControl;
   public aboutMe: FormControl;
   public updateProfileForm: FormGroup;
-  public userValidated: boolean;
-  public formSubmited: boolean = false;
-  public patterns: any = {
-    NIF: '^[a-z0-9+_.-]+@[a-z]+.[a-z]+$',
-    name: '^[a-zA-Z-]+$',
-  };
 
   constructor(
     private userService: UserService,
@@ -43,12 +37,12 @@ export class ProfileComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(55),
-      Validators.pattern(this.patterns.name),
+      Validators.pattern('^[a-zA-Z-]+$'),
     ]);
     this.surname = new FormControl('', [
       Validators.minLength(3),
       Validators.maxLength(55),
-      Validators.pattern(this.patterns.name),
+      Validators.pattern('^[a-zA-Z-]+$'),
     ]);
 
     this.date = new FormControl('', [
