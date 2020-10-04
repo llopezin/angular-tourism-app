@@ -8,7 +8,7 @@
             <li *ngIf="user?.isAdmin" routerLink="admin">Admin</li>
             <li *ngIf="user && !user.isAdmin" routerLink="favourites">Favourites</li>
             <li *ngIf="user && !user.isAdmin" routerLink="my-activities">My Activities</li>
-            <li *ngIf="user" routerLink="profile">Profile</li>
+            <li routerLink="profile">Profile</li>
             <li *ngIf="user">Log Out</li>
         </ul>
     </nav>

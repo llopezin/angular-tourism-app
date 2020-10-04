@@ -76,40 +76,25 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    this.formSubmited = true;
     this.saveFormInput();
-    this.userService
-      .getUsers()
-      .subscribe((users) => this.handleResponse(users));
-  }
-
-  handleResponse(users: User[]) {
-    let userValid = this.isNewUser(users);
-    this.userValidated = userValid;
-    userValid ? this.afterUserValid(this.user) : '';
-  }
-
-  afterUserValid(user: User) {
-    this.postUser();
-    this.storeUserService.user = user;
-    this.navigateHome();
+    this.userService.updateUser(this.user).subscribe((data) => {
+      this.updateStoredUser();
+      this.navigateHome();
+    });
   }
 
   navigateHome() {
     this.router.navigate(['']);
   }
 
-  isNewUser(users: User[]) {
-    return !users.some((user) => user.NIF === this.user.NIF);
-  }
-
-  postUser() {
-    this.userService.createUser(this.user).subscribe((data) => {
-      console.log(data);
-    });
+  updateStoredUser() {
+    this.storeUserService.user = this.user;
   }
 
   saveFormInput() {
-    this.user = this.updateProfileForm.value;
+    this.user = {
+      ...this.storeUserService.user,
+      ...this.updateProfileForm.value,
+    };
   }
 }

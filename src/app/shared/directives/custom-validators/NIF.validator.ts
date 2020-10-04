@@ -4,7 +4,8 @@ export class checkNIF {
   public static NIFisValid(
     control: AbstractControl
   ): { [key: string]: any } | null {
-    const NIF = control.value;
+    const NIF = control.value.toUpperCase();
+
     const letter = NIF.charAt(8);
     const nifLettersCheck = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(
       parseInt(NIF, 10) % 23
