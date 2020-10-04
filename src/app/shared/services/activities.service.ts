@@ -16,4 +16,8 @@ export class ActivitiesService {
   getActivity(id): Observable<Activity> {
     return this.http.get<Activity>(`api/activities/${id}`);
   }
+
+  createActivities(activity: Activity): Observable<Activity[]> {
+    return this.http.post<Activity[]>('api/activities', activity);
+  }
 }

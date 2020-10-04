@@ -43,10 +43,6 @@ const routes: Routes = [
     path: 'head',
     component: HeaderComponent,
   },
-  {
-    path: 'app',
-    component: AppComponent,
-  },
 ];
 
 @NgModule({
