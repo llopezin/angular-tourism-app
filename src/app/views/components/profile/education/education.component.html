@@ -1,0 +1,37 @@
+<p>Education</p>
+
+<form [formGroup]="educationForm">
+    <label for="education-form__type">Type:</label>
+    <select name="type" id="education-form__type" [formControl]="type">
+        <option value="grado" selected>Grado</option>
+        <option value="ciclo formativo">Ciclo Formativo</option>
+    </select>
+
+    <label for="education-form__type">Level:</label>
+    <select name="level" id="education-form__level" [formControl]="level">
+        <option *ngFor="let options of getLevelOptions()"></option>
+    </select>
+
+    <label for="education-form__name">Name:</label>
+    <input type="text" name="name" id="#education-form__name" [formControl]="name">
+    <span class="form__validation-message" *ngIf="educationForm.get('name').touched || educationForm.get('name').dirty">
+        <span *ngIf="educationForm.get('name').errors?.required">Name Is Required</span>
+        <span *ngIf="educationForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
+        <span *ngIf="educationForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
+    </span>
+
+
+    <label for="education-form__surname">Surname:</label>
+    <input type="text" surname="surname" id="#education-form__surname" [formControl]="university">
+    <span class="form__validation-message"
+        *ngIf="educationForm.get('surname').touched || educationForm.get('surname').dirty">
+        <span *ngIf="educationForm.get('surname').errors?.minlength">Surname Must Have At Least 3 Characters</span>
+        <span *ngIf="educationForm.get('surname').errors?.maxlength">Surname Must Be Under 55 Characters</span>
+    </span>
+
+    <label for="education-form__finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
+    <input type="date" id="#education-form__finishDate" [formControl]="finishDate">
+    <span class="form__validation-message"
+        *ngIf="educationForm.get('finishDate').errors?.pattern && (educationForm.get('finishDate').touched || educationForm.get('finishDate').dirty)">Invalid
+        format</span>
+</form>

@@ -17,6 +17,8 @@ import { MyActivitiesComponent } from './views/components/my-activities/my-activ
 import { LogoutComponent } from './views/components/logout/logout.component';
 import { HeaderComponent } from './views/components/header/header.component';
 import { FooterComponent } from './views/components/footer/footer.component';
+import { EducationComponent } from './views/components/profile/education/education.component';
+import { LanguagesComponent } from './views/components/profile/languages/languages.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { FooterComponent } from './views/components/footer/footer.component';
     LogoutComponent,
     HeaderComponent,
     FooterComponent,
+    EducationComponent,
+    LanguagesComponent,
   ],
   imports: [
     BrowserModule,

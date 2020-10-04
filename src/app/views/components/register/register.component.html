@@ -59,7 +59,8 @@
             match, please try again</span>
     </span>
 
-    <span *ngIf="!userValidated && formSubmited" class="form__validation-message">You are a registered user, please sign
+    <span *ngIf="userValidated === false && formSubmited" class="form__validation-message">You are a registered user,
+        please sign
         in</span>
     <button type="submit" [disabled]="!registerForm.valid">Join</button>
 </form>

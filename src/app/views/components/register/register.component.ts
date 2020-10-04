@@ -37,7 +37,9 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private storeUserService: StoreUserService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.name = new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -76,8 +78,6 @@ export class RegisterComponent implements OnInit {
       { validators: MatchingFields.match([this.password, this.passwordRepeat]) }
     );
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     this.formSubmited = true;

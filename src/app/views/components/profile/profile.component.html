@@ -23,10 +23,10 @@
         <span *ngIf="updateProfileForm.get('surname').errors?.maxlength">Surname Must Be Under 55 Characters</span>
     </span>
 
-    <label for="update-profile-form__date" placeholder="DD/MM/YYYY">Date:</label>
-    <input type="date" id="#update-profile-form__date" [formControl]="date">
+    <label for="update-profile-form__dateOfBirth" placeholder="DD/MM/YYYY">Date:</label>
+    <input type="date" id="#update-profile-form__dateOfBirth" [formControl]="date">
     <span class="form__validation-message"
-        *ngIf="updateProfileForm.get('date').errors && (updateProfileForm.get('date').touched || updateProfileForm.get('date').dirty)">Invalid
+        *ngIf="updateProfileForm.get('date').errors?.pattern && (updateProfileForm.get('date').touched || updateProfileForm.get('date').dirty)">Invalid
         format</span>
 
 
@@ -36,7 +36,7 @@
     <input type="number" name="telephone" id="#update-profile-form__telephone" [formControl]="phone">
 
     <label for="update-profile-form__type">Nationality:</label>
-    <select name="nationality" id="update-profile-form__type" name="nationality" [formControl]="nationality">
+    <select name="nationality" id="update-profile-form__type" [formControl]="nationality">
         <option value="ES" selected>ES</option>
         <option value="FR">FR</option>
         <option value="IT">IT</option>
@@ -54,6 +54,7 @@
     <label for="update-profile-form__aboutMe">About Me:</label>
     <input type="textarea" id="#update-profile-form__aboutMe" [formControl]="aboutMe">
 
-
     <button type="submit" [disabled]="!updateProfileForm.valid">Update profile</button>
 </form>
+
+<app-education></app-education>

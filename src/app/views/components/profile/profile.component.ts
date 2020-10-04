@@ -32,7 +32,9 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private storeUserService: StoreUserService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.name = new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -66,8 +68,6 @@ export class ProfileComponent implements OnInit {
       aboutMe: this.aboutMe,
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     this.saveFormInput();
