@@ -1,9 +1,7 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { AdminComponent } from './views/components/admin/admin.component';
 import { FavouritesComponent } from './views/components/favourites/favourites.component';
-import { HeaderComponent } from './views/components/header/header.component';
 import { HomeComponent } from './views/components/home/home.component';
 import { LoginComponent } from './views/components/login/login.component';
 import { MyActivitiesComponent } from './views/components/my-activities/my-activities.component';
@@ -39,10 +37,7 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
   },
-  {
-    path: 'head',
-    component: HeaderComponent,
-  },
+
 ];
 
 @NgModule({
@@ -50,3 +45,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+ */

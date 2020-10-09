@@ -1,48 +1,47 @@
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './shared/services/in-memory-data.service';
+import { RouterModule, Routes } from '@angular/router';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AdminModule } from './views/components/admin/admin.module';
+import { LoginModule } from './views/components/login/login.module';
+import { MyActivitiesModule } from './views/components/my-activities/my-activities.module';
+import { HomeModule } from './views/components/home/home.module';
+import { ProfileModule } from './views/components/profile/profile.module';
+
 import { AppComponent } from './app.component';
-import { InMemoryDataService } from './shared/services/in-memory-data.service';
-import { LoginComponent } from './views/components/login/login.component';
-import { HomeComponent } from './views/components/home/home.component';
-import { RegisterComponent } from './views/components/register/register.component';
 import { FavouritesComponent } from './views/components/favourites/favourites.component';
-import { ProfileComponent } from './views/components/profile/profile.component';
-import { AdminComponent } from './views/components/admin/admin.component';
-import { MyActivitiesComponent } from './views/components/my-activities/my-activities.component';
 import { LogoutComponent } from './views/components/logout/logout.component';
-import { HeaderComponent } from './views/components/header/header.component';
-import { FooterComponent } from './views/components/footer/footer.component';
-import { EducationFormComponent } from './views/components/profile/education-form/education-form.component';
-import { EducationListComponent } from './views/components/profile/education-form/education-list/education-list.component';
-import { LanguageFormComponent } from './views/components/profile/language-form/language-form.component';
-import { LanguageListComponent } from './views/components/profile/language-form/language-list/language-list.component';
+import { HeaderComponent } from './views/components/layout/header/header.component';
+import { FooterComponent } from './views/components/layout/footer/footer.component';
+import { LayoutComponent } from './views/components/layout/layout.component';
+import { RegisterModule } from './views/components/register/register.module';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    HomeComponent,
-    RegisterComponent,
-    FavouritesComponent,
-    ProfileComponent,
-    AdminComponent,
-    MyActivitiesComponent,
-    LogoutComponent,
     HeaderComponent,
+    LayoutComponent,
     FooterComponent,
-    EducationFormComponent,
-    EducationListComponent,
-    LanguageFormComponent,
-    LanguageListComponent,
+    LogoutComponent,
+    FavouritesComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    //AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
 
@@ -52,6 +51,13 @@ import { LanguageListComponent } from './views/components/profile/language-form/
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false,
     }),
+
+    AdminModule,
+    LoginModule,
+    MyActivitiesModule,
+    HomeModule,
+    ProfileModule,
+    RegisterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

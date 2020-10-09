@@ -6,9 +6,7 @@
         <option value="grado">Grado</option>
         <option value="ciclo formativo">Ciclo Formativo</option>
     </select>
-    <span class="form__validation-message"
-        *ngIf="educationForm.get('type').errors?.required && educationForm.get('type').touched">Please
-        select an option</span>
+
 
     <label for="education-form__level">Level:</label>
     <select name="level" id="education-form__level" [formControl]="level">
