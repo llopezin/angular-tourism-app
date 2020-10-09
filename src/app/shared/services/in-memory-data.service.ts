@@ -21,7 +21,7 @@ export class InMemoryDataService implements InMemoryDbService {
         email: 'sonia@yahoo.com',
         name: 'sonia',
         password: 'password1234',
-        isAdmin: false,
+        isAdmin: true,
         activitiesEnrolled: [],
         education: [
           {

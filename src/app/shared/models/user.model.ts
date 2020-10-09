@@ -17,4 +17,7 @@ export default class User {
   description?: string;
   education?: Education[];
   languages?: Language[];
+  companyName?: string;
+  companyDescription?: string;
+  CIF?: number;
 }

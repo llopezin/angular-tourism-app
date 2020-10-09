@@ -28,6 +28,9 @@ export class ProfileComponent implements OnInit {
   public NIF: FormControl;
   public aboutMe: FormControl;
   public updateProfileForm: FormGroup;
+  public companyName: FormControl;
+  public companyDescription: FormControl;
+  public CIF: FormControl;
 
   constructor(
     private userService: UserService,
@@ -37,6 +40,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.updateLocalUser();
     this.name = new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -69,6 +73,10 @@ export class ProfileComponent implements OnInit {
       NIF: this.NIF,
       aboutMe: this.aboutMe,
     });
+
+    if (this.user.isAdmin) {
+      this.createAdminControls();
+    }
   }
 
   onSubmit() {
@@ -87,10 +95,35 @@ export class ProfileComponent implements OnInit {
     this.storeUserService.user = this.user;
   }
 
+  updateLocalUser() {
+    this.user = this.storeUserService.user;
+  }
+
   saveFormInput() {
     this.user = {
       ...this.storeUserService.user,
       ...this.updateProfileForm.value,
     };
+  }
+
+  createAdminControls() {
+    this.companyName = new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(55),
+      Validators.pattern('^[^-s][a-zA-Z0-9_s-]+$'),
+    ]);
+    this.CIF = new FormControl('', Validators.required);
+    this.companyDescription = new FormControl('');
+    this.addAdminControls();
+  }
+
+  addAdminControls() {
+    this.updateProfileForm.addControl('CIF', this.CIF);
+    this.updateProfileForm.addControl('companyName', this.companyName);
+    this.updateProfileForm.addControl(
+      'companyDescription',
+      this.companyDescription
+    );
   }
 }

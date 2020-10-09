@@ -55,6 +55,32 @@
     <label for="update-profile-form__aboutMe">About Me:</label>
     <input type="textarea" id="#update-profile-form__aboutMe" [formControl]="aboutMe">
 
+
+
+    <div *ngIf="user.isAdmin">
+        <label for="update-profile-form__name">Company Name:</label>
+        <input type="text" name="companyName" id="#update-profile-form__name" [formControl]="companyName">
+        <span class="form__validation-message"
+            *ngIf="updateProfileForm.get('companyName').touched || updateProfileForm.get('companyName').dirty">
+            <span *ngIf="updateProfileForm.get('companyName').errors?.required">Company Name Is Required</span>
+            <span *ngIf="updateProfileForm.get('companyName').errors?.minlength">Company Name Must Have At Least 3
+                Characters</span>
+            <span *ngIf="updateProfileForm.get('companyName').errors?.maxlength">Name Must Be Under 55 Characters</span>
+            <span *ngIf="updateProfileForm.get('companyName').errors?.pattern">Please remove initial white spaces</span>
+        </span>
+
+        <label for="update-profile-form__CIF">CIF:</label>
+        <input type="text" name="CIF" id="#update-profile-form__CIF" [formControl]="CIF">
+        <span class="form__validation-message"
+            *ngIf="updateProfileForm.get('CIF')?.touched || updateProfileForm.get('CIF').dirty">
+            <span *ngIf="updateProfileForm.get('CIF').errors">CIF is required</span>
+        </span>
+
+        <label for="update-profile-form__companyDescription">Company Description:</label>
+        <input type="textarea" id="#update-profile-form__companyDescription" [formControl]="companyDescription">
+    </div>
+
+
     <button type="submit" [disabled]="!updateProfileForm.valid">Update profile</button>
 </form>
 
