@@ -1,37 +1,48 @@
-<app-language-list (languageEvent)="recieveLanguageEvent($event)"></app-language-list>
+<app-education-list (educationEvent)="recieveEducationEvent($event)"></app-education-list>
 
-<form [formGroup]="languageForm" *ngIf="showForm" (ngSubmit)="onSubmit()">
-
-    <h3 *ngIf="languageSelectedId">Edit Language {{languageSelectedId}}</h3>
-    <h3 *ngIf="!languageSelectedId">Add Language</h3>
-
-    <label for="language">Language:</label>
-    <select name="language" id="language" [formControl]="language">
-        <option *ngFor="let option of languageOptions">{{option}}</option>
+<form [formGroup]="educationForm" *ngIf="showForm" (ngSubmit)="onSubmit()">
+    <label for="education-form__type">Type:</label>
+    <select name="type" id="education-form__type" [formControl]="type">
+        <option value="grado">Grado</option>
+        <option value="ciclo formativo">Ciclo Formativo</option>
     </select>
     <span class="form__validation-message"
-        *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
-        select an option
-        format</span>
+        *ngIf="educationForm.get('type').errors?.required && educationForm.get('type').touched">Please
+        select an option</span>
 
-    <label for="level">Level:</label>
-    <select name="level" id="level" [formControl]="level">
-        <option *ngFor="let option of levelOptions">{{option}}</option>
+    <label for="education-form__level">Level:</label>
+    <select name="level" id="education-form__level" [formControl]="level">
+        <option *ngFor="let option of getLevelOptions()">{{option}}</option>
     </select>
     <span class="form__validation-message"
-        *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
-        select an option
-        format</span>
+        *ngIf="educationForm.get('level').errors?.required && (educationForm.get('level').touched || educationForm.get('level').dirty)">Please
+        select an option</span>
+
+    <label for="education-form__name">Name:</label>
+    <input type="text" name="name" id="#education-form__name" [formControl]="name">
+    <span class="form__validation-message" *ngIf="educationForm.get('name').touched || educationForm.get('name').dirty">
+        <span *ngIf="educationForm.get('name').errors?.required">Name Is Required</span>
+        <span *ngIf="educationForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
+        <span *ngIf="educationForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
+    </span>
 
 
-    <label for="finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
-    <input type="date" id="#finishDate" [formControl]="finishDate">
+    <label for="education-form__university">University:</label>
+    <input type="text" university="university" id="#education-form__university" [formControl]="university">
     <span class="form__validation-message"
-        *ngIf="languageForm.get('finishDate').errors?.pattern && (languageForm.get('finishDate').touched || languageForm.get('finishDate').dirty)">Invalid
+        *ngIf="educationForm.get('university').touched || educationForm.get('university').dirty">
+        <span *ngIf="educationForm.get('university').errors?.minlength">university Must Have At Least 3
+            Characters</span>
+        <span *ngIf="educationForm.get('university').errors?.maxlength">university Must Be Under 55 Characters</span>
+    </span>
+
+    <label for="education-form__finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
+    <input type="date" id="#education-form__finishDate" [formControl]="finishDate">
+    <span class="form__validation-message"
+        *ngIf="educationForm.get('finishDate').errors?.pattern && (educationForm.get('finishDate').touched || educationForm.get('finishDate').dirty)">Invalid
         format</span>
 
-    <button type="submit"
-        [disabled]="!languageForm.valid">{{languageSelectedId? 'Update Language' : 'Add Language'}}</button>
+    <button type="submit" [disabled]="!educationForm.valid">Add Education</button>
 </form>
 
 <p *ngIf="showSuccessMsg">Succes Message!</p>

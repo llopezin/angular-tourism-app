@@ -10,7 +10,6 @@ import { StoreUserService } from 'src/app/shared/services/store-user.service';
 })
 export class LanguageListComponent implements OnInit {
   public user: User;
-  public languages: Language[];
   public selectedLanguageId: number;
 
   @Output() languageEvent = new EventEmitter<number>();
@@ -19,7 +18,6 @@ export class LanguageListComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.storeUserService.user;
-    this.languages = this.user.languages;
   }
 
   updateLanguage(e) {
@@ -32,22 +30,21 @@ export class LanguageListComponent implements OnInit {
   }
 
   deleteLanguage(e) {
-    this.updateUserData();
-    const id = e.target.dataset.id;
-    const index = this.getlanguageById(id).id - 1;
-    this.user.languages = this.user.languages.splice(index, 1);
-    this.updateUserData();
-  }
-
-  getlanguageById(id: number) {
-    return this.user.languages.find((language) => {
-      return language.id == id;
-    });
-  }
-
-  updateUserData() {
-    this.updateStoredUser();
     this.updateLocalUser();
+    const id = e.target.dataset.id;
+    const index = this.getLanguageIndexById(id);
+    this.user.languages.splice(index, 1);
+    this.updateStoredUser();
+  }
+
+  getLanguageIndexById(id: number): any {
+    let index;
+    this.user.languages.forEach((language, i) => {
+      if (language.id == id) {
+        index = i;
+      }
+    });
+    return index;
   }
 
   updateStoredUser() {
@@ -56,6 +53,5 @@ export class LanguageListComponent implements OnInit {
 
   updateLocalUser() {
     this.user = this.storeUserService.user;
-    this.languages = this.user.languages;
   }
 }

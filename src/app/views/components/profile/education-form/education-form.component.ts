@@ -5,32 +5,32 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Education } from 'src/app/shared/models/education';
 import User from 'src/app/shared/models/user.model';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
-  selector: 'app-language-form',
-  templateUrl: './language-form.component.html',
-  styleUrls: ['./language-form.component.sass'],
+  selector: 'app-education-form',
+  templateUrl: './education-form.component.html',
+  styleUrls: ['./education-form.component.sass'],
 })
-export class LanguageFormComponent implements OnInit {
+export class EducationFormComponent implements OnInit {
   public user: User;
-  public languageSelectedId: number;
+  public educationSelectedId: number;
   public showForm: boolean;
   public showSuccessMsg: boolean;
-  public languageForm: FormGroup;
-  public language: FormControl;
+  public education: Education;
+  public educationForm: FormGroup;
+  public type: FormControl;
   public level: FormControl;
+  public name: FormControl;
+  public university: FormControl;
   public finishDate: FormControl;
-  public levelOptions = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-  public languageOptions = [
-    'inglés',
-    'catalán',
-    'español',
-    'francés',
-    'alemán',
-  ];
+  public levelOptions = {
+    grado: ['diplomado', 'licenciado', 'ingeniero', 'máster', 'doctorado'],
+    fp: ['grado superior', 'grado medio'],
+  };
 
   constructor(
     private storeUserService: StoreUserService,
@@ -40,22 +40,35 @@ export class LanguageFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.storeUserService.user;
-    this.language = new FormControl('', [Validators.required]);
+
+    this.type = new FormControl('', [Validators.required]);
     this.level = new FormControl('', [Validators.required]);
+    this.name = new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(55),
+    ]);
+    this.university = new FormControl('', [
+      Validators.minLength(3),
+      Validators.maxLength(55),
+    ]);
+
     this.finishDate = new FormControl('', [
       Validators.pattern(/([12]\d{3}-\d{2}-\d{2})/),
       Validators.maxLength(10),
     ]);
 
-    this.languageForm = this.formBuilder.group({
-      language: this.language,
+    this.educationForm = this.formBuilder.group({
+      type: this.type,
       level: this.level,
+      name: this.name,
+      university: this.university,
       finishDate: this.finishDate,
     });
   }
 
   onSubmit() {
-    this.pushLanguage();
+    this.pushEducation();
     this.userService.updateUser(this.user).subscribe((data) => {
       this.updateStoredUser();
       this.showForm = false;
@@ -67,9 +80,9 @@ export class LanguageFormComponent implements OnInit {
     this.storeUserService.user = this.user;
   }
 
-  recieveLanguageEvent($event) {
+  recieveEducationEvent($event) {
     this.user = this.storeUserService.user;
-    this.languageSelectedId = $event;
+    this.educationSelectedId = $event;
     if ($event > 0) {
       this.setFormValues();
     }
@@ -78,36 +91,45 @@ export class LanguageFormComponent implements OnInit {
   }
 
   setFormValues() {
-    const languageToEdit = this.getlanguageById(this.languageSelectedId);
+    const educationToEdit = this.getEducationById(this.educationSelectedId);
 
-    this.language.setValue(languageToEdit.language);
-    this.level.setValue(languageToEdit.level);
+    this.type.setValue(educationToEdit.type);
+    this.level.setValue(educationToEdit.level);
+    this.name.setValue(educationToEdit.name);
+    this.university.setValue(educationToEdit.university);
+    this.finishDate.setValue(educationToEdit.finishDate);
   }
 
-  getlanguageById(id: number) {
-    return this.user.languages.find((language) => {
-      return language.id == id;
+  getEducationById(id: number) {
+    return this.user.education.find((education) => {
+      return education.id == id;
     });
   }
 
-  pushLanguage() {
-    let languages = this.user.languages;
-    let edited = this.languageSelectedId - 1;
-    let newLanguageData = this.languageForm.value;
+  pushEducation() {
+    let educations = this.user.education;
+    let edited = this.educationSelectedId - 1;
+    let neweducationData = this.educationForm.value;
 
     edited < 0
-      ? this.pushNewLanguage(languages, newLanguageData)
-      : this.pushEditedLanguage(languages, edited, newLanguageData);
+      ? this.pushNewEducation(educations, neweducationData)
+      : this.pushEditedEducation(educations, edited, neweducationData);
   }
 
-  pushEditedLanguage(languages, edited, newLanguageData) {
-    languages[edited] = {
-      ...languages[edited],
-      ...newLanguageData,
+  pushEditedEducation(educations, edited, neweducationData) {
+    educations[edited] = {
+      ...educations[edited],
+      ...neweducationData,
     };
   }
-  pushNewLanguage(languages, newLanguage) {
-    newLanguage.id = languages.length + 1;
-    languages.push(newLanguage);
+  pushNewEducation(educations, neweducation) {
+    neweducation.id = educations.length + 1;
+    educations.push(neweducation);
+  }
+
+  getLevelOptions() {
+    return this.type.value === 'grado'
+      ? this.levelOptions.grado
+      : this.levelOptions.fp;
   }
 }

@@ -18,6 +18,7 @@ import { LogoutComponent } from './views/components/logout/logout.component';
 import { HeaderComponent } from './views/components/header/header.component';
 import { FooterComponent } from './views/components/footer/footer.component';
 import { EducationFormComponent } from './views/components/profile/education-form/education-form.component';
+import { EducationListComponent } from './views/components/profile/education-form/education-list/education-list.component';
 import { LanguageFormComponent } from './views/components/profile/language-form/language-form.component';
 import { LanguageListComponent } from './views/components/profile/language-form/language-list/language-list.component';
 
@@ -35,6 +36,7 @@ import { LanguageListComponent } from './views/components/profile/language-form/
     HeaderComponent,
     FooterComponent,
     EducationFormComponent,
+    EducationListComponent,
     LanguageFormComponent,
     LanguageListComponent,
   ],

@@ -1,5 +1,3 @@
-<p>language-list works!</p>
-
 <section aria-describedby="education-header">
     <h2 id="education-header">Languages</h2>
     <table>
@@ -12,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of languages">
+            <tr *ngFor="let item of user.languages">
                 <td>{{item.id}}</td>
                 <td>{{item.language}}</td>
                 <td>{{item.level}}</td>

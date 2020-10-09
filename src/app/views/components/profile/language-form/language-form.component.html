@@ -10,9 +10,8 @@
         <option *ngFor="let option of languageOptions">{{option}}</option>
     </select>
     <span class="form__validation-message"
-        *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
-        select an option
-        format</span>
+        *ngIf="languageForm.get('language').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
+        select an option</span>
 
     <label for="level">Level:</label>
     <select name="level" id="level" [formControl]="level">
@@ -20,8 +19,7 @@
     </select>
     <span class="form__validation-message"
         *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
-        select an option
-        format</span>
+        select an option</span>
 
 
     <label for="finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
