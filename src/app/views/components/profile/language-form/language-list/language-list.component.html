@@ -1,0 +1,30 @@
+<p>language-list works!</p>
+
+<section aria-describedby="education-header">
+    <h2 id="education-header">Languages</h2>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Language</th>
+                <th>Level</th>
+                <th>Finish Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of languages">
+                <td>{{item.id}}</td>
+                <td>{{item.language}}</td>
+                <td>{{item.level}}</td>
+                <td>{{item.finishDate}}</td>
+                <td><button class="delete-education-btn" (click)="deleteLanguage($event)"
+                        [attr.data-id]="item.id">Delete</button>
+                    <button class="update-education-btn" (click)="updateLanguage($event)"
+                        [attr.data-id]="item.id">Update</button>
+                <td>
+
+            </tr>
+        </tbody>
+    </table>
+    <button (click)="addLanguage()">Add Language</button>
+</section>

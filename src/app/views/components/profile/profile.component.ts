@@ -10,6 +10,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { Router } from '@angular/router';
 import { checkNIF } from 'src/app/shared/directives/custom-validators/NIF.validator';
+import { EducationFormComponent } from './education-form/education-form.component';
+import { LanguageFormComponent } from './language-form/language-form.component';
 
 @Component({
   selector: 'app-profile',

@@ -11,7 +11,5 @@ export class HeaderComponent implements OnInit {
   constructor(private storeUserService: StoreUserService) {}
   public user: User = this.storeUserService.user;
 
-  ngOnInit(): void {
-    console.log(this.user);
-  }
+  ngOnInit(): void {}
 }

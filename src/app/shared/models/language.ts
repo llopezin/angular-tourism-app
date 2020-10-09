@@ -1,5 +1,6 @@
 export class Language {
+  id: number;
   level: string;
   language: string;
-  finishingDate: string;
+  finishDate: string;
 }

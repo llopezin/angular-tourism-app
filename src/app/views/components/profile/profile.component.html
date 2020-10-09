@@ -32,6 +32,7 @@
 
 
 
+
     <label for="update-profile-form__telephone">Phone number:</label>
     <input type="number" name="telephone" id="#update-profile-form__telephone" [formControl]="phone">
 
@@ -47,7 +48,7 @@
     <label for="update-profile-form__NIF">NIF:</label>
     <input type="text" name="NIF" id="#update-profile-form__NIF" [formControl]="NIF">
     <span class="form__validation-message"
-        *ngIf="updateProfileForm.get('NIF').touched || updateProfileForm.get('NIF').dirty">
+        *ngIf="updateProfileForm.get('NIF')?.touched || updateProfileForm.get('NIF').dirty">
         <span *ngIf="updateProfileForm.get('NIF').errors">Invalid Format</span>
     </span>
 
@@ -57,4 +58,7 @@
     <button type="submit" [disabled]="!updateProfileForm.valid">Update profile</button>
 </form>
 
-<app-education></app-education>
+
+<app-education-form></app-education-form>
+
+<app-language-form></app-language-form>

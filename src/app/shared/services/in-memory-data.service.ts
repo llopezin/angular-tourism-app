@@ -23,6 +23,38 @@ export class InMemoryDataService implements InMemoryDbService {
         password: 'password1234',
         isAdmin: false,
         activitiesEnrolled: [],
+        education: [
+          {
+            id: '1',
+            type: 'grado',
+            level: 'doctorado',
+            name: 'Doctorado en Ciencias De la Salud',
+            university: 'Universidad de Medellín',
+            finishDate: '02/07/1998',
+          },
+          {
+            id: '2',
+            type: 'ciclo formativo',
+            level: 'grado medio',
+            name: 'Ciclo Formativo en Atención Sanitaria',
+            university: 'Centro de estudios La Salva',
+            finishDate: '05/06/1986',
+          },
+        ],
+        languages: [
+          {
+            id: 1,
+            level: 'A1',
+            language: 'francés',
+            finishDate: '08/12/2018',
+          },
+          {
+            id: 2,
+            level: 'B2',
+            language: 'inglés',
+            finishDate: '08/12/2018',
+          },
+        ],
       },
       {
         id: 3,

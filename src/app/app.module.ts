@@ -17,8 +17,9 @@ import { MyActivitiesComponent } from './views/components/my-activities/my-activ
 import { LogoutComponent } from './views/components/logout/logout.component';
 import { HeaderComponent } from './views/components/header/header.component';
 import { FooterComponent } from './views/components/footer/footer.component';
-import { EducationComponent } from './views/components/profile/education/education.component';
-import { LanguagesComponent } from './views/components/profile/languages/languages.component';
+import { EducationFormComponent } from './views/components/profile/education-form/education-form.component';
+import { LanguageFormComponent } from './views/components/profile/language-form/language-form.component';
+import { LanguageListComponent } from './views/components/profile/language-form/language-list/language-list.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,9 @@ import { LanguagesComponent } from './views/components/profile/languages/languag
     LogoutComponent,
     HeaderComponent,
     FooterComponent,
-    EducationComponent,
-    LanguagesComponent,
+    EducationFormComponent,
+    LanguageFormComponent,
+    LanguageListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,37 @@
+<app-language-list (languageEvent)="recieveLanguageEvent($event)"></app-language-list>
+
+<form [formGroup]="languageForm" *ngIf="showForm" (ngSubmit)="onSubmit()">
+
+    <h3 *ngIf="languageSelectedId">Edit Language {{languageSelectedId}}</h3>
+    <h3 *ngIf="!languageSelectedId">Add Language</h3>
+
+    <label for="language">Language:</label>
+    <select name="language" id="language" [formControl]="language">
+        <option *ngFor="let option of languageOptions">{{option}}</option>
+    </select>
+    <span class="form__validation-message"
+        *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
+        select an option
+        format</span>
+
+    <label for="level">Level:</label>
+    <select name="level" id="level" [formControl]="level">
+        <option *ngFor="let option of levelOptions">{{option}}</option>
+    </select>
+    <span class="form__validation-message"
+        *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
+        select an option
+        format</span>
+
+
+    <label for="finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
+    <input type="date" id="#finishDate" [formControl]="finishDate">
+    <span class="form__validation-message"
+        *ngIf="languageForm.get('finishDate').errors?.pattern && (languageForm.get('finishDate').touched || languageForm.get('finishDate').dirty)">Invalid
+        format</span>
+
+    <button type="submit"
+        [disabled]="!languageForm.valid">{{languageSelectedId? 'Update Language' : 'Add Language'}}</button>
+</form>
+
+<p *ngIf="showSuccessMsg">Succes Message!</p>
