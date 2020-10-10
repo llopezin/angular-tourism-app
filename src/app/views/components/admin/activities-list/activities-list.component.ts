@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Activity } from 'src/app/shared/models/activity.model';
+import Activity from '../../../../shared/models/activity.model';
 import { ActivitiesService } from 'src/app/shared/services/activities.service';
 import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
 
@@ -8,11 +8,11 @@ import { StoreactivitiesService } from 'src/app/shared/services/store-activities
   templateUrl: './activities-list.component.html',
   styleUrls: ['./activities-list.component.sass'],
 })
-export class activitiesListComponent implements OnInit {
-  public activities: Activity;
+export class ActivitiesListComponent implements OnInit {
+  public activities: Activity[];
   public selectedActivitiesId: number;
 
-  @Output() activitiesEvent = new EventEmitter<number>();
+  @Output() ActivitiesEvent = new EventEmitter<number>();
 
   constructor(
     private storeActivitiesService: StoreactivitiesService,
@@ -20,7 +20,7 @@ export class activitiesListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activities = this.storeActivitiesService.activities;
+    this.setLocalActivities();
   }
 
   setLocalActivities() {
@@ -36,17 +36,21 @@ export class activitiesListComponent implements OnInit {
     this.activities = activities;
   }
 
-  updateactivity(id) {
+  updateActivity(id) {
     this.selectedActivitiesId = id;
-    this.activitiesEvent.emit(this.selectedActivitiesId);
+    this.ActivitiesEvent.emit(this.selectedActivitiesId);
   }
 
   addActivity() {
-    this.activitiesEvent.emit(0);
+    this.ActivitiesEvent.emit(0);
   }
 
-  deleteactivity(id) {
-    this.activitiesService.deleteActivity(id);
+  deleteActivity(id) {
+    this.activitiesService.deleteActivity(id).subscribe(() => {
+      const index = this.getActivitiesIndexById(id);
+      this.activities.splice(index, 1);
+      this.storeActivitiesService.activities = this.activities;
+    });
   }
 
   getActivitiesIndexById(id: number): any {
@@ -57,5 +61,11 @@ export class activitiesListComponent implements OnInit {
       }
     });
     return index;
+  }
+
+  calculateState(activity) {
+    return activity.state
+      ? activity.state
+      : activity.maxEnrolled - activity.usersEnrolled;
   }
 }

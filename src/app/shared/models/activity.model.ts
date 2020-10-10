@@ -10,4 +10,5 @@ export default class Activity {
   category: string;
   subcategory: string;
   price: number;
+  state: any;
 }

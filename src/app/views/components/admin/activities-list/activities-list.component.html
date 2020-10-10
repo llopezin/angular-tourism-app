@@ -1,36 +1,41 @@
-<section aria-describedby="activities-header">
-    <h2 id="activities-header">Activities</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Subcategory</th>
-                <th>Price</th>
-                <th>Language</th>
-                <th>Limit Capacity</th>
-                <th>Minimum Capacity</th>
-                <th>State</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let activity of user.activities">
-                <td>{{activity.name}}</td>
-                <td>{{activity.description}}</td>
-                <td>{{activity.category}}</td>
-                <td>{{activity.subcategory}}</td>
-                <td>{{activity.price}}</td>
-                <td>{{activity.language}}</td>
-                <td>{{activity.maxEnrolled}}</td>
-                <td>{{activity.minEnrolled}}</td>
-                <td>{{activity.state}}</td>
-                <td><button class="update-activities-btn" (click)="updateActivity(activity.id)">Update</button>
-                    <button class="update-activities-btn" (click)="deleteActivity(activity.id)">Delete</button>
-                <td>
+<main>
+    <section aria-describedby="activities-header" *ngIf="activities.length > 0"
+        [attr.aria-hidden]="activities.length === 0">
+        <h2 id="activities-header">Activities</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Price</th>
+                    <th>Language</th>
+                    <th>Limit Capacity</th>
+                    <th>Minimum Capacity</th>
+                    <th>State</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>{{activity.name}}</td>
+                    <td>{{activity.description}}</td>
+                    <td>{{activity.category}}</td>
+                    <td>{{activity.subcategory}}</td>
+                    <td>{{activity.price}}</td>
+                    <td>{{activity.language}}</td>
+                    <td>{{activity.maxEnrolled}}</td>
+                    <td>{{activity.minEnrolled}}</td>
+                    <td>{{calculateState(activity)}}</td>
+                    <td><button class="update-activities-btn" (click)="updateActivity(activity.id)">Update</button>
+                        <button class="update-activities-btn" (click)="deleteActivity(activity.id)">Delete</button>
+                    <td>
 
-            </tr>
-        </tbody>
-    </table>
-    <button (click)="addactivity()">Add activities</button>
-</section>
+                </tr>
+            </tbody>
+        </table>
+        <button (click)="addActivity()">Add activities</button>
+    </section>
+    <p *ngIf="activities.length === 0" [attr.aria-hidden]="activities.length > 0">No Activities Added</p>
+</main>

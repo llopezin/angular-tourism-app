@@ -1,1 +1,49 @@
-<p>admin works!</p>
+<app-activities-list (ActivitiesEvent)="recieveActivitiesEvent($event)"></app-activities-list>
+
+<form [formGroup]="activityForm" *ngIf="showForm" (ngSubmit)="onSubmit()">
+
+    <label for="activity-form__name">Name:</label>
+    <input type="text" name="name" id="#activity-form__name" [formControl]="name">
+    <span class="form__validation-message" *ngIf="activityForm.get('name').touched || activityForm.get('name').dirty">
+        <span *ngIf="activityForm.get('name').errors?.required">Name Is Required</span>
+        <span *ngIf="activityForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
+        <span *ngIf="activityForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
+    </span>
+
+    <label for="activity-category">Type:</label>
+    <select name="category" id="activity-category" [formControl]="category">
+        <option value='cultura y patrimonio'>Cultura y Patrimonio</option>
+        <option value='enoturismo'>Enoturismo</option>
+        <option value='playas'>Playas</option>
+    </select>
+
+
+    <label for="activity-form__subcategory">Subcategory:</label>
+    <select name="subcategory" id="activity-form__subcategory" [formControl]="subcategory">
+        <option *ngFor="let option of categoryOption[activityForm.get('subcategory').value]">{{option}}</option>
+    </select>
+    <span class="form__validation-message"
+        *ngIf="activityForm.get('subcategory').errors?.required && (activityForm.get('subcategory').touched || activityForm.get('level').dirty)">Please
+        select an option</span>
+
+
+
+    <label for="activity-form__university">University:</label>
+    <input type="text" university="university" id="#activity-form__university" [formControl]="university">
+    <span class="form__validation-message"
+        *ngIf="activityForm.get('university').touched || activityForm.get('university').dirty">
+        <span *ngIf="activityForm.get('university').errors?.minlength">university Must Have At Least 3
+            Characters</span>
+        <span *ngIf="activityForm.get('university').errors?.maxlength">university Must Be Under 55 Characters</span>
+    </span>
+
+    <label for="activity-form__finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
+    <input type="date" id="#activity-form__finishDate" [formControl]="finishDate">
+    <span class="form__validation-message"
+        *ngIf="activityForm.get('finishDate').errors?.pattern && (activityForm.get('finishDate').touched || activityForm.get('finishDate').dirty)">Invalid
+        format</span>
+
+    <button type="submit" [disabled]="!activityForm.valid">Add Education</button>
+</form>
+
+<p *ngIf="showSuccessMsg">Succes Message!</p>
