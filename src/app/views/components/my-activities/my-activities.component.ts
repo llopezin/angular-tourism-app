@@ -51,12 +51,13 @@ export class MyActivitiesComponent implements OnInit {
   setLocalActivities() {
     this.storeActivitiesService.activities.length === 0
       ? this.activitiesService.getActivities().subscribe((activities) => {
-          this.afterActivitiesFetched(activities);
+          this.afterActivitiesSet(activities);
+          this.storeActivitiesService.activities = activities;
         })
-      : this.afterActivitiesFetched(this.storeActivitiesService.activities);
+      : this.afterActivitiesSet(this.storeActivitiesService.activities);
   }
 
-  afterActivitiesFetched(activities) {
+  afterActivitiesSet(activities) {
     this.activities = activities;
     this.setUserActivities();
     this.selectActivity();
