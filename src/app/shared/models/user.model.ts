@@ -9,7 +9,7 @@ export default class User {
   email: string;
   password: string;
   isAdmin: false;
-  activitiesEnrolled?: activity[];
+  activitiesEnrolled?: number[];
   dob?: string;
   telephone?: number;
   natianality?: string;

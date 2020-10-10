@@ -1,4 +1,4 @@
-export default class activity {
+export default class Activity {
   id: number;
   name: string;
   description: string;

@@ -1,1 +1,29 @@
-<p>my-activities works!</p>
+<main aria-labelledby="my-activities-header">
+    <h1 id="my-activities-header">My Activitities</h1>
+    <section aria-labelledby="my-activities-list-header">
+        <h2 id="activities-list-header">Activities</h2>
+        <ul *ngFor="let activity of userActivities" title="Activities List" class="my-activities__list">
+            <li (click)="selectActivity(activity.id)">
+                <a>Show {{activity.name}} details</a>
+            </li>
+        </ul>
+    </section>
+    <section title="ActivitySelected Details" aria-labelledby="my-activities-detail">
+        <h2 id="my-activities-detail">Activity Detail</h2>
+        <h3>{{activitySelected.name}}</h3>
+        <p>{{activitySelected.description}}</p>
+        <div class="my-activities__detail-info">
+            <span>Date: {{activitySelected.date}}</span>
+            <span>Language: {{activitySelected.language}}</span>
+            <span>Category: {{activitySelected.category}}</span>
+            <span>Subategory: {{activitySelected.subcategory}}</span>
+            <span>Price: {{activitySelected.price}}</span>
+            <span>State: {{calculateState(activitySelected)}}</span>
+            <span>Maximum Capacity: {{activitySelected.maxEnrolled}}</span>
+            <span>Minimum Capacity: {{activitySelected.minEnrolled}}</span>
+            <span>People Registered: {{activitySelected.usersEnrolled}}</span>
+        </div>
+        <button (click)="cancelActivity(activitySelected.id)">Cancel {{activitySelected.name}}</button>
+    </section>
+
+</main>

@@ -20,4 +20,22 @@ export class ActivitiesService {
   createActivities(activity: Activity): Observable<Activity[]> {
     return this.http.post<Activity[]>('api/activities', activity);
   }
+
+  updateActivity(activity: Activity) {
+    return this.http.put<Activity[]>('api/activities', activity);
+  }
+
+  updateEnrrolled(id: number, action: string) {
+    const amount = (() => {
+      return action === 'add' ? 1 : -1;
+    })();
+
+    this.getActivity(id).subscribe((activity) => {
+      activity.usersEnrolled = activity.usersEnrolled + amount;
+      this.updateActivity(activity).subscribe((data) => {
+        console.log('Updating Activity');
+        console.log(data);
+      });
+    });
+  }
 }
