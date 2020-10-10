@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Activity from '../models/activity.model';
 import { Observable } from 'rxjs';
 
@@ -7,6 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ActivitiesService {
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+
   constructor(private http: HttpClient) {}
 
   getActivities(): Observable<Activity[]> {
@@ -22,20 +28,10 @@ export class ActivitiesService {
   }
 
   updateActivity(activity: Activity) {
-    return this.http.put<Activity[]>('api/activities', activity);
-  }
-
-  updateEnrrolled(id: number, action: string) {
-    const amount = (() => {
-      return action === 'add' ? 1 : -1;
-    })();
-
-    this.getActivity(id).subscribe((activity) => {
-      activity.usersEnrolled = activity.usersEnrolled + amount;
-      this.updateActivity(activity).subscribe((data) => {
-        console.log('Updating Activity');
-        console.log(data);
-      });
-    });
+    return this.http.put<Activity[]>(
+      'api/activities',
+      activity,
+      this.httpOptions
+    );
   }
 }

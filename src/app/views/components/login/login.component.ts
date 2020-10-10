@@ -65,15 +65,15 @@ export class LoginComponent implements OnInit {
 
   afterUserValid(userFound: User) {
     this.storeUser(userFound);
-    this.navigateToMyActivities();
+    this.navigateHome();
   }
 
   storeUser(userFound: User) {
     this.validatedUserData = userFound;
   }
 
-  navigateToMyActivities() {
-    this.router.navigate(['my-activities']);
+  navigateHome() {
+    this.router.navigate(['home']);
   }
 
   saveFormInput() {

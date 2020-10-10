@@ -5,9 +5,9 @@
             <li *ngIf="!user" routerLink="/login">Sign In</li>
             <li *ngIf="!user" routerLink="/register">Join Now</li>
             <li *ngIf="user" routerLink="">Home</li>
-            <li *ngIf="user?.isAdmin" routerLink="/admin">Admin</li>
-            <li *ngIf="user && !user.isAdmin" routerLink="/favourites">Favourites</li>
-            <li *ngIf="user && !user.isAdmin" routerLink="/my-activities">My Activities</li>
+            <li *ngIf="user?.isAdmin === true" routerLink="/admin">Admin</li>
+            <li *ngIf="user && user.isAdmin == false" routerLink="/favourites">Favourites</li>
+            <li *ngIf="user && user.isAdmin == false" routerLink="/my-activities">My Activities</li>
             <li *ngIf="user" routerLink="/profile">Profile</li>
             <li *ngIf="user">Log Out</li>
         </ul>

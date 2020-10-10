@@ -25,8 +25,8 @@
 
     <label for="register-form__type">Type:</label>
     <select name="type" id="register-form__type" name="type" [formControl]="type">
-        <option value=false selected>Tourist</option>
-        <option value=true>Company</option>
+        <option value=0 selected>Tourist</option>
+        <option value=1>Company</option>
     </select>
     <span class="form__validation-message"
         *ngIf="registerForm.get('isAdmin').touched && registerForm.get('isAdmin').errors?.required">

@@ -15,6 +15,7 @@ export class MyActivitiesComponent implements OnInit {
   public userActivities: Activity[];
   public user: User;
   public activitySelected: Activity;
+  public errorMessage;
 
   constructor(
     private activitiesService: ActivitiesService,
@@ -24,7 +25,19 @@ export class MyActivitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.setLocalUser();
+
+    if (this.activitiesIsEmpty()) {
+      this.errorMessage = true;
+      return;
+    }
     this.setLocalActivities();
+  }
+
+  activitiesIsEmpty() {
+    return (
+      !this.user.activitiesEnrolled ||
+      this.user.activitiesEnrolled?.length === 0
+    );
   }
 
   setLocalUser() {
@@ -57,8 +70,23 @@ export class MyActivitiesComponent implements OnInit {
   }
 
   cancelActivity(id: number) {
-    this.removeActivityFromUser(id);
-    this.updateEnrrolledAmount(id);
+    this.updateEnrrolledAmount();
+    this.activitiesService
+      .updateActivity(this.activitySelected)
+      .subscribe(() => {
+        this.updateStoredActivities();
+        this.removeActivityFromUser(id);
+        this.setStoredUser();
+        this.selectActivity(0);
+      });
+  }
+
+  updateStoredActivities() {
+    this.activitiesService.getActivities().subscribe((activities) => {
+      this.storeActivitiesService.activities = activities;
+      this.activities = activities;
+      this.setUserActivities();
+    });
   }
 
   removeActivityFromUser(id: number) {
@@ -67,13 +95,11 @@ export class MyActivitiesComponent implements OnInit {
         return userActivityId !== id;
       }
     );
-
-    this.setStoredUser();
-    this.setUserActivities();
   }
 
-  updateEnrrolledAmount(id) {
-    this.activitiesService.updateEnrrolled(id, 'substract');
+  updateEnrrolledAmount() {
+    this.activitySelected.usersEnrolled =
+      this.activitySelected.usersEnrolled - 1;
   }
 
   calculateState(activity: Activity) {
