@@ -10,7 +10,7 @@
         <span *ngIf="activityForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
     </span>
 
-    <label for="activity-category">Type:</label>
+    <label for="activity-category">Category:</label>
     <select name="category" id="activity-category" [formControl]="category">
         <option value='cultura y patrimonio'>Cultura y Patrimonio</option>
         <option value='enoturismo'>Enoturismo</option>
@@ -23,7 +23,7 @@
 
     <label for="activity-form-subcategory">Subcategory:</label>
     <select name="subcategory" id="activity-form-subcategory" [formControl]="subcategory">
-        <option *ngFor="let option of getSubcategoryOptions()">{{option}}</option>
+        <option *ngFor="let option of getSubcategoryOptions()" [value]="option">{{option}}</option>
     </select>
     <span class="form__validation-message"
         *ngIf="activityForm.get('subcategory').errors?.required && (activityForm.get('subcategory').touched || activityForm.get('subcategory').dirty)">Please
@@ -73,12 +73,12 @@
     </span>
 
 
-    <label for="activity-form-state">Cancel this activity</label>
-    <input type="checkbox" id="#activity-form-state" value="cancelled" [formControl]="state">
+    <label for="activity-form-state" *ngIf="!isNewActivity()">Cancel this activity</label>
+    <input type="checkbox" id="#activity-form-state" value="cancelled" [formControl]="state" *ngIf="!isNewActivity()">
 
 
 
-    <button type="submit" [disabled]="!activityForm.valid">Add Education</button>
+    <button type="submit" [disabled]="!activityForm.valid">Add Activity</button>
 </form>
 
 <p *ngIf="showSuccessMsg">Succes Message!</p>

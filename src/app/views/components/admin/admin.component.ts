@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import Activity from 'src/app/shared/models/activity.model';
+import { ActivitiesService } from 'src/app/shared/services/activities.service';
 import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
 
 @Component({
@@ -52,6 +53,7 @@ export class AdminComponent implements OnInit {
   };
 
   constructor(
+    private activitiesService: ActivitiesService,
     private storeActivitiesService: StoreactivitiesService,
     private formBuilder: FormBuilder
   ) {}
@@ -97,7 +99,13 @@ export class AdminComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.activityForm.value);
+    const activity = this.setActivity(this.activityForm.value);
+    this.activitiesService.updateActivity(activity).subscribe(() => {
+      this.updateStoredActivities();
+      this.pushToLocalActivities(activity);
+      this.showForm = false;
+      this.showSuccessMsg = true;
+    });
   }
 
   recieveActivitiesEvent($event) {
@@ -113,6 +121,14 @@ export class AdminComponent implements OnInit {
   setFormValues() {
     const activityToEdit = this.getActivityById(this.activitySelectedId);
     this.name.setValue(activityToEdit.name);
+    this.category.setValue(activityToEdit.category);
+    this.subcategory.setValue(activityToEdit.subcategory);
+    this.description.setValue(activityToEdit.description);
+    this.language.setValue(activityToEdit.language);
+    this.date.setValue(activityToEdit.date);
+    this.price.setValue(activityToEdit.price);
+    this.minEnrolled.setValue(activityToEdit.minEnrolled);
+    this.maxEnrolled.setValue(activityToEdit.maxEnrolled);
   }
 
   getActivityById(id: number) {
@@ -121,27 +137,49 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  pushActivity() {
+  setActivity(activity) {
     let index = this.activitySelectedId - 1;
-    let newactivityData = this.activityForm.value;
 
-    index < 0
-      ? this.pushNewActivity(newactivityData)
-      : this.pushEditedActivity(index, newactivityData);
+    return index < 0
+      ? this.setNewActivity(activity)
+      : this.setEditedActivity(index, activity);
   }
 
-  pushEditedActivity(index, newactivityData) {
-    this.activities[index] = {
+  setEditedActivity(index, newactivityData) {
+    return (this.activities[index] = {
       ...this.activities[index],
       ...newactivityData,
-    };
+    });
   }
-  pushNewActivity(newactivity) {
-    newactivity.id = this.activities.length + 1;
-    this.activities.push(newactivity);
+  setNewActivity(activity) {
+    activity.id = this.activities.length + 1;
+    return activity;
+  }
+
+  pushToLocalActivities(activity) {
+    let index = activity.id - 1;
+
+    this.activities[index]
+      ? (this.activities[index] = activity)
+      : this.activities.push(activity);
   }
 
   getSubcategoryOptions() {
     return this.categoryOption[this.category.value];
+  }
+
+  setCancelledState(activity) {
+    if (activity.state === true) {
+      activity.state = 'cancelled';
+    }
+    return activity;
+  }
+
+  isNewActivity() {
+    return this.activitySelectedId === 0;
+  }
+
+  updateStoredActivities() {
+    this.storeActivitiesService.activities = this.activities;
   }
 }
