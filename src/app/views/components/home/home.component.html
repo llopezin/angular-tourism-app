@@ -45,7 +45,8 @@
     <p *ngIf="showErrorMsg">Already Signed Up</p>
     <p *ngIf="showSuccessMsg">You Signed Up To {{activitySelected?.name}}</p>
 
-    <button *ngIf="this.user !== undefined" (click)="signUpToActivity(activitySelected?.id)">Sign Up To
+    <button *ngIf="this.user !== undefined && this.user.isAdmin == false"
+        (click)="signUpToActivity(activitySelected?.id)">Sign Up To
         {{activitySelected?.name}}</button>
 
 </main>

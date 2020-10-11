@@ -95,12 +95,10 @@ export class RegisterComponent implements OnInit {
 
   afterUserValid(user: User) {
     this.postUser();
-    this.storeUserService.user = user;
-    this.navigateHome();
   }
 
   navigateHome() {
-    this.router.navigate(['']);
+    this.router.navigate(['home']);
   }
 
   isNewUser(users: User[]) {
@@ -109,7 +107,8 @@ export class RegisterComponent implements OnInit {
 
   postUser() {
     this.userService.createUser(this.user).subscribe((data) => {
-      console.log(data);
+      this.storeUserService.user = data;
+      this.navigateHome();
     });
   }
 

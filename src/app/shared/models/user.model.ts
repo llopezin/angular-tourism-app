@@ -8,7 +8,7 @@ export default class User {
   surname: string;
   email: string;
   password: string;
-  isAdmin: false;
+  isAdmin: boolean;
   activitiesEnrolled?: number[];
   dob?: string;
   telephone?: number;

@@ -21,7 +21,7 @@
             <span>Category: {{activitySelected?.category}}</span>
             <span>Subategory: {{activitySelected?.subcategory}}</span>
             <span>Price: {{activitySelected?.price}}</span>
-            <span>State: {{activitySelected? calculateState(activitySelected): ""}}</span>
+            <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
             <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
             <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
             <span>People Registered: {{activitySelected?.usersEnrolled}}</span>

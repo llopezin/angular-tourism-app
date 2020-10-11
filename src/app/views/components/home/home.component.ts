@@ -24,9 +24,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('Home Component Initialised');
-
     this.user = this.storeUserService.user;
+    console.log('HOmemodule initialised');
+
     this.activityService.getActivities().subscribe((activities) => {
       this.activities = activities;
       this.selectActivity();

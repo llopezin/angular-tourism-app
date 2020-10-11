@@ -9,7 +9,7 @@
             <li *ngIf="user && user.isAdmin == false"><a routerLink="/favourites">Favourites</a></li>
             <li *ngIf="user && user.isAdmin == false"><a routerLink="/my-activities">My Activities</a></li>
             <li *ngIf="user"><a routerLink="/profile">Profile</a></li>
-            <li *ngIf="user"><a (click)="logOut()">Log Out</a></li>
+            <li *ngIf="user"><a (click)="logOut()" tabindex="0">Log Out</a></li>
         </ul>
     </nav>
 </header>

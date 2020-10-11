@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateLocalUser();
+
     this.name = new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -74,14 +75,14 @@ export class ProfileComponent implements OnInit {
       aboutMe: this.aboutMe,
     });
 
-    if (this.user.isAdmin) {
+    if (this.user.isAdmin == true) {
       this.createAdminControls();
     }
   }
 
   onSubmit() {
     this.saveFormInput();
-    this.userService.updateUser(this.user).subscribe((data) => {
+    this.userService.updateUser(this.user).subscribe(() => {
       this.updateStoredUser();
       this.navigateHome();
     });

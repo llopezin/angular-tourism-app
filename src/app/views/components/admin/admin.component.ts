@@ -146,13 +146,15 @@ export class AdminComponent implements OnInit {
   }
 
   setEditedActivity(index, newactivityData) {
+    let newActivity = this.setCancelledState(newactivityData);
     return (this.activities[index] = {
       ...this.activities[index],
-      ...newactivityData,
+      ...newActivity,
     });
   }
   setNewActivity(activity) {
     activity.id = this.activities.length + 1;
+    activity.state = undefined;
     return activity;
   }
 
