@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import User from 'src/app/shared/models/user.model';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 
@@ -8,8 +9,19 @@ import { StoreUserService } from 'src/app/shared/services/store-user.service';
   styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private storeUserService: StoreUserService) {}
-  public user: User = this.storeUserService.user;
+  constructor(
+    private storeUserService: StoreUserService,
+    private router: Router
+  ) {}
+  public user: User;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user = this.storeUserService.user;
+  }
+
+  logOut() {
+    this.storeUserService.user = undefined;
+    this.user = undefined;
+    this.router.navigate(['home']);
+  }
 }

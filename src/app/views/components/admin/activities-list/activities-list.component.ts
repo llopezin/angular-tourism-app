@@ -64,8 +64,7 @@ export class ActivitiesListComponent implements OnInit {
   }
 
   calculateState(activity) {
-    return activity.state
-      ? activity.state
-      : activity.maxEnrolled - activity.usersEnrolled;
+    let state = activity.maxEnrolled - activity.usersEnrolled;
+    return state > 0 ? state : 'completed';
   }
 }

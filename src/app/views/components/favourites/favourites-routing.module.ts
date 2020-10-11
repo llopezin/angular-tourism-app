@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoggedUserGuard } from 'src/app/shared/guards/logged-user.guard';
 import { LayoutComponent } from '../layout/layout.component';
-import { HomeComponent } from './home.component';
+import { FavouritesComponent } from './favourites.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'favourites',
     component: LayoutComponent,
-    children: [{ path: '', component: HomeComponent }],
+    children: [{ path: '', component: FavouritesComponent }],
+    canActivate: [LoggedUserGuard],
   },
 ];
 
@@ -16,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomeRoutingModule {}
+export class FavouritesRoutingModule {}

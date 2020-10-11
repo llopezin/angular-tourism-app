@@ -11,11 +11,10 @@ import { AdminModule } from './views/components/admin/admin.module';
 import { LoginModule } from './views/components/login/login.module';
 import { MyActivitiesModule } from './views/components/my-activities/my-activities.module';
 import { HomeModule } from './views/components/home/home.module';
+import { FavouritesModule } from './views/components/favourites/favourites.module';
 import { ProfileModule } from './views/components/profile/profile.module';
 
 import { AppComponent } from './app.component';
-import { FavouritesComponent } from './views/components/favourites/favourites.component';
-import { LogoutComponent } from './views/components/logout/logout.component';
 import { HeaderComponent } from './views/components/layout/header/header.component';
 import { FooterComponent } from './views/components/layout/footer/footer.component';
 import { LayoutComponent } from './views/components/layout/layout.component';
@@ -35,8 +34,6 @@ const routes: Routes = [
     HeaderComponent,
     LayoutComponent,
     FooterComponent,
-    LogoutComponent,
-    FavouritesComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +55,7 @@ const routes: Routes = [
     HomeModule,
     ProfileModule,
     RegisterModule,
+    FavouritesModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

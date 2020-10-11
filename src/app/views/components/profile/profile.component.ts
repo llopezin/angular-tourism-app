@@ -101,7 +101,7 @@ export class ProfileComponent implements OnInit {
 
   saveFormInput() {
     this.user = {
-      ...this.storeUserService.user,
+      ...this.user,
       ...this.updateProfileForm.value,
     };
   }
