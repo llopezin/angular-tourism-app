@@ -66,7 +66,10 @@ export class AdminComponent implements OnInit {
     this.subcategory = new FormControl('', [Validators.required]);
     this.description = new FormControl('');
     this.language = new FormControl('', [Validators.required]);
-    this.date = new FormControl();
+    this.date = new FormControl('', [
+      Validators.pattern(/\d{2}\/\d{2}\/[2][0][2-9]\d{1}/),
+      Validators.maxLength(10),
+    ]);
     this.price = new FormControl('', [Validators.required, Validators.min(0)]);
     this.minEnrolled = new FormControl('', [
       Validators.required,
@@ -80,20 +83,22 @@ export class AdminComponent implements OnInit {
 
     this.activityForm = this.formBuilder.group({
       name: this.name,
+      category: this.category,
+      subcategory: this.subcategory,
       description: this.description,
       language: this.language,
       date: this.date,
       minEnrolled: this.minEnrolled,
       maxEnrolled: this.maxEnrolled,
       usersEnrolled: this.usersEnrolled,
-      category: this.category,
-      subcategory: this.subcategory,
       price: this.price,
       state: this.state,
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    console.log(this.activityForm.value);
+  }
 
   recieveActivitiesEvent($event) {
     this.activities = this.storeActivitiesService.activities;
@@ -134,5 +139,9 @@ export class AdminComponent implements OnInit {
   pushNewActivity(newactivity) {
     newactivity.id = this.activities.length + 1;
     this.activities.push(newactivity);
+  }
+
+  getSubcategoryOptions() {
+    return this.categoryOption[this.category.value];
   }
 }

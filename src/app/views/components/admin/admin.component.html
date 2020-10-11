@@ -2,8 +2,8 @@
 
 <form [formGroup]="activityForm" *ngIf="showForm" (ngSubmit)="onSubmit()">
 
-    <label for="activity-form__name">Name:</label>
-    <input type="text" name="name" id="#activity-form__name" [formControl]="name">
+    <label for="activity-form-name">Name:</label>
+    <input type="text" name="name" id="#activity-form-name" [formControl]="name">
     <span class="form__validation-message" *ngIf="activityForm.get('name').touched || activityForm.get('name').dirty">
         <span *ngIf="activityForm.get('name').errors?.required">Name Is Required</span>
         <span *ngIf="activityForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
@@ -16,32 +16,67 @@
         <option value='enoturismo'>Enoturismo</option>
         <option value='playas'>Playas</option>
     </select>
-
-
-    <label for="activity-form__subcategory">Subcategory:</label>
-    <select name="subcategory" id="activity-form__subcategory" [formControl]="subcategory">
-        <option *ngFor="let option of categoryOption[activityForm.get('subcategory').value]">{{option}}</option>
-    </select>
     <span class="form__validation-message"
-        *ngIf="activityForm.get('subcategory').errors?.required && (activityForm.get('subcategory').touched || activityForm.get('level').dirty)">Please
+        *ngIf="activityForm.get('category').errors?.required && (activityForm.get('category').touched || activityForm.get('category').dirty)">Please
         select an option</span>
 
 
-
-    <label for="activity-form__university">University:</label>
-    <input type="text" university="university" id="#activity-form__university" [formControl]="university">
+    <label for="activity-form-subcategory">Subcategory:</label>
+    <select name="subcategory" id="activity-form-subcategory" [formControl]="subcategory">
+        <option *ngFor="let option of getSubcategoryOptions()">{{option}}</option>
+    </select>
     <span class="form__validation-message"
-        *ngIf="activityForm.get('university').touched || activityForm.get('university').dirty">
-        <span *ngIf="activityForm.get('university').errors?.minlength">university Must Have At Least 3
-            Characters</span>
-        <span *ngIf="activityForm.get('university').errors?.maxlength">university Must Be Under 55 Characters</span>
+        *ngIf="activityForm.get('subcategory').errors?.required && (activityForm.get('subcategory').touched || activityForm.get('subcategory').dirty)">Please
+        select an option</span>
+
+    <label for="activity-form-description">description:</label>
+    <textarea name="description" id="#activity-form-description" [formControl]="description"></textarea>
+
+    <label for="activity-form-language">Language:</label>
+    <select name="nationality" id="activity-form-language" [formControl]="language">
+        <option value="Inglés">Inglés</option>
+        <option value="Catalán">Catalán</option>
+        <option value="Español">Español</option>
+        <option value="Francés">Francés</option>
+    </select>
+    <span class="form__validation-message"
+        *ngIf="activityForm.get('language').errors?.required && (activityForm.get('language').touched || activityForm.get('language').dirty)">Please
+        select an option</span>
+
+    <label for="activity-form-date" placeholder="DD/MM/YYYY">Date:</label>
+    <input type="text" id="#activity-form-date" [formControl]="date">
+    <span class="form__validation-message"
+        *ngIf="activityForm.get('date').errors && (activityForm.get('date').touched || activityForm.get('date').dirty)">Invalid
+        format</span>
+
+    <label for="activity-form-price">Price:</label>
+    <input type="number" id="#activity-form-price" [formControl]="price">
+    <span class="form__validation-message" *ngIf="activityForm.get('price').touched || activityForm.get('price').dirty">
+        <span *ngIf="activityForm.get('price').errors?.required">Price is Required</span>
+        <span *ngIf="activityForm.get('price').errors?.min">Invalid Format</span>
     </span>
 
-    <label for="activity-form__finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
-    <input type="date" id="#activity-form__finishDate" [formControl]="finishDate">
+    <label for="activity-form-min-enrolled">Minimum Capacity:</label>
+    <input type="number" id="#activity-form-min-enrolled" [formControl]="minEnrolled">
     <span class="form__validation-message"
-        *ngIf="activityForm.get('finishDate').errors?.pattern && (activityForm.get('finishDate').touched || activityForm.get('finishDate').dirty)">Invalid
-        format</span>
+        *ngIf="activityForm.get('minEnrolled').touched || activityForm.get('minEnrolled').dirty">
+        <span *ngIf="activityForm.get('minEnrolled').errors?.required">Minimum Capacity is Required</span>
+        <span *ngIf="activityForm.get('minEnrolled').errors?.min">Invalid Format</span>
+    </span>
+
+    <label for="activity-form-max-enrolled">Maximum Capacity:</label>
+    <input type="number" id="#activity-form-max-enrolled" [formControl]="maxEnrolled">
+    <span class="form__validation-message"
+        *ngIf="activityForm.get('maxEnrolled').touched || activityForm.get('maxEnrolled').dirty">
+        <span *ngIf="activityForm.get('maxEnrolled').errors?.required">Maximum Capacity is Required</span>
+        <span *ngIf="activityForm.get('maxEnrolled').errors?.min">Invalid Format</span>
+    </span>
+
+
+    <label for="activity-form-state">Cancel this activity</label>
+    <input type="checkbox" id="#activity-form-state" value="cancelled" [formControl]="state">
+
+
 
     <button type="submit" [disabled]="!activityForm.valid">Add Education</button>
 </form>
