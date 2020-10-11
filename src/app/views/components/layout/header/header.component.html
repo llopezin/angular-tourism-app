@@ -2,14 +2,14 @@
     <a title="home">This is a logo</a>
     <nav id="main-navigation">
         <ul>
-            <li *ngIf="!user" routerLink="/login">Sign In</li>
-            <li *ngIf="!user" routerLink="/register">Join Now</li>
-            <li *ngIf="user" routerLink="">Home</li>
-            <li *ngIf="user?.isAdmin === true" routerLink="/admin">Admin</li>
-            <li *ngIf="user && user.isAdmin == false" routerLink="/favourites">Favourites</li>
-            <li *ngIf="user && user.isAdmin == false" routerLink="/my-activities">My Activities</li>
-            <li *ngIf="user" routerLink="/profile">Profile</li>
-            <li *ngIf="user">Log Out</li>
+            <li *ngIf="!user"><a routerLink="/login">Sign In</a></li>
+            <li *ngIf="!user"><a routerLink="/register">Join Now</a></li>
+            <li *ngIf="user"><a routerLink="">Home</a></li>
+            <li *ngIf="user?.isAdmin === true"><a routerLink="/admin">Admin</a></li>
+            <li *ngIf="user && user.isAdmin == false"><a routerLink="/favourites">Favourites</a></li>
+            <li *ngIf="user && user.isAdmin == false"><a routerLink="/my-activities">My Activities</a></li>
+            <li *ngIf="user"><a routerLink="/profile">Profile</a></li>
+            <li *ngIf="user"><a (click)="logOut()">Log Out</a></li>
         </ul>
     </nav>
 </header>

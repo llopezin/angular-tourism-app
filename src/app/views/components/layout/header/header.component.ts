@@ -22,6 +22,13 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.storeUserService.user = undefined;
     this.user = undefined;
-    this.router.navigate(['home']);
+
+    if (this.router.url === '/home') {
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
+    }
+
+    this.router.navigate(['/']);
   }
 }

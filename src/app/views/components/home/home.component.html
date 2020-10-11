@@ -3,11 +3,27 @@
 
     <section aria-labelledby="home-header">
         <h2 id="home-header">Activities</h2>
-        <ul *ngFor="let activity of activities" title="Activities List" class="home__activities-list">
-            <li (click)="selectActivity(activity.id)">
-                <a>Show {{activity.name}} details</a>
-            </li>
-        </ul>
+        <table title="Activities List" class="home__activities-list">
+            <thead>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Language</th>
+                <th>Date</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>{{activity.name}}</td>
+                    <td>{{activity.category}}</td>
+                    <td>{{activity.price}}</td>
+                    <td>{{activity.language}}</td>
+                    <td>{{activity.date}}</td>
+                    <td><a (click)="selectActivity(activity.id)">Show {{activity.name}} details</a></td>
+                </tr>
+            </tbody>
+
+        </table>
     </section>
     <section title="Activity Selected Details" aria-labelledby="home-activity-detail">
         <h2 id="home-activity-detail">Activity Detail</h2>
@@ -26,5 +42,10 @@
         </div>
     </section>
 
+    <p *ngIf="showErrorMsg">Already Signed Up</p>
+    <p *ngIf="showSuccessMsg">You Signed Up To {{activitySelected?.name}}</p>
+
+    <button *ngIf="this.user !== undefined" (click)="signUpToActivity(activitySelected?.id)">Sign Up To
+        {{activitySelected?.name}}</button>
 
 </main>
