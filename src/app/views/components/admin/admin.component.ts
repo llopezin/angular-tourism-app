@@ -69,7 +69,9 @@ export class AdminComponent implements OnInit {
     this.description = new FormControl('');
     this.language = new FormControl('', [Validators.required]);
     this.date = new FormControl('', [
-      Validators.pattern(/\d{2}\/\d{2}\/[2][0][2-9]\d{1}/),
+      Validators.pattern(
+        /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])\/[2][0][2-9]\d{1}/
+      ),
       Validators.maxLength(10),
     ]);
     this.price = new FormControl('', [Validators.required, Validators.min(0)]);

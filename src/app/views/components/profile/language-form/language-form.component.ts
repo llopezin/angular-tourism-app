@@ -43,7 +43,9 @@ export class LanguageFormComponent implements OnInit {
     this.language = new FormControl('', [Validators.required]);
     this.level = new FormControl('', [Validators.required]);
     this.finishDate = new FormControl('', [
-      Validators.pattern(/([12]\d{3}-\d{2}-\d{2})/),
+      Validators.pattern(
+        /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])\/([1][9][3-9][0-9]|[2][0][0-2][0])/
+      ),
       Validators.maxLength(10),
     ]);
 

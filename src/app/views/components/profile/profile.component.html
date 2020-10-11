@@ -24,14 +24,10 @@
     </span>
 
     <label for="update-profile-form-dateOfBirth" placeholder="DD/MM/YYYY">Date:</label>
-    <input type="date" id="#update-profile-form-dateOfBirth" [formControl]="date">
+    <input type="text" id="#update-profile-form-dateOfBirth" [formControl]="date">
     <span class="form__validation-message"
         *ngIf="updateProfileForm.get('date').errors && (updateProfileForm.get('date').touched || updateProfileForm.get('date').dirty)">Invalid
         format</span>
-
-
-
-
 
     <label for="update-profile-form-telephone">Phone number:</label>
     <input type="number" name="telephone" id="#update-profile-form-telephone" [formControl]="phone">

@@ -35,9 +35,9 @@
     </span>
 
     <label for="education-form__finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
-    <input type="date" id="#education-form__finishDate" [formControl]="finishDate">
+    <input type="text" id="#education-form__finishDate" [formControl]="finishDate">
     <span class="form__validation-message"
-        *ngIf="educationForm.get('finishDate').errors?.pattern && (educationForm.get('finishDate').touched || educationForm.get('finishDate').dirty)">Invalid
+        *ngIf="educationForm.get('finishDate').errors && (educationForm.get('finishDate').touched || educationForm.get('finishDate').dirty)">Invalid
         format</span>
 
     <button type="submit" [disabled]="!educationForm.valid">Add Education</button>

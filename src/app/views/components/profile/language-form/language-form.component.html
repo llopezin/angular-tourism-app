@@ -23,7 +23,7 @@
 
 
     <label for="finishDate" placeholder="DD/MM/YYYY">Date Finished:</label>
-    <input type="date" id="#finishDate" [formControl]="finishDate">
+    <input type="text" id="#finishDate" [formControl]="finishDate">
     <span class="form__validation-message"
         *ngIf="languageForm.get('finishDate').errors?.pattern && (languageForm.get('finishDate').touched || languageForm.get('finishDate').dirty)">Invalid
         format</span>

@@ -1,52 +1,54 @@
 <main aria-labelledby="home-header">
     <h1 id="home-header">Home</h1>
 
-    <section aria-labelledby="home-header">
-        <h2 id="home-header">Activities</h2>
-        <table title="Activities List" class="home__activities-list">
-            <thead>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Language</th>
-                <th>Date</th>
-                <th></th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let activity of activities">
-                    <td>{{activity.name}}</td>
-                    <td>{{activity.category}}</td>
-                    <td>{{activity.price}}</td>
-                    <td>{{activity.language}}</td>
-                    <td>{{activity.date}}</td>
-                    <td><a (click)="selectActivity(activity.id)">Show {{activity.name}} details</a></td>
-                </tr>
-            </tbody>
+    <div>
+        <section aria-labelledby="home-header">
+            <h2 id="home-header">Activities</h2>
+            <table title="Activities List" class="home__activities-list">
+                <thead>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Language</th>
+                    <th>Date</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let activity of activities">
+                        <td>{{activity.name}}</td>
+                        <td>{{activity.category}}</td>
+                        <td>{{activity.price}}</td>
+                        <td>{{activity.language}}</td>
+                        <td>{{activity.date}}</td>
+                        <td><a (click)="selectActivity(activity.id)">Show {{activity.name}} details</a></td>
+                    </tr>
+                </tbody>
 
-        </table>
-    </section>
-    <section title="Activity Selected Details" aria-labelledby="home-activity-detail">
-        <h2 id="home-activity-detail">Activity Detail</h2>
-        <h3>{{activitySelected?.name}}</h3>
-        <p>{{activitySelected?.description}}</p>
-        <div class="home__detail-info">
-            <span>Date: {{activitySelected?.date}}</span>
-            <span>Language: {{activitySelected?.language}}</span>
-            <span>Category: {{activitySelected?.category}}</span>
-            <span>Subategory: {{activitySelected?.subcategory}}</span>
-            <span>Price: {{activitySelected?.price}}</span>
-            <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
-            <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
-            <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
-            <span>People Registered: {{activitySelected?.usersEnrolled}}</span>
-        </div>
-    </section>
+            </table>
+        </section>
+        <section title="Activity Selected Details" aria-labelledby="home-activity-detail">
+            <h2 id="home-activity-detail">Activity Detail</h2>
+            <h3>{{activitySelected?.name}}</h3>
+            <p>{{activitySelected?.description}}</p>
+            <div class="home__detail-info">
+                <span>Date: {{activitySelected?.date}}</span>
+                <span>Language: {{activitySelected?.language}}</span>
+                <span>Category: {{activitySelected?.category}}</span>
+                <span>Subategory: {{activitySelected?.subcategory}}</span>
+                <span>Price: {{activitySelected?.price}}</span>
+                <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
+                <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
+                <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
+                <span>People Registered: {{activitySelected?.usersEnrolled}}</span>
+            </div>
 
-    <p *ngIf="showErrorMsg">Already Signed Up</p>
-    <p *ngIf="showSuccessMsg">You Signed Up To {{activitySelected?.name}}</p>
+            <p *ngIf="showErrorMsg">Already Signed Up</p>
+            <p *ngIf="showSuccessMsg">You Signed Up To {{activitySelected?.name}}</p>
 
-    <button *ngIf="this.user !== undefined && this.user.isAdmin == false"
-        (click)="signUpToActivity(activitySelected?.id)">Sign Up To
-        {{activitySelected?.name}}</button>
+            <button *ngIf="this.user !== undefined && this.user.isAdmin == false"
+                (click)="signUpToActivity(activitySelected?.id)">Sign Up To
+                {{activitySelected?.name}}</button>
+        </section>
+    </div>
 
 </main>
