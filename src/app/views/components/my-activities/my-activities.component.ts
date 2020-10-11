@@ -78,6 +78,7 @@ export class MyActivitiesComponent implements OnInit {
         this.updateStoredActivities();
         this.removeActivityFromUser(id);
         this.setStoredUser();
+        this.setUserActivities();
         this.selectActivity(0);
       });
   }
@@ -108,7 +109,7 @@ export class MyActivitiesComponent implements OnInit {
   }
 
   selectActivity(id?: number) {
-    this.activitySelected
+    id
       ? (this.activitySelected = this.getActivityById(id))
       : (this.activitySelected = this.userActivities[0]);
   }

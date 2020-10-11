@@ -1,7 +1,7 @@
 <main aria-labelledby="my-activities-header">
     <h1 id="my-activities-header">My Activitities</h1>
 
-    <section aria-labelledby="my-activities-list-header" *ngIf="!errorMessage && userActivities.length > 0"
+    <section aria-labelledby="my-activities-list-header" *ngIf="!errorMessage && userActivities?.length > 0"
         [attr.aria-hidden]="errorMessage">
         <h2 id="activities-list-header">Activities</h2>
         <ul *ngFor="let activity of userActivities" title="Activities List" class="my-activities__list">
@@ -11,7 +11,7 @@
         </ul>
     </section>
     <section title="ActivitySelected Details" aria-labelledby="my-activities-detail"
-        [attr.aria-hidden]="!activitySelected" *ngIf="!errorMessage && userActivities.length > 0">
+        [attr.aria-hidden]="!activitySelected" *ngIf="!errorMessage && userActivities?.length > 0">
         <h2 id="my-activities-detail">Activity Detail</h2>
         <h3>{{activitySelected? activitySelected.name: "Select An Activity"}}</h3>
         <p>{{activitySelected?.description}}</p>
@@ -30,7 +30,7 @@
             {{activitySelected?.name}}</button>
     </section>
 
-    <p *ngIf="errorMessage || userActivities.length < 1" [attr.aria-hidden]="!errorMessage">You Don't Have Any Enrolled
+    <p *ngIf="errorMessage || userActivities?.length < 1" [attr.aria-hidden]="!errorMessage">You Don't Have Any Enrolled
         Activities</p>
 
 </main>
