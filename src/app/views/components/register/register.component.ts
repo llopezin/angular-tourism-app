@@ -90,11 +90,18 @@ export class RegisterComponent implements OnInit {
   handleResponse(users: User[]) {
     let userValid = this.isNewUser(users);
     this.userValidated = userValid;
-    userValid ? this.afterUserValid(this.user) : '';
+    userValid ? this.afterUserValid() : '';
   }
 
-  afterUserValid(user: User) {
+  afterUserValid() {
+    this.addUserFields();
     this.postUser();
+  }
+
+  addUserFields() {
+    this.user.education = [];
+    this.user.languages = [];
+    this.user.activitiesEnrolled = [];
   }
 
   navigateHome() {
