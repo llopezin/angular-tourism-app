@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
 import { ActivitiesService } from 'src/app/shared/services/activities.service';
+import { StorageService } from 'src/app/shared/services/local-storage-service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -16,11 +17,14 @@ export class HomeComponent implements OnInit {
   public user: User;
   public showErrorMsg: boolean;
   public showSuccessMsg: boolean;
+  public favouriteError: boolean;
+  public favouriteSuccess: boolean;
 
   constructor(
     private activityService: ActivitiesService,
     private storeUserService: StoreUserService,
-    private userService: UserService
+    private userService: UserService,
+    private storage: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +48,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  addToFavourites(id) {
+    this.resetErrorMessages();
+    this.storage.add(id, 'favourites')
+      ? (this.favouriteSuccess = true)
+      : (this.favouriteError = true);
+  }
+
   activityIsSignedUp(id) {
     return this.user.activitiesEnrolled.indexOf(id) > -1;
   }
@@ -54,12 +65,17 @@ export class HomeComponent implements OnInit {
   }
 
   selectActivity(id?: number) {
-    this.showErrorMsg = false;
-    this.showSuccessMsg = false;
-
+    this.resetErrorMessages();
     this.activitySelected
       ? (this.activitySelected = this.getActivityById(id))
       : (this.activitySelected = this.activities[0]);
+  }
+
+  resetErrorMessages() {
+    this.showErrorMsg = false;
+    this.showSuccessMsg = false;
+    this.favouriteError = false;
+    this.favouriteSuccess = false;
   }
 
   getActivityById(id: number) {

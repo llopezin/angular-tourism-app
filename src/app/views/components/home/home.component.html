@@ -48,6 +48,11 @@
             <button *ngIf="this.user !== undefined && this.user.isAdmin == false"
                 (click)="signUpToActivity(activitySelected?.id)">Sign Up To
                 {{activitySelected?.name}}</button>
+
+            <p *ngIf="favouriteError">This activity is on your favourites list already</p>
+            <p *ngIf="favouriteSuccess">{{activitySelected.name}} added to your favourites list</p>
+            <button *ngIf="this.user !== undefined && this.user.isAdmin == false"
+                (click)="addToFavourites(activitySelected.id)">Add to Favourites</button>
         </section>
     </div>
 
