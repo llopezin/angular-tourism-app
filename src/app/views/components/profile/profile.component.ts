@@ -10,8 +10,6 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { Router } from '@angular/router';
 import { checkNIF } from 'src/app/shared/directives/custom-validators/NIF.validator';
-import { EducationFormComponent } from './education-form/education-form.component';
-import { LanguageFormComponent } from './language-form/language-form.component';
 
 @Component({
   selector: 'app-profile',
@@ -31,6 +29,7 @@ export class ProfileComponent implements OnInit {
   public companyName: FormControl;
   public companyDescription: FormControl;
   public CIF: FormControl;
+  public successMsg: boolean;
 
   constructor(
     private userService: UserService,
@@ -80,18 +79,28 @@ export class ProfileComponent implements OnInit {
     if (this.user.isAdmin == true) {
       this.createAdminControls();
     }
+    this.populateFields();
   }
 
   onSubmit() {
+    this.successMsg = false;
     this.saveFormInput();
     this.userService.updateUser(this.user).subscribe(() => {
       this.updateStoredUser();
-      this.navigateHome();
+      this.successMsg = true;
     });
   }
 
-  navigateHome() {
-    this.router.navigate(['']);
+  populateFields() {
+    this.name.setValue(this.user.name);
+    this.user.surname ? this.surname.setValue(this.user.surname) : '';
+    this.user.dob ? this.date.setValue(this.user.dob) : '';
+    this.user.phone ? this.phone.setValue(this.user.phone) : '';
+    this.user.nationality
+      ? this.nationality.setValue(this.user.nationality)
+      : '';
+    this.user.NIF ? this.NIF.setValue(this.user.NIF) : '';
+    this.user.description ? this.aboutMe.setValue(this.user.description) : '';
   }
 
   updateStoredUser() {
@@ -128,5 +137,9 @@ export class ProfileComponent implements OnInit {
       'companyDescription',
       this.companyDescription
     );
+  }
+
+  navigateHome() {
+    this.router.navigate(['']);
   }
 }

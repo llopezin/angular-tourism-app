@@ -1,86 +1,92 @@
-<h1>Profile</h1>
+<main>
+    <h1>Profile</h1>
 
-<form [formGroup]="updateProfileForm" method="post" (ngSubmit)="onSubmit()">
+    <form [formGroup]="updateProfileForm" method="post" (ngSubmit)="onSubmit()">
 
-    <label for="update-profile-form-name">Name:</label>
-    <input type="text" name="name" id="#update-profile-form-name" [formControl]="name">
-    <span class="form__validation-message"
-        *ngIf="updateProfileForm.get('name').touched || updateProfileForm.get('name').dirty">
-        <span *ngIf="updateProfileForm.get('name').errors?.required">Name Is Required</span>
-        <span *ngIf="updateProfileForm.get('name').errors?.pattern">Invalid Format: remove spaces or non-letter
-            characters</span>
-        <span *ngIf="updateProfileForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
-        <span *ngIf="updateProfileForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
-    </span>
-
-    <label for="update-profile-form-surname">Surname:</label>
-    <input type="text" surname="surname" id="#update-profile-form-surname" [formControl]="surname">
-    <span class="form__validation-message"
-        *ngIf="updateProfileForm.get('surname').touched || updateProfileForm.get('surname').dirty">
-        <span *ngIf="updateProfileForm.get('surname').errors?.pattern">Invalid Format: remove spaces or special
-            characters</span>
-        <span *ngIf="updateProfileForm.get('surname').errors?.minlength">Surname Must Have At Least 3 Characters</span>
-        <span *ngIf="updateProfileForm.get('surname').errors?.maxlength">Surname Must Be Under 55 Characters</span>
-    </span>
-
-    <label for="update-profile-form-dateOfBirth" placeholder="DD/MM/YYYY">Date:</label>
-    <input type="text" id="#update-profile-form-dateOfBirth" [formControl]="date">
-    <span class="form__validation-message"
-        *ngIf="updateProfileForm.get('date').errors && (updateProfileForm.get('date').touched || updateProfileForm.get('date').dirty)">Invalid
-        format</span>
-
-    <label for="update-profile-form-telephone">Phone number:</label>
-    <input type="number" name="telephone" id="#update-profile-form-telephone" [formControl]="phone">
-
-    <label for="update-profile-form-nationality">Nationality:</label>
-    <select name="nationality" id="update-profile-form-nationality" [formControl]="nationality">
-        <option value="ES" selected>ES</option>
-        <option value="FR">FR</option>
-        <option value="IT">IT</option>
-        <option value="PT">PT</option>
-    </select>
-
-
-    <label for="update-profile-form-NIF">NIF:</label>
-    <input type="text" name="NIF" id="#update-profile-form-NIF" [formControl]="NIF">
-    <span class="form__validation-message"
-        *ngIf="updateProfileForm.get('NIF')?.touched || updateProfileForm.get('NIF').dirty">
-        <span *ngIf="updateProfileForm.get('NIF').errors">Invalid Format</span>
-    </span>
-
-    <label for="update-profile-form-aboutMe">About Me:</label>
-    <input type="textarea" id="#update-profile-form-aboutMe" [formControl]="aboutMe">
-
-
-
-    <div *ngIf="user?.isAdmin == true">
-        <label for="update-profile-form-company-name">Company Name:</label>
-        <input type="text" name="companyName" id="#update-profile-form-company-name" [formControl]="companyName">
+        <label for="update-profile-form-name">Name:</label>
+        <input type="text" name="name" id="#update-profile-form-name" [formControl]="name">
         <span class="form__validation-message"
-            *ngIf="updateProfileForm.get('companyName').touched || updateProfileForm.get('companyName').dirty">
-            <span *ngIf="updateProfileForm.get('companyName').errors?.required">Company Name Is Required</span>
-            <span *ngIf="updateProfileForm.get('companyName').errors?.minlength">Company Name Must Have At Least 3
+            *ngIf="updateProfileForm.get('name').touched || updateProfileForm.get('name').dirty">
+            <span *ngIf="updateProfileForm.get('name').errors?.required">Name Is Required</span>
+            <span *ngIf="updateProfileForm.get('name').errors?.pattern">Invalid Format: remove spaces or non-letter
+                characters</span>
+            <span *ngIf="updateProfileForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
+            <span *ngIf="updateProfileForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
+        </span>
+
+        <label for="update-profile-form-surname">Surname:</label>
+        <input type="text" surname="surname" id="#update-profile-form-surname" [formControl]="surname">
+        <span class="form__validation-message"
+            *ngIf="updateProfileForm.get('surname').touched || updateProfileForm.get('surname').dirty">
+            <span *ngIf="updateProfileForm.get('surname').errors?.pattern">Invalid Format: remove spaces or special
+                characters</span>
+            <span *ngIf="updateProfileForm.get('surname').errors?.minlength">Surname Must Have At Least 3
                 Characters</span>
-            <span *ngIf="updateProfileForm.get('companyName').errors?.maxlength">Name Must Be Under 55 Characters</span>
-            <span *ngIf="updateProfileForm.get('companyName').errors?.pattern">Please remove initial white spaces</span>
+            <span *ngIf="updateProfileForm.get('surname').errors?.maxlength">Surname Must Be Under 55 Characters</span>
         </span>
 
-        <label for="update-profile-form-CIF">CIF:</label>
-        <input type="text" name="CIF" id="#update-profile-form-CIF" [formControl]="CIF">
+        <label for="update-profile-form-dateOfBirth" placeholder="DD/MM/YYYY">Date:</label>
+        <input type="text" id="#update-profile-form-dateOfBirth" [formControl]="date">
         <span class="form__validation-message"
-            *ngIf="updateProfileForm.get('CIF')?.touched || updateProfileForm.get('CIF').dirty">
-            <span *ngIf="updateProfileForm.get('CIF').errors">CIF is required</span>
+            *ngIf="updateProfileForm.get('date').errors && (updateProfileForm.get('date').touched || updateProfileForm.get('date').dirty)">Invalid
+            format</span>
+
+        <label for="update-profile-form-telephone">Phone number:</label>
+        <input type="tel" name="telephone" id="#update-profile-form-telephone" [formControl]="phone">
+
+        <label for="update-profile-form-nationality">Nationality:</label>
+        <select name="nationality" id="update-profile-form-nationality" [formControl]="nationality">
+            <option value="ES" selected>ES</option>
+            <option value="FR">FR</option>
+            <option value="IT">IT</option>
+            <option value="PT">PT</option>
+        </select>
+
+
+        <label for="update-profile-form-NIF">NIF:</label>
+        <input type="text" name="NIF" id="#update-profile-form-NIF" [formControl]="NIF">
+        <span class="form__validation-message"
+            *ngIf="updateProfileForm.get('NIF')?.touched || updateProfileForm.get('NIF').dirty">
+            <span *ngIf="updateProfileForm.get('NIF').errors">Invalid Format</span>
         </span>
 
-        <label for="update-profile-form-company-description">Company Description:</label>
-        <input type="textarea" id="#update-profile-form-company-description" [formControl]="companyDescription">
-    </div>
+        <label for="update-profile-form-aboutMe">About Me:</label>
+        <input type="textarea" id="#update-profile-form-aboutMe" [formControl]="aboutMe">
 
 
-    <button type="submit" [disabled]="!updateProfileForm.valid">Update profile</button>
-</form>
+
+        <div *ngIf="user?.isAdmin == true">
+            <label for="update-profile-form-company-name">Company Name:</label>
+            <input type="text" name="companyName" id="#update-profile-form-company-name" [formControl]="companyName">
+            <span class="form__validation-message"
+                *ngIf="updateProfileForm.get('companyName').touched || updateProfileForm.get('companyName').dirty">
+                <span *ngIf="updateProfileForm.get('companyName').errors?.required">Company Name Is Required</span>
+                <span *ngIf="updateProfileForm.get('companyName').errors?.minlength">Company Name Must Have At Least 3
+                    Characters</span>
+                <span *ngIf="updateProfileForm.get('companyName').errors?.maxlength">Name Must Be Under 55
+                    Characters</span>
+                <span *ngIf="updateProfileForm.get('companyName').errors?.pattern">Please remove initial white
+                    spaces</span>
+            </span>
+
+            <label for="update-profile-form-CIF">CIF:</label>
+            <input type="text" name="CIF" id="#update-profile-form-CIF" [formControl]="CIF">
+            <span class="form__validation-message"
+                *ngIf="updateProfileForm.get('CIF')?.touched || updateProfileForm.get('CIF').dirty">
+                <span *ngIf="updateProfileForm.get('CIF').errors">CIF is required</span>
+            </span>
+
+            <label for="update-profile-form-company-description">Company Description:</label>
+            <input type="textarea" id="#update-profile-form-company-description" [formControl]="companyDescription">
+        </div>
+
+        <p *ngIf="successMsg">Profile Updated Successfully</p>
+
+        <button type="submit" [disabled]="!updateProfileForm.valid">Update profile</button>
+    </form>
 
 
-<app-education-form></app-education-form>
+    <app-education-form></app-education-form>
 
-<app-language-form></app-language-form>
+    <app-language-form></app-language-form>
+</main>

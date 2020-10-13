@@ -11,8 +11,8 @@ export default class User {
   isAdmin: boolean;
   activitiesEnrolled?: number[];
   dob?: string;
-  telephone?: number;
-  natianality?: string;
+  phone?: number;
+  nationality?: string;
   NIF?: number;
   description?: string;
   education?: Education[];
