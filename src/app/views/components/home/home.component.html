@@ -1,7 +1,7 @@
-<main aria-labelledby="home-header">
-    <div>
+<main>
+    <div class="home__main-grid">
         <section aria-labelledby="home-header">
-            <h2 id="home-header">Activities</h2>
+            <h2 id="home-header">Activities List</h2>
             <table title="Activities List" class="home__activities-list">
                 <thead>
                     <th>Name</th>
@@ -25,19 +25,19 @@
             </table>
         </section>
         <section title="Activity Selected Details" aria-labelledby="home-activity-detail">
-            <h2 id="home-activity-detail">Activity Detail</h2>
-            <h3>{{activitySelected?.name}}</h3>
-            <p>{{activitySelected?.description}}</p>
+            <h2>Activity Detail</h2>
             <div class="home__detail-info">
-                <span>Date: {{activitySelected?.date}}</span>
-                <span>Language: {{activitySelected?.language}}</span>
-                <span>Category: {{activitySelected?.category}}</span>
-                <span>Subategory: {{activitySelected?.subcategory}}</span>
-                <span>Price: {{activitySelected?.price}}€</span>
-                <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
-                <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
-                <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
-                <span>People Registered: {{activitySelected?.usersEnrolled}}</span>
+                <div class="col"><span>Name: {{activitySelected?.name}}</span>
+                    <span>Description: {{activitySelected?.description}}</span>
+                    <span>Date: {{activitySelected?.date}}</span>
+                    <span>Language: {{activitySelected?.language}}</span>
+                    <span>Category: {{activitySelected?.category}}</span>
+                    <span>Subategory: {{activitySelected?.subcategory}}</span></div>
+                <div class="col"><span>Price: {{activitySelected?.price}}€</span>
+                    <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
+                    <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
+                    <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
+                    <span>People Registered: {{activitySelected?.usersEnrolled}}</span></div>
             </div>
 
             <p *ngIf="showErrorMsg">Already Signed Up</p>

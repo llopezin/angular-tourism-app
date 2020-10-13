@@ -1,12 +1,7 @@
-.home__detail-info
-    display: grid
-    grid-template-column: 1fr 1fr   
-    justify-items: start 
-
 main
     height: 100vh
     
-div
+div.home__main-grid
     display: grid
     grid-template-columns: 1fr 1fr
 
@@ -18,6 +13,14 @@ td, th
     text-align: start
     border: solid 1px lightgrey
     border-spacing: none
+
+div.home__detail-info
+    display: flex  
+    justify-items: start 
+
+span
+    display: inline-block
+    padding: 10px
 
 section
     padding: 20px
