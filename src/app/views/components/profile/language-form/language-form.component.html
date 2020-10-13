@@ -7,7 +7,7 @@
 
     <label for="language">Language:</label>
     <select name="language" id="language" [formControl]="language">
-        <option *ngFor="let option of languageOptions">{{option}}</option>
+        <option *ngFor="let option of languageOptions" [selected]="option[0]">{{option}}</option>
     </select>
     <span class="form__validation-message"
         *ngIf="languageForm.get('language').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
@@ -15,7 +15,7 @@
 
     <label for="level">Level:</label>
     <select name="level" id="level" [formControl]="level">
-        <option *ngFor="let option of levelOptions">{{option}}</option>
+        <option *ngFor="let option of levelOptions" [selected]="option[0]">{{option}}</option>
     </select>
     <span class="form__validation-message"
         *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
@@ -32,4 +32,4 @@
         [disabled]="!languageForm.valid">{{languageSelectedId? 'Update Language' : 'Add Language'}}</button>
 </form>
 
-<p *ngIf="showSuccessMsg">Succes Message!</p>
+<p *ngIf="showSuccessMsg">Language Added!</p>

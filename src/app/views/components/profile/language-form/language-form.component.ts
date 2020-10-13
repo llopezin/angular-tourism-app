@@ -109,7 +109,7 @@ export class LanguageFormComponent implements OnInit {
     };
   }
   pushNewLanguage(languages, newLanguage) {
-    newLanguage.id = languages.length + 1;
+    newLanguage.id = languages.length + 1 || 1;
     languages.push(newLanguage);
   }
 }

@@ -15,6 +15,8 @@ export class InMemoryDataService implements InMemoryDbService {
         password: 'password1234',
         isAdmin: true,
         activitiesEnrolled: [1, 2, 3, 4],
+        languages: [],
+        education: [],
       },
       {
         id: 2,
