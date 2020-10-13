@@ -28,7 +28,14 @@ export class EducationFormComponent implements OnInit {
   public university: FormControl;
   public finishDate: FormControl;
   public levelOptions = {
-    grado: ['diplomado', 'licenciado', 'ingeniero', 'máster', 'doctorado'],
+    grado: [
+      'grado',
+      'diplomado',
+      'licenciado',
+      'ingeniero',
+      'máster',
+      'doctorado',
+    ],
     fp: ['grado superior', 'grado medio'],
   };
 
@@ -55,7 +62,7 @@ export class EducationFormComponent implements OnInit {
 
     this.finishDate = new FormControl('', [
       Validators.pattern(
-        /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])\/([1][9][3-9][0-9]|[2][0][0-2][0])/
+        /^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])\/([1][9][3-9][0-9]|[2][0][012][0-9])/
       ),
       Validators.maxLength(10),
     ]);

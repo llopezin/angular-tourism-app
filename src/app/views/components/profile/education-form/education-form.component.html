@@ -3,7 +3,7 @@
 <form [formGroup]="educationForm" *ngIf="showForm" (ngSubmit)="onSubmit()">
     <label for="education-form__type">Type:</label>
     <select name="type" id="education-form__type" [formControl]="type">
-        <option value="grado">Grado</option>
+        <option value="grado">Título Universitario</option>
         <option value="ciclo formativo">Ciclo Formativo</option>
     </select>
 
