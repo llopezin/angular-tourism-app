@@ -1,66 +1,75 @@
-<h1>Join Now</h1>
+<main>
+    <h1>Join Now</h1>
 
-<form [formGroup]="registerForm" method="post" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" method="post" (ngSubmit)="onSubmit()">
 
-    <label for="register-form__name">Name:</label>
-    <input type="text" name="name" id="#register-form__name" [formControl]="name">
-    <span class="form__validation-message" *ngIf="registerForm.get('name').touched || registerForm.get('name').dirty">
-        <span *ngIf="registerForm.get('name').errors?.required">Name Is Required</span>
-        <span *ngIf="registerForm.get('name').errors?.pattern">Invalid Format: remove spaces or non-letter
-            characters</span>
-        <span *ngIf="registerForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
-        <span *ngIf="registerForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
-    </span>
+        <label for="register-form__name">Name:</label>
+        <input type="text" name="name" id="#register-form__name" [formControl]="name">
+        <span class="form__validation-message"
+            *ngIf="registerForm.get('name').touched || registerForm.get('name').dirty">
+            <span *ngIf="registerForm.get('name').errors?.required">Name Is Required</span>
+            <span *ngIf="registerForm.get('name').errors?.minlength">Name Must Have At Least 3 Characters</span>
+            <span
+                *ngIf="registerForm.get('name').errors?.pattern && registerForm.get('name').errors?.minlength === undefined">Invalid
+                Format: remove spaces or non-letter
+                characters</span>
+            <span *ngIf="registerForm.get('name').errors?.maxlength">Name Must Be Under 55 Characters</span>
+        </span>
 
-    <label for="register-form__surname">Surname:</label>
-    <input type="text" surname="surname" id="#register-form__surname" [formControl]="surname">
-    <span class="form__validation-message"
-        *ngIf="registerForm.get('surname').touched || registerForm.get('surname').dirty">
-        <span *ngIf="registerForm.get('surname').errors?.pattern">Invalid Format: remove spaces or special
-            characters</span>
-        <span *ngIf="registerForm.get('surname').errors?.minlength">Surname Must Have At Least 3 Characters</span>
-        <span *ngIf="registerForm.get('surname').errors?.maxlength">Surname Must Be Under 55 Characters</span>
-    </span>
+        <label for="register-form__surname">Surname:</label>
+        <input type="text" surname="surname" id="#register-form__surname" [formControl]="surname">
+        <span class="form__validation-message"
+            *ngIf="registerForm.get('surname').touched || registerForm.get('surname').dirty">
+            <span *ngIf="registerForm.get('surname').errors?.pattern">Invalid Format: remove spaces or special
+                characters</span>
+            <span *ngIf="registerForm.get('surname').errors?.minlength">Surname Must Have At Least 3 Characters</span>
+            <span *ngIf="registerForm.get('surname').errors?.maxlength">Surname Must Be Under 55 Characters</span>
+        </span>
 
 
-    <label for="register-form__type">Type:</label>
-    <select name="type" id="register-form__type" name="type" [formControl]="type">
-        <option value=0 selected>Tourist</option>
-        <option value=1>Company</option>
-    </select>
-    <span class="form__validation-message"
-        *ngIf="registerForm.get('isAdmin').touched && registerForm.get('isAdmin').errors?.required">
-        Please Select An Option
-    </span>
+        <label for="register-form__type">Type:</label>
+        <select name="type" id="register-form__type" name="type" [formControl]="type">
+            <option value=0 selected>Tourist</option>
+            <option value=1>Company</option>
+        </select>
+        <span class="form__validation-message"
+            *ngIf="registerForm.get('isAdmin').touched && registerForm.get('isAdmin').errors?.required">
+            Please Select An Option
+        </span>
 
-    <label for="register-form__email">Email:</label>
-    <input type="email" name="email" id="#register-form__email" [formControl]="email">
-    <span class="form__validation-message" *ngIf="registerForm.get('email').touched || registerForm.get('email').dirty">
-        <span *ngIf="registerForm.get('email').errors?.required">Email Is Required</span>
-        <span *ngIf="registerForm.get('email').errors?.pattern">Invalid Format</span>
-    </span>
+        <label for="register-form__email">Email:</label>
+        <input type="email" name="email" id="#register-form__email" [formControl]="email">
+        <span class="form__validation-message"
+            *ngIf="registerForm.get('email').touched || registerForm.get('email').dirty">
+            <span *ngIf="registerForm.get('email').errors?.required">Email Is Required</span>
+            <span *ngIf="registerForm.get('email').errors?.pattern">Invalid Format</span>
+        </span>
 
-    <label for="register-form__password">Password:</label>
-    <input type="password" id="#register-form__password" [formControl]="password">
-    <span class="form__validation-message"
-        *ngIf="registerForm.get('password').touched || registerForm.get('password').dirty">
-        <span *ngIf="registerForm.get('password').errors?.required">Password Is Required</span>
-        <span *ngIf="registerForm.get('password').errors?.minlength">Password Must Be At Least 8 Characters Long</span>
-    </span>
+        <label for="register-form__password">Password:</label>
+        <input type="password" id="#register-form__password" [formControl]="password">
+        <span class="form__validation-message"
+            *ngIf="registerForm.get('password').touched || registerForm.get('password').dirty">
+            <span *ngIf="registerForm.get('password').errors?.required">Password Is Required</span>
+            <span *ngIf="registerForm.get('password').errors?.minlength">Password Must Be At Least 8 Characters
+                Long</span>
+        </span>
 
-    <label for="register-form__passwordRepeat">Password:</label>
-    <input type="password" id="#register-form__passwordRepeat" [formControl]="passwordRepeat">
-    <span class="form__validation-message"
-        *ngIf="registerForm.get('passwordRepeat').touched || registerForm.get('passwordRepeat').dirty">
-        <span *ngIf="registerForm.get('passwordRepeat').errors?.required">Password Is Required</span>
-        <span *ngIf="registerForm.get('passwordRepeat').errors?.minlength">Password Must Be At Least 8 Characters
-            Long</span>
-        <span *ngIf="!registerForm.get('passwordRepeat').errors && registerForm.errors?.noMatchError">Passwords don't
-            match, please try again</span>
-    </span>
+        <label for="register-form__passwordRepeat">Password:</label>
+        <input type="password" id="#register-form__passwordRepeat" [formControl]="passwordRepeat">
+        <span class="form__validation-message"
+            *ngIf="registerForm.get('passwordRepeat').touched || registerForm.get('passwordRepeat').dirty">
+            <span *ngIf="registerForm.get('passwordRepeat').errors?.required">Password Is Required</span>
+            <span *ngIf="registerForm.get('passwordRepeat').errors?.minlength">Password Must Be At Least 8 Characters
+                Long</span>
+            <span *ngIf="!registerForm.get('passwordRepeat').errors && registerForm.errors?.noMatchError">Passwords
+                don't
+                match, please try again</span>
+        </span>
 
-    <span *ngIf="userValidated === false && formSubmited" class="form__validation-message">You are a registered user,
-        please sign
-        in</span>
-    <button type="submit" [disabled]="!registerForm.valid">Join</button>
-</form>
+        <span *ngIf="userValidated === false && formSubmited" class="form__validation-message">You are a registered
+            user,
+            please sign
+            in</span>
+        <button type="submit" [disabled]="!registerForm.valid">Join</button>
+    </form>
+</main>

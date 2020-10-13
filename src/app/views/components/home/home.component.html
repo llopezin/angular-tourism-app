@@ -1,6 +1,4 @@
 <main aria-labelledby="home-header">
-    <h1 id="home-header">Home</h1>
-
     <div>
         <section aria-labelledby="home-header">
             <h2 id="home-header">Activities</h2>
@@ -17,7 +15,7 @@
                     <tr *ngFor="let activity of activities">
                         <td>{{activity.name}}</td>
                         <td>{{activity.category}}</td>
-                        <td>{{activity.price}}</td>
+                        <td>{{activity.price}}€</td>
                         <td>{{activity.language}}</td>
                         <td>{{activity.date}}</td>
                         <td><a (click)="selectActivity(activity.id)">Show {{activity.name}} details</a></td>
@@ -35,7 +33,7 @@
                 <span>Language: {{activitySelected?.language}}</span>
                 <span>Category: {{activitySelected?.category}}</span>
                 <span>Subategory: {{activitySelected?.subcategory}}</span>
-                <span>Price: {{activitySelected?.price}}</span>
+                <span>Price: {{activitySelected?.price}}€</span>
                 <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
                 <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
                 <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>

@@ -1,23 +1,25 @@
-<p>sign In</p>
+<main>
+    <h1>Sign In</h1>
 
-<form method="post" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <form method="post" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
 
-    <label for="signin-form__email">Email:</label>
-    <input type="email" name="email" id="#signIn-form__email" [formControl]="email">
-    <span class="form__validation-message" *ngIf="signInForm.get('email').touched || signInForm.get('email').dirty">
-        <span *ngIf="signInForm.get('email').errors?.required">Email Is Required</span>
-        <span *ngIf="signInForm.get('email').errors?.pattern">Invalid Format</span>
-    </span>
+        <label for="signin-form__email">Email:</label>
+        <input type="email" name="email" id="#signIn-form__email" [formControl]="email">
+        <span class="form__validation-message" *ngIf="signInForm.get('email').touched || signInForm.get('email').dirty">
+            <span *ngIf="signInForm.get('email').errors?.required">Email Is Required</span>
+            <span *ngIf="signInForm.get('email').errors?.pattern">Invalid Format</span>
+        </span>
 
-    <label for="signIn-form__password">Password:</label>
-    <input type="password" id="#signIn-form__password" [formControl]="password">
-    <span class="form__validation-message"
-        *ngIf="signInForm.get('password').touched || signInForm.get('password').dirty">
-        <span *ngIf="signInForm.get('password').errors?.required">Password Is Required</span>
-        <span *ngIf="signInForm.get('password').errors?.pattern">Password Must Be At Least 5 Characters Long</span>
-    </span>
+        <label for="signIn-form__password">Password:</label>
+        <input type="password" id="#signIn-form__password" [formControl]="password">
+        <span class="form__validation-message"
+            *ngIf="signInForm.get('password').touched || signInForm.get('password').dirty">
+            <span *ngIf="signInForm.get('password').errors?.required">Password Is Required</span>
+            <span *ngIf="signInForm.get('password').errors?.pattern">Password Must Be At Least 5 Characters Long</span>
+        </span>
 
-    <span *ngIf="userValidated === false && formSubmited" class="form__validation-message">User Email or Password
-        Invalid</span>
-    <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
-</form>
+        <span *ngIf="errorMsg === true && formSubmited" class="form__validation-message">User Email or Password
+            Invalid</span>
+        <button type="submit" [disabled]="!signInForm.valid">Sign In</button>
+    </form>
+</main>

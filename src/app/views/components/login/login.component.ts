@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   public userValidated: boolean;
   public formSubmited: boolean;
   public validatedUserData: User;
-
+  public errorMsg: boolean;
   constructor(
     private usersService: UserService,
     private formBuilder: FormBuilder,
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.errorMsg = false;
     this.saveFormInput();
     this.formSubmited = true;
     this.usersService
@@ -60,7 +61,9 @@ export class LoginComponent implements OnInit {
   validateUser(users: User[]): void {
     let userFound = users.find((user) => user.email === this.user.email);
     this.userValidated = userFound?.password === this.user.password;
-    this.userValidated ? this.afterUserValid(userFound) : '';
+    this.userValidated
+      ? this.afterUserValid(userFound)
+      : (this.errorMsg = true);
   }
 
   afterUserValid(userFound: User) {

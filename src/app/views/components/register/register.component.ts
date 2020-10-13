@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   public formSubmited: boolean = false;
   public patterns: any = {
     email: '^[a-z0-9+_.-]+@[a-z]+.[a-z]+$',
-    name: '^[a-zA-Z-]+$',
+    name: '^[a-zA-Z]+[-a-zA-Zs]+[-a-zA-Z]$',
   };
 
   constructor(
