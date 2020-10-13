@@ -68,7 +68,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const activities = [
       {
         id: 1,
-        name: 'Tour en Segway por El Centro',
+        name: 'Segway Tour Around City Center',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
         language: 'ES',
         date: '20/11/2020',
@@ -81,7 +81,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         id: 2,
-        name: 'Viaje en Moto de Agua a Peñíscola',
+        name: 'Jetsky Trip To Peñíscola',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
         language: 'ES',
         date: '20/11/2020',
@@ -94,7 +94,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         id: 3,
-        name: 'Degustación de Vinos en la Bodega Bocopa',
+        name: 'Wine Tasting At Bodega Bocopa',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
         language: 'ES',
         date: '20/11/2020',
@@ -107,7 +107,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         id: 4,
-        name: 'Tour por la Albufera',
+        name: 'Albufera Tour',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
         language: 'EN',
         date: '20/11/2020',

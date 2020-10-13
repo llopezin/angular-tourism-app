@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.storeUserService.user;
-    console.log('HOmemodule initialised');
 
     this.activityService.getActivities().subscribe((activities) => {
       this.activities = activities;
@@ -38,13 +37,12 @@ export class HomeComponent implements OnInit {
   }
 
   signUpToActivity(id) {
-    const isSignedUp = this.activityIsSignedUp(id);
-    this.showErrorMsg = isSignedUp;
-    if (isSignedUp) return;
+    this.handleAlreadySignedUpError(id);
     this.user.activitiesEnrolled.push(id);
     this.userService.updateUser(this.user).subscribe(() => {
       this.storeUserService.user = this.user;
       this.showSuccessMsg = true;
+      this.updateActivityEnrolledCounter();
     });
   }
 
@@ -80,5 +78,17 @@ export class HomeComponent implements OnInit {
 
   getActivityById(id: number) {
     return this.activities.find((activity) => activity.id === id);
+  }
+
+  updateActivityEnrolledCounter() {
+    const activity = this.activitySelected;
+    activity.usersEnrolled++;
+    this.activityService.updateActivity(activity);
+  }
+
+  handleAlreadySignedUpError(id) {
+    const isSignedUp = this.activityIsSignedUp(id);
+    this.showErrorMsg = isSignedUp;
+    if (isSignedUp) return;
   }
 }
