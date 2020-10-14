@@ -1,7 +1,7 @@
 <main aria-labelledby="my-activities-header">
     <h1 id="my-activities-header">My Activitities</h1>
 
-    <div>
+    <div class="my-activities__main-grid">
         <section aria-labelledby="my-activities-list-header" *ngIf="!errorMessage && userActivities?.length > 0"
             [attr.aria-hidden]="errorMessage">
             <h2 id="activities-list-header">Activities</h2>
@@ -31,7 +31,8 @@
             <h2 id="my-activities-detail">Activity Detail</h2>
             <h3>{{activitySelected? activitySelected.name: "Select An Activity"}}</h3>
             <div class="my-activities__detail-info" *ngIf="activitySelected">
-                <div class="detail-info__group"><span>Name: {{activitySelected.name}}</span>
+                <div class="detail-info__group">
+                    <span>Name: {{activitySelected.name}}</span>
                     <span>Description: {{activitySelected.description}}</span>
                     <span>Language: {{activitySelected?.language}}</span>
                     <span>Date: {{activitySelected?.date}}</span></div>
@@ -48,6 +49,7 @@
 
                 </div>
             </div>
+
             <button (click)="cancelActivity(activitySelected?.id)" *ngIf="activitySelected">Cancel
                 {{activitySelected?.name}}</button>
         </section>

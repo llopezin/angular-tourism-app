@@ -6,11 +6,19 @@ div.home__main-grid
     grid-template-columns: 1fr 1fr
 
 div.home__detail-info
-    display: flex  
-    text-align: start
+    display: grid
+    grid-template-columns: 1fr 1fr
+
 span
-    display: inline-block
-    padding: 10px
+    display: block
+    text-align: start
+    padding: 2px
+
+.detail-info__group:nth-of-type(2)
+    grid-column: 2/3
+
+.detail-info__group
+    margin-bottom: 30px
 
 section
     padding: 20px

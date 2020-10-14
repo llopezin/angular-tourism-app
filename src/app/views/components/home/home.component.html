@@ -27,17 +27,22 @@
         <section title="Activity Selected Details" aria-labelledby="home-activity-detail">
             <h2>Activity Detail</h2>
             <div class="home__detail-info">
-                <div class="col"><span>Name: {{activitySelected?.name}}</span>
-                    <span>Description: {{activitySelected?.description}}</span>
-                    <span>Date: {{activitySelected?.date}}</span>
+                <div class="detail-info__group">
+                    <span>Name: {{activitySelected.name}}</span>
+                    <span>Description: {{activitySelected.description}}</span>
                     <span>Language: {{activitySelected?.language}}</span>
+                    <span>Date: {{activitySelected?.date}}</span></div>
+                <div class="detail-info__group">
                     <span>Category: {{activitySelected?.category}}</span>
-                    <span>Subategory: {{activitySelected?.subcategory}}</span></div>
-                <div class="col"><span>Price: {{activitySelected?.price}}€</span>
+                    <span>Subategory: {{activitySelected?.subcategory}}</span>
+                    <span>Price: {{activitySelected?.price}}</span>
                     <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
+                </div>
+                <div class="detail-info__group">
                     <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
                     <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
-                    <span>People Registered: {{activitySelected?.usersEnrolled}}</span></div>
+                    <span>People Registered: {{activitySelected?.usersEnrolled}}</span>
+                </div>
             </div>
 
             <p *ngIf="showErrorMsg">Already Signed Up</p>
