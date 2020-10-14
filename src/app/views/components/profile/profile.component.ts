@@ -122,8 +122,8 @@ export class ProfileComponent implements OnInit {
     this.companyName = new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(55),
-      Validators.pattern('^[^-s][a-zA-Z0-9_s-]+$'),
+      Validators.maxLength(255),
+      Validators.pattern('[a-zA-Z0-9_]+.*$'),
     ]);
     this.CIF = new FormControl('', Validators.required);
     this.companyDescription = new FormControl('');

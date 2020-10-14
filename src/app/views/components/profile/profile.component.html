@@ -65,7 +65,9 @@
                     Characters</span>
                 <span *ngIf="updateProfileForm.get('companyName').errors?.maxlength">Name Must Be Under 55
                     Characters</span>
-                <span *ngIf="updateProfileForm.get('companyName').errors?.pattern">Please remove initial white
+                <span
+                    *ngIf="updateProfileForm.get('companyName').errors?.minlength === undefined && updateProfileForm.get('companyName').errors?.pattern">Please
+                    remove initial white
                     spaces</span>
             </span>
 
