@@ -3,6 +3,7 @@ import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
 import { ActivitiesService } from 'src/app/shared/services/activities.service';
 import { StorageService } from 'src/app/shared/services/local-storage-service';
+import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
     private activityService: ActivitiesService,
     private storeUserService: StoreUserService,
     private userService: UserService,
-    private storage: StorageService
+    private storage: StorageService,
+    private storeActivitiesService: StoreactivitiesService
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +85,11 @@ export class HomeComponent implements OnInit {
   updateActivityEnrolledCounter() {
     const activity = this.activitySelected;
     activity.usersEnrolled++;
-    this.activityService.updateActivity(activity);
+    this.activityService.updateActivity(activity).subscribe(() => {
+      this.activityService.getActivities().subscribe((activities) => {
+        this.storeActivitiesService.activities = activities;
+      });
+    });
   }
 
   handleAlreadySignedUpError(id) {

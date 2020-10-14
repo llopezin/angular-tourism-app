@@ -13,13 +13,16 @@ div
 section
     padding: 20px
 
-ul
-    list-style-type: none
+.my-activities__detail-info
+    display: flex
+    flex-wrap: wrap
 
-li 
-    padding: 15px
-    border: solid 1px lightgrey
-    margin: 0px
+.detail-info__group
+    flex-grow: 1
+    text-align: start
+    margin-bottom: 20px
 
-.form__validation-message
-    color: red
+.detail-info__group:last-of-type
+    width: 100%
+
+

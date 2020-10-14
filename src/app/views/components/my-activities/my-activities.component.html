@@ -5,27 +5,48 @@
         <section aria-labelledby="my-activities-list-header" *ngIf="!errorMessage && userActivities?.length > 0"
             [attr.aria-hidden]="errorMessage">
             <h2 id="activities-list-header">Activities</h2>
-            <ul title="Activities List" class="my-activities__list">
-                <li (click)="selectActivity(activity.id)" *ngFor="let activity of userActivities">
-                    <a>Show {{activity.name}} details</a>
-                </li>
-            </ul>
+            <table title="Activities List">
+                <thead>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Language</th>
+                    <th>Date</th>
+                    <th>Show Details</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let activity of userActivities">
+                        <td>{{activity.name}}</td>
+                        <td>{{activity.category}}</td>
+                        <td>{{activity.price}}€</td>
+                        <td>{{activity.language}}</td>
+                        <td>{{activity.date}}</td>
+                        <td><a (click)="selectActivity(activity.id)">Show {{activity.name}} details</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
         <section title="ActivitySelected Details" aria-labelledby="my-activities-detail"
             [attr.aria-hidden]="!activitySelected" *ngIf="!errorMessage && userActivities?.length > 0">
             <h2 id="my-activities-detail">Activity Detail</h2>
             <h3>{{activitySelected? activitySelected.name: "Select An Activity"}}</h3>
-            <p>{{activitySelected?.description}}</p>
             <div class="my-activities__detail-info" *ngIf="activitySelected">
-                <span>Date: {{activitySelected?.date}}</span>
-                <span>Language: {{activitySelected?.language}}</span>
-                <span>Category: {{activitySelected?.category}}</span>
-                <span>Subategory: {{activitySelected?.subcategory}}</span>
-                <span>Price: {{activitySelected?.price}}</span>
-                <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
-                <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
-                <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
-                <span>People Registered: {{activitySelected?.usersEnrolled}}</span>
+                <div class="detail-info__group"><span>Name: {{activitySelected.name}}</span>
+                    <span>Description: {{activitySelected.description}}</span>
+                    <span>Language: {{activitySelected?.language}}</span>
+                    <span>Date: {{activitySelected?.date}}</span></div>
+                <div class="detail-info__group">
+                    <span>Category: {{activitySelected?.category}}</span>
+                    <span>Subategory: {{activitySelected?.subcategory}}</span>
+                    <span>Price: {{activitySelected?.price}}</span>
+                    <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
+                </div>
+                <div class="detail-info__group">
+                    <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
+                    <span>Minimum Capacity: {{activitySelected?.minEnrolled}}</span>
+                    <span>People Registered: {{activitySelected?.usersEnrolled}}</span>
+
+                </div>
             </div>
             <button (click)="cancelActivity(activitySelected?.id)" *ngIf="activitySelected">Cancel
                 {{activitySelected?.name}}</button>

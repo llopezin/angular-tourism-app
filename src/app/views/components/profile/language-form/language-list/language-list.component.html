@@ -1,5 +1,5 @@
-<section aria-describedby="education-header">
-    <h2 id="education-header">Languages</h2>
+<section aria-describedby="languages-header">
+    <h2 id="languages-header">Languages</h2>
     <table>
         <thead>
             <tr>
@@ -16,9 +16,9 @@
                 <td>{{item.language}}</td>
                 <td>{{item.level}}</td>
                 <td>{{item.finishDate}}</td>
-                <td><button class="delete-education-btn" (click)="deleteLanguage($event)"
+                <td><button class="delete-languages-btn" (click)="deleteLanguage($event)"
                         [attr.data-id]="item.id">Delete</button>
-                    <button class="update-education-btn" (click)="updateLanguage($event)"
+                    <button class="update-languages-btn" (click)="updateLanguage($event)"
                         [attr.data-id]="item.id">Update</button>
                 </td>
 
