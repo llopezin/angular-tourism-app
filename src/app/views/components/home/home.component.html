@@ -28,8 +28,8 @@
             <h2>Activity Detail</h2>
             <div class="home__detail-info">
                 <div class="detail-info__group">
-                    <span>Name: {{activitySelected.name}}</span>
-                    <span>Description: {{activitySelected.description}}</span>
+                    <span>Name: {{activitySelected?.name}}</span>
+                    <span>Description: {{activitySelected?.description}}</span>
                     <span>Language: {{activitySelected?.language}}</span>
                     <span>Date: {{activitySelected?.date}}</span></div>
                 <div class="detail-info__group">
@@ -53,7 +53,7 @@
                 {{activitySelected?.name}}</button>
 
             <p *ngIf="favouriteError">This activity is on your favourites list already</p>
-            <p *ngIf="favouriteSuccess">{{activitySelected.name}} added to your favourites list</p>
+            <p *ngIf="favouriteSuccess">{{activitySelected?.name}} added to your favourites list</p>
             <button *ngIf="this.user !== undefined && this.user.isAdmin == false"
                 (click)="addToFavourites(activitySelected.id)">Add to Favourites</button>
         </section>

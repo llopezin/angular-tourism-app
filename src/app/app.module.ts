@@ -7,6 +7,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducers';
+
 import { AdminModule } from './views/components/admin/admin.module';
 import { LoginModule } from './views/components/login/login.module';
 import { MyActivitiesModule } from './views/components/my-activities/my-activities.module';
@@ -19,6 +22,8 @@ import { HeaderComponent } from './views/components/layout/header/header.compone
 import { FooterComponent } from './views/components/layout/footer/footer.component';
 import { LayoutComponent } from './views/components/layout/layout.component';
 import { RegisterModule } from './views/components/register/register.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   {
@@ -41,6 +46,11 @@ const routes: Routes = [
     //AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
