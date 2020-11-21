@@ -5,6 +5,7 @@ import {
   getAllActivities,
   getAllActivitiesError,
   getAllActivitiesSuccess,
+  editActivity,
   increaseEnrolledCounter,
   decreaseEnrolledCounter,
 } from '../actions';
@@ -48,15 +49,28 @@ const _activitiesReducer = createReducer(
     },
   })),
 
+  on(editActivity, (state, { id, editedActivity }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    activities: state.activities.map((activity) => {
+      if (activity.id === id) {
+        return editedActivity;
+      } else {
+        return activity;
+      }
+    }),
+  })),
+
   on(increaseEnrolledCounter, (state, { id }) => ({
     ...state,
     loading: false,
     loaded: false,
     activities: state.activities.map((activity) => {
       if (activity.id === id) {
-        console.log(activity);
-
-        return { ...activity, usersEnrolled: activity.usersEnrolled++ };
+        let newActivity = { ...activity };
+        newActivity.usersEnrolled++;
+        return newActivity;
       } else {
         return activity;
       }
@@ -69,9 +83,9 @@ const _activitiesReducer = createReducer(
     loaded: false,
     activities: state.activities.map((activity) => {
       if (activity.id === id) {
-        console.log(activity);
-
-        return { ...activity, usersEnrolled: activity.usersEnrolled-- };
+        let newActivity = { ...activity };
+        newActivity.usersEnrolled--;
+        return newActivity;
       } else {
         return activity;
       }
@@ -79,6 +93,7 @@ const _activitiesReducer = createReducer(
   }))
 
   /* 
+
   on(createTodo, (state, { title }) => ({
     ...state,
     loading: false,

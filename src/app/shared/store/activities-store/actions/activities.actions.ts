@@ -13,13 +13,18 @@ export const getAllActivitiesError = createAction(
   props<{ payload: any }>()
 );
 
+export const editActivity = createAction(
+  '[ACTIVITIES] edit activity',
+  props<{ id: number; editedActivity: Activity }>()
+);
+
 export const increaseEnrolledCounter = createAction(
   '[ACTIVITIES] add to enrolled',
   props<{ id: number }>()
 );
 
 export const decreaseEnrolledCounter = createAction(
-  '[ACTIVITIES] add to enrolled',
+  '[ACTIVITIES] subtract from enrolled',
   props<{ id: number }>()
 );
 

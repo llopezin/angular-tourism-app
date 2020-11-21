@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
-import { ActivitiesService } from 'src/app/shared/services/activities.service';
 import { StorageService } from 'src/app/shared/services/local-storage-service';
 import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import {
+  editActivity,
   getAllActivities,
   increaseEnrolledCounter,
 } from 'src/app/shared/store/activities-store/actions';
@@ -28,11 +28,9 @@ export class HomeComponent implements OnInit {
   public favouriteSuccess: boolean;
 
   constructor(
-    private activityService: ActivitiesService,
     private storeUserService: StoreUserService,
     private userService: UserService,
     private storage: StorageService,
-    private storeActivitiesService: StoreactivitiesService,
     private store: Store<AppState>
   ) {}
 
@@ -41,14 +39,22 @@ export class HomeComponent implements OnInit {
 
     this.store.select('activitiesApp').subscribe((activitiesResponse) => {
       this.activities = activitiesResponse.activities;
-      this.selectActivity();
+      if (this.activitySelected === undefined) {
+        this.selectActivity();
+      } else {
+        this.activitySelected = this.getActivityById(this.activitySelected.id);
+      }
     });
 
     this.store.dispatch(getAllActivities());
   }
 
   signUpToActivity(id) {
-    this.handleAlreadySignedUpError(id);
+    if (this.activityIsSignedUp(id)) {
+      this.handleAlreadySignedUpError(id);
+      return;
+    }
+
     this.user.activitiesEnrolled.push(id);
     this.userService.updateUser(this.user).subscribe(() => {
       this.storeUserService.user = this.user;
@@ -75,7 +81,7 @@ export class HomeComponent implements OnInit {
 
   selectActivity(id?: number) {
     this.resetErrorMessages();
-    this.activitySelected
+    id
       ? (this.activitySelected = this.getActivityById(id))
       : (this.activitySelected = this.activities[0]);
   }
@@ -93,13 +99,15 @@ export class HomeComponent implements OnInit {
 
   updateActivityEnrolledCounter() {
     this.store.dispatch(
-      increaseEnrolledCounter({ id: this.activitySelected.id })
+      increaseEnrolledCounter({
+        id: this.activitySelected.id,
+      })
     );
   }
 
   handleAlreadySignedUpError(id) {
     const isSignedUp = this.activityIsSignedUp(id);
     this.showErrorMsg = isSignedUp;
-    if (isSignedUp) return;
+    //if (isSignedUp) return;
   }
 }
