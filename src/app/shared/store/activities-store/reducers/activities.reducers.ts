@@ -10,8 +10,6 @@ import {
   decreaseEnrolledCounter,
 } from '../actions';
 
-//export const initialState: Todo[] = [new Todo('My First Task')];
-
 export interface ActivitiesState {
   activities: Activity[];
   loading: boolean;
@@ -91,50 +89,6 @@ const _activitiesReducer = createReducer(
       }
     }),
   }))
-
-  /* 
-
-  on(createTodo, (state, { title }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: [...state.todos, new Todo(title)],
-  })),
-
-  on(completeTodo, (state, { id }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: state.todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, completed: true };
-      } else {
-        return todo;
-      }
-    }),
-  })),
-
-  on(deleteTodo, (state, { id }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: state.todos.filter((todo) => {
-      return todo.id !== id;
-    }),
-  })),
-
-  on(editTodo, (state, { id, title }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    todos: state.todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, title: title };
-      } else {
-        return todo;
-      }
-    }),
-  })),*/
 );
 
 export function activitiesReducer(state, action) {

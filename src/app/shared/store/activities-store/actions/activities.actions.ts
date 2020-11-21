@@ -27,23 +27,3 @@ export const decreaseEnrolledCounter = createAction(
   '[ACTIVITIES] subtract from enrolled',
   props<{ id: number }>()
 );
-
-/* export const createTodo = createAction(
-  '[ACTIVITIES] Create Todo',
-  props<{ title: string }>()
-);
-
-export const completeTodo = createAction(
-  '[ACTIVITIES] Complete Todo',
-  props<{ id: number }>()
-);
-
-export const deleteTodo = createAction(
-  '[TODO] Delete Todo',
-  props<{ id: number }>()
-);
-
-export const editTodo = createAction(
-  '[TODO] Edit Todo',
-  props<{ id: number; title: string }>()
-); */
