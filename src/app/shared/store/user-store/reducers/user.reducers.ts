@@ -21,7 +21,7 @@ export const initialState: UsersState = {
   error: null,
 };
 
-const _activitiesReducer = createReducer(
+const _usersReducer = createReducer(
   initialState,
 
   on(getAllUsers, (state) => ({ ...state, loading: true })),
@@ -50,7 +50,7 @@ const _activitiesReducer = createReducer(
     loaded: false,
     users: state.users.map((user) => {
       if (user.id === id) {
-        return user;
+        return editedUser;
       } else {
         return user;
       }
@@ -58,6 +58,6 @@ const _activitiesReducer = createReducer(
   }))
 );
 
-export function activitiesReducer(state, action) {
-  return _activitiesReducer(state, action);
+export function usersReducer(state, action) {
+  return _usersReducer(state, action);
 }

@@ -25,7 +25,8 @@ import { RegisterModule } from './views/components/register/register.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { EffectsArray } from './shared/store/activities-store/effects';
+import { ActivitiesEffectsArray } from './shared/store/activities-store/effects';
+import { UserEffectsArray } from './shared/store/user-store/effects';
 
 const routes: Routes = [
   {
@@ -45,7 +46,6 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
-    //AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forRoot(appReducers, {
@@ -58,7 +58,8 @@ const routes: Routes = [
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot(EffectsArray),
+    EffectsModule.forRoot([...ActivitiesEffectsArray, ...UserEffectsArray]),
+
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.

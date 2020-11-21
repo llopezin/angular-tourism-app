@@ -9,6 +9,12 @@ import {
 import User from 'src/app/shared/models/user.model';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
+import {
+  getAllUsers,
+  getAllUsersError,
+} from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +23,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class LoginComponent implements OnInit {
   public user: User = new User();
+  public users: User[];
   public signInForm: FormGroup;
   public email: FormControl;
   public password: FormControl;
@@ -28,7 +35,8 @@ export class LoginComponent implements OnInit {
     private usersService: UserService,
     private formBuilder: FormBuilder,
     private storeUserService: StoreUserService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -42,15 +50,17 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password,
     });
+    this.store.dispatch(getAllUsers());
+    this.store
+      .select('usersApp')
+      .subscribe((usersResponse) => (this.users = usersResponse.users));
   }
 
   onSubmit() {
     this.errorMsg = false;
     this.saveFormInput();
     this.formSubmited = true;
-    this.usersService
-      .getUsers()
-      .subscribe((users: User[]) => this.handleResponse(users));
+    this.handleResponse(this.users);
   }
 
   handleResponse(users: User[]) {
