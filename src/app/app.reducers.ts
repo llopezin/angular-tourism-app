@@ -1,7 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
-/* import * as reducers from './todos/reducers';
-import { todoReducer } from './todos/reducers'; */
+import * as reducers from './shared/store/activities-store/reducers';
 
-export interface AppState {}
+export interface AppState {
+  activitiesApp: reducers.ActivitiesState;
+}
 
-export const appReducers: ActionReducerMap<AppState> = {};
+export const appReducers: ActionReducerMap<AppState> = {
+  activitiesApp: reducers.activitiesReducer,
+};

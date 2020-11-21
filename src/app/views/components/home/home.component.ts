@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
 import { ActivitiesService } from 'src/app/shared/services/activities.service';
@@ -6,6 +8,7 @@ import { StorageService } from 'src/app/shared/services/local-storage-service';
 import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { getAllActivities } from 'src/app/shared/store/activities-store/actions';
 
 @Component({
   selector: 'app-home',
@@ -26,16 +29,19 @@ export class HomeComponent implements OnInit {
     private storeUserService: StoreUserService,
     private userService: UserService,
     private storage: StorageService,
-    private storeActivitiesService: StoreactivitiesService
+    private storeActivitiesService: StoreactivitiesService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     this.user = this.storeUserService.user;
 
-    this.activityService.getActivities().subscribe((activities) => {
-      this.activities = activities;
+    this.store.select('activitiesApp').subscribe((activitiesResponse) => {
+      this.activities = activitiesResponse.activities;
       this.selectActivity();
     });
+
+    this.store.dispatch(getAllActivities());
   }
 
   signUpToActivity(id) {

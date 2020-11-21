@@ -1,3 +1,3 @@
-import { TodosEffects } from './activities.effects';
+import { ActivitiesEffects } from './activities.effects';
 
-export const EffectsArray: any[] = [TodosEffects];
+export const EffectsArray: any[] = [ActivitiesEffects];
