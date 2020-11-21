@@ -13,7 +13,17 @@ export const getAllActivitiesError = createAction(
   props<{ payload: any }>()
 );
 
-export const createTodo = createAction(
+export const increaseEnrolledCounter = createAction(
+  '[ACTIVITIES] add to enrolled',
+  props<{ id: number }>()
+);
+
+export const decreaseEnrolledCounter = createAction(
+  '[ACTIVITIES] add to enrolled',
+  props<{ id: number }>()
+);
+
+/* export const createTodo = createAction(
   '[ACTIVITIES] Create Todo',
   props<{ title: string }>()
 );
@@ -31,4 +41,4 @@ export const deleteTodo = createAction(
 export const editTodo = createAction(
   '[TODO] Edit Todo',
   props<{ id: number; title: string }>()
-);
+); */

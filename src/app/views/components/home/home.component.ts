@@ -8,7 +8,10 @@ import { StorageService } from 'src/app/shared/services/local-storage-service';
 import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { getAllActivities } from 'src/app/shared/store/activities-store/actions';
+import {
+  getAllActivities,
+  increaseEnrolledCounter,
+} from 'src/app/shared/store/activities-store/actions';
 
 @Component({
   selector: 'app-home',
@@ -89,13 +92,9 @@ export class HomeComponent implements OnInit {
   }
 
   updateActivityEnrolledCounter() {
-    const activity = this.activitySelected;
-    activity.usersEnrolled++;
-    this.activityService.updateActivity(activity).subscribe(() => {
-      this.activityService.getActivities().subscribe((activities) => {
-        this.storeActivitiesService.activities = activities;
-      });
-    });
+    this.store.dispatch(
+      increaseEnrolledCounter({ id: this.activitySelected.id })
+    );
   }
 
   handleAlreadySignedUpError(id) {

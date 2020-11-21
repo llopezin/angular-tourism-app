@@ -5,6 +5,8 @@ import {
   getAllActivities,
   getAllActivitiesError,
   getAllActivitiesSuccess,
+  increaseEnrolledCounter,
+  decreaseEnrolledCounter,
 } from '../actions';
 
 //export const initialState: Todo[] = [new Todo('My First Task')];
@@ -44,6 +46,36 @@ const _activitiesReducer = createReducer(
       status: payload.status,
       message: payload.message,
     },
+  })),
+
+  on(increaseEnrolledCounter, (state, { id }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    activities: state.activities.map((activity) => {
+      if (activity.id === id) {
+        console.log(activity);
+
+        return { ...activity, usersEnrolled: activity.usersEnrolled++ };
+      } else {
+        return activity;
+      }
+    }),
+  })),
+
+  on(decreaseEnrolledCounter, (state, { id }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    activities: state.activities.map((activity) => {
+      if (activity.id === id) {
+        console.log(activity);
+
+        return { ...activity, usersEnrolled: activity.usersEnrolled-- };
+      } else {
+        return activity;
+      }
+    }),
   }))
 
   /* 
