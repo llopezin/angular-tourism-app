@@ -5,10 +5,13 @@ import {
   getAllUsersError,
   getAllUsersSuccess,
   editUser,
+  createUser,
+  signUserIn,
 } from '../actions';
 
 export interface UsersState {
   users: User[];
+  user?: User;
   loading: boolean;
   loaded: boolean;
   error: any;
@@ -44,10 +47,19 @@ const _usersReducer = createReducer(
     },
   })),
 
+  on(createUser, (state, { user }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: user,
+    users: [...state.users, user],
+  })),
+
   on(editUser, (state, { id, editedUser }) => ({
     ...state,
     loading: false,
     loaded: false,
+    user: editedUser,
     users: state.users.map((user) => {
       if (user.id === id) {
         return editedUser;
@@ -55,6 +67,13 @@ const _usersReducer = createReducer(
         return user;
       }
     }),
+  })),
+
+  on(signUserIn, (state, { user }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: user,
   }))
 );
 

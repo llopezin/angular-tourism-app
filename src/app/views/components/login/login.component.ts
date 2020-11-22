@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import {
   getAllUsers,
-  getAllUsersError,
+  signUserIn,
 } from 'src/app/shared/store/user-store/actions';
 
 @Component({
@@ -60,13 +60,14 @@ export class LoginComponent implements OnInit {
     this.errorMsg = false;
     this.saveFormInput();
     this.formSubmited = true;
-    this.handleResponse(this.users);
+    /* this.handleResponse(this.users); */
+    this.validateUser(this.users);
   }
 
-  handleResponse(users: User[]) {
+  /* handleResponse(users: User[]) {
     this.validateUser(users);
     this.storeUserService.user = this.validatedUserData;
-  }
+  } */
 
   validateUser(users: User[]): void {
     let userFound = users.find((user) => user.email === this.user.email);
@@ -82,7 +83,7 @@ export class LoginComponent implements OnInit {
   }
 
   storeUser(userFound: User) {
-    this.validatedUserData = userFound;
+    this.store.dispatch(signUserIn({ user: userFound }));
   }
 
   navigateHome() {

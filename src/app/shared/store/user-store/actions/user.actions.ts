@@ -14,6 +14,13 @@ export const getAllUsersError = createAction(
 );
 
 export const editUser = createAction(
-  '[USER] edit user',
+  '[USER] Edit User',
   props<{ id: number; editedUser: User }>()
 );
+
+export const createUser = createAction(
+  '[USER] Create User',
+  props<{ user: User }>()
+);
+
+export const signUserIn = createAction('[USER] Sign In', props<{ user }>());
