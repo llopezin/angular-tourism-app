@@ -7,6 +7,7 @@ import {
   editUser,
   createUser,
   signUserIn,
+  logUserOut,
 } from '../actions';
 
 export interface UsersState {
@@ -74,6 +75,13 @@ const _usersReducer = createReducer(
     loading: false,
     loaded: false,
     user: user,
+  })),
+
+  on(logUserOut, (state) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: undefined,
   }))
 );
 

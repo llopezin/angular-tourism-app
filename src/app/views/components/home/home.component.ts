@@ -4,11 +4,9 @@ import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
 import { StorageService } from 'src/app/shared/services/local-storage-service';
-import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import {
-  editActivity,
   getAllActivities,
   increaseEnrolledCounter,
 } from 'src/app/shared/store/activities-store/actions';
@@ -35,18 +33,38 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user = this.storeUserService.user;
-
-    this.store.select('activitiesApp').subscribe((activitiesResponse) => {
-      this.activities = activitiesResponse.activities;
-      if (this.activitySelected === undefined) {
-        this.selectActivity();
-      } else {
-        this.activitySelected = this.getActivityById(this.activitySelected.id);
-      }
-    });
+    this.subscribeToActivitiesStore();
+    this.subscribeToUserStore();
 
     this.store.dispatch(getAllActivities());
+  }
+
+  subscribeToActivitiesStore() {
+    this.store.select('activitiesApp').subscribe((activitiesResponse) => {
+      this.activities = activitiesResponse.activities;
+      this.setInitialActivity();
+    });
+  }
+
+  subscribeToUserStore() {
+    this.store.select('usersApp').subscribe((userResponse) => {
+      this.user = userResponse.user;
+    });
+  }
+
+  setInitialActivity() {
+    this.activitySelected === undefined
+      ? this.selectActivity()
+      : (this.activitySelected = this.getActivityById(
+          this.activitySelected.id
+        ));
+  }
+
+  selectActivity(id?: number) {
+    this.resetErrorMessages();
+    id
+      ? (this.activitySelected = this.getActivityById(id))
+      : (this.activitySelected = this.activities[0]);
   }
 
   signUpToActivity(id) {
@@ -79,13 +97,6 @@ export class HomeComponent implements OnInit {
     return activity.maxEnrolled - activity.usersEnrolled;
   }
 
-  selectActivity(id?: number) {
-    this.resetErrorMessages();
-    id
-      ? (this.activitySelected = this.getActivityById(id))
-      : (this.activitySelected = this.activities[0]);
-  }
-
   resetErrorMessages() {
     this.showErrorMsg = false;
     this.showSuccessMsg = false;
@@ -108,6 +119,5 @@ export class HomeComponent implements OnInit {
   handleAlreadySignedUpError(id) {
     const isSignedUp = this.activityIsSignedUp(id);
     this.showErrorMsg = isSignedUp;
-    //if (isSignedUp) return;
   }
 }

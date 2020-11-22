@@ -24,3 +24,5 @@ export const createUser = createAction(
 );
 
 export const signUserIn = createAction('[USER] Sign In', props<{ user }>());
+
+export const logUserOut = createAction('[USER] Log out');

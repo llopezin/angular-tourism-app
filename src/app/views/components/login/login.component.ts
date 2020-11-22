@@ -60,14 +60,8 @@ export class LoginComponent implements OnInit {
     this.errorMsg = false;
     this.saveFormInput();
     this.formSubmited = true;
-    /* this.handleResponse(this.users); */
     this.validateUser(this.users);
   }
-
-  /* handleResponse(users: User[]) {
-    this.validateUser(users);
-    this.storeUserService.user = this.validatedUserData;
-  } */
 
   validateUser(users: User[]): void {
     let userFound = users.find((user) => user.email === this.user.email);
