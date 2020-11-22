@@ -8,6 +8,7 @@ import {
   createUser,
   signUserIn,
   logUserOut,
+  removeActivityFromUser,
 } from '../actions';
 
 export interface UsersState {
@@ -82,6 +83,20 @@ const _usersReducer = createReducer(
     loading: false,
     loaded: false,
     user: undefined,
+  })),
+
+  on(removeActivityFromUser, (state, { activityId }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: {
+      ...state.user,
+      activitiesEnrolled: state.user.activitiesEnrolled.filter(
+        (activityById) => {
+          return activityById !== activityId;
+        }
+      ),
+    },
   }))
 );
 
