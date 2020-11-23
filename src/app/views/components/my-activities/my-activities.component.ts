@@ -3,9 +3,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
-import { ActivitiesService } from 'src/app/shared/services/activities.service';
-import { StoreactivitiesService } from 'src/app/shared/services/store-activities.service';
-import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { decreaseEnrolledCounter } from 'src/app/shared/store/activities-store/actions';
 import { removeActivityFromUser } from 'src/app/shared/store/user-store/actions';
 
@@ -21,10 +18,7 @@ export class MyActivitiesComponent implements OnInit {
   public activitySelected: Activity;
   public errorMessage;
 
-  constructor(
-    private store: Store<AppState> /*private storeActivitiesService: StoreactivitiesService,
-    private storeUserService: StoreUserService */
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.subscribeToUsersStore();
@@ -42,23 +36,6 @@ export class MyActivitiesComponent implements OnInit {
       this.user.activitiesEnrolled?.length === 0
     );
   }
-
-  /*  setLocalUser() {
-    this.user = this.storeUserService.user;
-  } */
-  /* 
-  setStoredUser() {
-    this.storeUserService.user = this.user;
-  } */
-
-  /*   setLocalActivities() {
-    this.storeActivitiesService.activities.length === 0
-      ? this.activitiesService.getActivities().subscribe((activities) => {
-          this.afterActivitiesSet(activities);
-          this.storeActivitiesService.activities = activities;
-        })
-      : this.afterActivitiesSet(this.storeActivitiesService.activities);
-  } */
 
   subscribeToActivitesStore() {
     this.store.select('activitiesApp').subscribe((activitiesResponse) => {
@@ -95,32 +72,9 @@ export class MyActivitiesComponent implements OnInit {
 
     this.removeActivityFromUser(id);
     this.selectActivity(0);
-    /*     this.updateEnrrolledAmount();
-    this.activitiesService
-      .updateActivity(this.activitySelected)
-      .subscribe(() => {
-        this.updateStoredActivities();
-        this.removeActivityFromUser(id);
-        this.setStoredUser();
-        this.setUserActivities();
-        this.selectActivity(0);
-      }); */
   }
 
-  /*   updateStoredActivities() {
-    this.activitiesService.getActivities().subscribe((activities) => {
-      this.storeActivitiesService.activities = activities;
-      this.activities = activities;
-      this.setUserActivities();
-    });
-  } */
-
   removeActivityFromUser(id: number) {
-    /*    this.user.activitiesEnrolled = this.user.activitiesEnrolled.filter(
-      (userActivityId) => {
-        return userActivityId !== id;
-      }
-    ); */
     this.store.dispatch(removeActivityFromUser({ activityId: id }));
   }
 

@@ -9,6 +9,12 @@ import {
   signUserIn,
   logUserOut,
   removeActivityFromUser,
+  removeLanguage,
+  addLanguage,
+  removeEducation,
+  addEducation,
+  editEducation,
+  editLanguage,
 } from '../actions';
 
 export interface UsersState {
@@ -96,6 +102,86 @@ const _usersReducer = createReducer(
           return activityById !== activityId;
         }
       ),
+    },
+  })),
+
+  on(removeLanguage, (state, { languageId }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: {
+      ...state.user,
+      languages: state.user.languages.filter((language) => {
+        return language.id != languageId;
+      }),
+    },
+  })),
+
+  on(addLanguage, (state, { language }) => {
+    language.id = state.user.languages.length + 1;
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      user: {
+        ...state.user,
+        languages: [...state.user.languages, language],
+      },
+    };
+  }),
+
+  on(editLanguage, (state, { id, editedLanguage }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: {
+      ...state.user,
+      languages: state.user.languages.map((language) => {
+        if (language.id == id) {
+          editedLanguage.id = id;
+          return editedLanguage;
+        } else {
+          return language;
+        }
+      }),
+    },
+  })),
+
+  on(removeEducation, (state, { educationId }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: {
+      ...state.user,
+      education: state.user.education.filter((education) => {
+        return education.id != educationId;
+      }),
+    },
+  })),
+
+  on(addEducation, (state, { education }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: {
+      ...state.user,
+      education: [...state.user.education, education],
+    },
+  })),
+
+  on(editEducation, (state, { id, editedEducation }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    user: {
+      ...state.user,
+      education: state.user.education.map((education) => {
+        if (education.id === id) {
+          return editedEducation;
+        } else {
+          return education;
+        }
+      }),
     },
   }))
 );

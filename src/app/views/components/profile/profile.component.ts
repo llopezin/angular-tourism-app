@@ -10,6 +10,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { Router } from '@angular/router';
 import { checkNIF } from 'src/app/shared/directives/custom-validators/NIF.validator';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
 
 @Component({
   selector: 'app-profile',
@@ -33,13 +35,14 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private store: Store<AppState>,
     private formBuilder: FormBuilder,
     private storeUserService: StoreUserService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.updateLocalUser();
+    this.subscribeToUserStore();
 
     this.name = new FormControl('', [
       Validators.required,
@@ -91,6 +94,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  subscribeToUserStore() {
+    this.store.select('usersApp').subscribe((userResponse) => {
+      this.user = userResponse.user;
+    });
+  }
+
   populateFields() {
     this.name.setValue(this.user.name);
     this.user.surname ? this.surname.setValue(this.user.surname) : '';
@@ -105,10 +114,6 @@ export class ProfileComponent implements OnInit {
 
   updateStoredUser() {
     this.storeUserService.user = this.user;
-  }
-
-  updateLocalUser() {
-    this.user = this.storeUserService.user;
   }
 
   saveFormInput() {

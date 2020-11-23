@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Education } from 'src/app/shared/models/education';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
 import User from 'src/app/shared/models/user.model';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
+import { removeEducation } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-education-list',
@@ -14,10 +16,15 @@ export class EducationListComponent implements OnInit {
 
   @Output() educationEvent = new EventEmitter<number>();
 
-  constructor(private storeUserService: StoreUserService) {}
+  constructor(
+    private storeUserService: StoreUserService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
-    this.user = this.storeUserService.user;
+    this.store
+      .select('usersApp')
+      .subscribe((userRespones) => (this.user = userRespones.user));
   }
 
   updateEducation(e) {
@@ -30,11 +37,8 @@ export class EducationListComponent implements OnInit {
   }
 
   deleteEducation(e) {
-    this.updateLocalUser();
     const id = e.target.dataset.id;
-    const index = this.getEducationIndexById(id);
-    this.user.education.splice(index, 1);
-    this.updateStoredUser();
+    this.store.dispatch(removeEducation({ educationId: id }));
   }
 
   getEducationIndexById(id: number): any {

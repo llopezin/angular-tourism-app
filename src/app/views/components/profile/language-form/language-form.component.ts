@@ -5,9 +5,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
 import User from 'src/app/shared/models/user.model';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import {
+  addLanguage,
+  editLanguage,
+} from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-language-form',
@@ -33,13 +39,14 @@ export class LanguageFormComponent implements OnInit {
   ];
 
   constructor(
-    private storeUserService: StoreUserService,
+    private store: Store<AppState>,
     private formBuilder: FormBuilder,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.user = this.storeUserService.user;
+    this.subscribeToUserStore();
+
     this.language = new FormControl('', [Validators.required]);
     this.level = new FormControl('', [Validators.required]);
     this.finishDate = new FormControl('', [
@@ -57,20 +64,42 @@ export class LanguageFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.pushLanguage();
-    this.userService.updateUser(this.user).subscribe((data) => {
-      this.updateStoredUser();
-      this.showForm = false;
-      this.showSuccessMsg = true;
+    let newLanguageData = this.languageForm.value;
+
+    console.log(newLanguageData);
+
+    this.languageSelectedId == 0
+      ? this.addLanguage(newLanguageData)
+      : this.editLanguage(newLanguageData);
+
+    this.showForm = false;
+    this.showSuccessMsg = true;
+  }
+
+  addLanguage(newLanguageData) {
+    this.store.dispatch(addLanguage({ language: newLanguageData }));
+  }
+
+  editLanguage(newLanguageData) {
+    this.store.dispatch(
+      editLanguage({
+        id: this.languageSelectedId,
+        editedLanguage: newLanguageData,
+      })
+    );
+  }
+
+  subscribeToUserStore() {
+    this.store.select('usersApp').subscribe((userResponse) => {
+      this.user = userResponse.user;
     });
   }
-
-  updateStoredUser() {
+  /* updateStoredUser() {
     this.storeUserService.user = this.user;
-  }
+  } */
 
   recieveLanguageEvent($event) {
-    this.user = this.storeUserService.user;
+    //this.user = this.storeUserService.user;
     this.languageSelectedId = $event;
     if ($event > 0) {
       this.setFormValues();
@@ -92,7 +121,7 @@ export class LanguageFormComponent implements OnInit {
     });
   }
 
-  pushLanguage() {
+  /*   pushLanguage() {
     let languages = this.user.languages;
     let edited = this.languageSelectedId - 1;
     let newLanguageData = this.languageForm.value;
@@ -100,16 +129,16 @@ export class LanguageFormComponent implements OnInit {
     edited < 0
       ? this.pushNewLanguage(languages, newLanguageData)
       : this.pushEditedLanguage(languages, edited, newLanguageData);
-  }
+  } */
 
-  pushEditedLanguage(languages, edited, newLanguageData) {
+  /*  pushEditedLanguage(languages, edited, newLanguageData) {
     languages[edited] = {
       ...languages[edited],
       ...newLanguageData,
     };
-  }
-  pushNewLanguage(languages, newLanguage) {
+  } */
+  /*   pushNewLanguage(languages, newLanguage) {
     newLanguage.id = languages.length + 1 || 1;
     languages.push(newLanguage);
-  }
+  } */
 }

@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
 import { Language } from 'src/app/shared/models/language';
 import User from 'src/app/shared/models/user.model';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
+import { removeLanguage } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-language-list',
@@ -14,10 +17,12 @@ export class LanguageListComponent implements OnInit {
 
   @Output() languageEvent = new EventEmitter<number>();
 
-  constructor(private storeUserService: StoreUserService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.user = this.storeUserService.user;
+    this.store.select('usersApp').subscribe((userResponse) => {
+      this.user = userResponse.user;
+    });
   }
 
   updateLanguage(e) {
@@ -25,33 +30,14 @@ export class LanguageListComponent implements OnInit {
     this.languageEvent.emit(this.selectedLanguageId);
   }
 
+  //language event reused, sends id 0 to trigger
+  //new language functionality on parent
   addLanguage() {
     this.languageEvent.emit(0);
   }
 
   deleteLanguage(e) {
-    this.updateLocalUser();
     const id = e.target.dataset.id;
-    const index = this.getLanguageIndexById(id);
-    this.user.languages.splice(index, 1);
-    this.updateStoredUser();
-  }
-
-  getLanguageIndexById(id: number): any {
-    let index;
-    this.user.languages.forEach((language, i) => {
-      if (language.id == id) {
-        index = i;
-      }
-    });
-    return index;
-  }
-
-  updateStoredUser() {
-    this.storeUserService.user = this.user;
-  }
-
-  updateLocalUser() {
-    this.user = this.storeUserService.user;
+    this.store.dispatch(removeLanguage({ languageId: id }));
   }
 }

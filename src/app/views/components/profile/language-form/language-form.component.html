@@ -7,7 +7,7 @@
 
     <label for="language">Language:</label>
     <select name="language" id="language" [formControl]="language">
-        <option *ngFor="let option of languageOptions" [selected]="option[0]">{{option}}</option>
+        <option *ngFor="let option of languageOptions" [selected]="option[0]" [value]="option">{{option}}</option>
     </select>
     <span class="form__validation-message"
         *ngIf="languageForm.get('language').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please
@@ -15,7 +15,7 @@
 
     <label for="level">Level:</label>
     <select name="level" id="level" [formControl]="level">
-        <option *ngFor="let option of levelOptions" [selected]="option[0]">{{option}}</option>
+        <option *ngFor="let option of levelOptions" [selected]="option[0]" [value]="option">{{option}}</option>
     </select>
     <span class="form__validation-message"
         *ngIf="languageForm.get('level').errors?.required && (languageForm.get('level').touched || languageForm.get('level').dirty)">Please

@@ -5,10 +5,16 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducers';
 import { Education } from 'src/app/shared/models/education';
 import User from 'src/app/shared/models/user.model';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import {
+  addEducation,
+  editEducation,
+} from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-education-form',
@@ -40,13 +46,12 @@ export class EducationFormComponent implements OnInit {
   };
 
   constructor(
-    private storeUserService: StoreUserService,
-    private formBuilder: FormBuilder,
-    private userService: UserService
+    private store: Store<AppState>,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.user = this.storeUserService.user;
+    this.subscribeToUserStore();
 
     this.type = new FormControl('', [Validators.required]);
     this.level = new FormControl('', [Validators.required]);
@@ -77,20 +82,45 @@ export class EducationFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.pushEducation();
-    this.userService.updateUser(this.user).subscribe((data) => {
-      this.updateStoredUser();
-      this.showForm = false;
-      this.showSuccessMsg = true;
-    });
+    this.educationSelectedId == 0
+      ? this.addEducation(this.educationForm.value)
+      : this.editEducation();
+    /* this.pushEducation(); */
+    /*     this.userService.updateUser(this.user).subscribe((data) => { */
+    /*     this.updateStoredUser(); */
+    this.showForm = false;
+    this.showSuccessMsg = true;
+    /*     }); */
   }
 
-  updateStoredUser() {
+  /*  updateStoredUser() {
     this.storeUserService.user = this.user;
+  } */
+
+  subscribeToUserStore() {
+    this.store
+      .select('usersApp')
+      .subscribe((userResponse) => (this.user = userResponse.user));
+  }
+
+  addEducation(newLanguage) {
+    this.store.dispatch(
+      addEducation({
+        education: newLanguage,
+      })
+    );
+  }
+
+  editEducation() {
+    this.store.dispatch(
+      editEducation({
+        id: this.educationSelectedId,
+        editedEducation: this.educationForm.value,
+      })
+    );
   }
 
   recieveEducationEvent($event) {
-    this.user = this.storeUserService.user;
     this.educationSelectedId = $event;
     if ($event > 0) {
       this.setFormValues();
@@ -100,7 +130,7 @@ export class EducationFormComponent implements OnInit {
   }
 
   setFormValues() {
-    const educationToEdit = this.getEducationById(this.educationSelectedId);
+    let educationToEdit = this.getEducationById(this.educationSelectedId);
 
     this.type.setValue(educationToEdit.type);
     this.level.setValue(educationToEdit.level);
@@ -115,7 +145,7 @@ export class EducationFormComponent implements OnInit {
     });
   }
 
-  pushEducation() {
+  /*   pushEducation() {
     let educations = this.user.education;
     let edited = this.educationSelectedId - 1;
     let neweducationData = this.educationForm.value;
@@ -123,9 +153,9 @@ export class EducationFormComponent implements OnInit {
     edited < 0
       ? this.pushNewEducation(educations, neweducationData)
       : this.pushEditedEducation(educations, edited, neweducationData);
-  }
+  } */
 
-  pushEditedEducation(educations, edited, neweducationData) {
+  /*   pushEditedEducation(educations, edited, neweducationData) {
     educations[edited] = {
       ...educations[edited],
       ...neweducationData,
@@ -134,7 +164,7 @@ export class EducationFormComponent implements OnInit {
   pushNewEducation(educations, neweducation) {
     neweducation.id = educations.length + 1;
     educations.push(neweducation);
-  }
+  } */
 
   getLevelOptions() {
     return this.type.value === 'grado'
