@@ -18,6 +18,16 @@ export const editActivity = createAction(
   props<{ id: number; editedActivity: Activity }>()
 );
 
+export const deleteActivity = createAction(
+  '[ACTIVITIES] delete activity',
+  props<{ id: number }>()
+);
+
+export const addActivity = createAction(
+  '[ACTIVITIES] add activity',
+  props<{ activity: Activity }>()
+);
+
 export const increaseEnrolledCounter = createAction(
   '[ACTIVITIES] add to enrolled',
   props<{ id: number }>()

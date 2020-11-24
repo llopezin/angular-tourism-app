@@ -8,6 +8,8 @@ import {
   editActivity,
   increaseEnrolledCounter,
   decreaseEnrolledCounter,
+  addActivity,
+  deleteActivity,
 } from '../actions';
 
 export interface ActivitiesState {
@@ -53,10 +55,29 @@ const _activitiesReducer = createReducer(
     loaded: false,
     activities: state.activities.map((activity) => {
       if (activity.id === id) {
+        editedActivity.id = id;
         return editedActivity;
       } else {
         return activity;
       }
+    }),
+  })),
+
+  on(addActivity, (state, { activity }) => {
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      activities: [...state.activities, activity],
+    };
+  }),
+
+  on(deleteActivity, (state, { id }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    activities: state.activities.filter((activity) => {
+      return activity.id != id;
     }),
   })),
 

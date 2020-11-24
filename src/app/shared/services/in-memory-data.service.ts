@@ -10,9 +10,9 @@ export class InMemoryDataService implements InMemoryDbService {
     const users = [
       {
         id: 1,
-        email: 'admin@tourismapp.com',
+        email: 'admin@admin.com',
         name: 'admin',
-        password: 'password1234',
+        password: '12341234',
         isAdmin: true,
         activitiesEnrolled: [1, 2, 3, 4],
         languages: [],

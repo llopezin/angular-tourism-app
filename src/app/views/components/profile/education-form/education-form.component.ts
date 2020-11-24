@@ -9,8 +9,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import { Education } from 'src/app/shared/models/education';
 import User from 'src/app/shared/models/user.model';
-import { StoreUserService } from 'src/app/shared/services/store-user.service';
-import { UserService } from 'src/app/shared/services/user.service';
 import {
   addEducation,
   editEducation,
@@ -85,19 +83,10 @@ export class EducationFormComponent implements OnInit {
     this.educationSelectedId == 0
       ? this.addEducation(this.educationForm.value)
       : this.editEducation(this.educationForm.value);
-    /* this.pushEducation(); */
-    /*     this.userService.updateUser(this.user).subscribe((data) => { */
-    /*     this.updateStoredUser(); */
+
     this.showForm = false;
     this.showSuccessMsg = true;
-    console.log(this.educationForm.value);
-
-    /*     }); */
   }
-
-  /*  updateStoredUser() {
-    this.storeUserService.user = this.user;
-  } */
 
   subscribeToUserStore() {
     this.store
@@ -148,27 +137,6 @@ export class EducationFormComponent implements OnInit {
       return education.id == id;
     });
   }
-
-  /*   pushEducation() {
-    let educations = this.user.education;
-    let edited = this.educationSelectedId - 1;
-    let neweducationData = this.educationForm.value;
-
-    edited < 0
-      ? this.pushNewEducation(educations, neweducationData)
-      : this.pushEditedEducation(educations, edited, neweducationData);
-  } */
-
-  /*   pushEditedEducation(educations, edited, neweducationData) {
-    educations[edited] = {
-      ...educations[edited],
-      ...neweducationData,
-    };
-  }
-  pushNewEducation(educations, neweducation) {
-    neweducation.id = educations.length + 1;
-    educations.push(neweducation);
-  } */
 
   getLevelOptions() {
     return this.type.value === 'grado'

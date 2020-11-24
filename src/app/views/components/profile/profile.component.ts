@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { checkNIF } from 'src/app/shared/directives/custom-validators/NIF.validator';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
+import { editUser } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-profile',
@@ -86,12 +87,19 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.successMsg = false;
-    this.saveFormInput();
-    this.userService.updateUser(this.user).subscribe(() => {
+    this.successMsg = false; /* 
+    this.saveFormInput(); */
+    let editedUser = this.buildEditedUser();
+    this.store.dispatch(
+      editUser({
+        id: editedUser.id,
+        editedUser: editedUser,
+      })
+    );
+    /*   this.userService.updateUser(this.user).subscribe(() => {
       this.updateStoredUser();
-      this.successMsg = true;
-    });
+    }); */
+    this.successMsg = true;
   }
 
   subscribeToUserStore() {
@@ -116,8 +124,8 @@ export class ProfileComponent implements OnInit {
     this.storeUserService.user = this.user;
   }
 
-  saveFormInput() {
-    this.user = {
+  buildEditedUser() {
+    return {
       ...this.user,
       ...this.updateProfileForm.value,
     };

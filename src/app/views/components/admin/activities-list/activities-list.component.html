@@ -27,7 +27,7 @@
                     <td>{{activity.language}}</td>
                     <td>{{activity.maxEnrolled}}</td>
                     <td>{{activity.minEnrolled}}</td>
-                    <td>{{activity.state || calculateState(activity)}}</td>
+                    <td>{{calculateState(activity)}}</td>
                     <td><button class="update-activities-btn" (click)="updateActivity(activity.id)">Update</button>
                         <button class="update-activities-btn" (click)="deleteActivity(activity.id)">Delete</button>
                     <td>
