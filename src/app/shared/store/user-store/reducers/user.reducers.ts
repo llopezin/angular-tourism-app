@@ -159,15 +159,18 @@ const _usersReducer = createReducer(
     },
   })),
 
-  on(addEducation, (state, { education }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    user: {
-      ...state.user,
-      education: [...state.user.education, education],
-    },
-  })),
+  on(addEducation, (state, { education }) => {
+    education.id = state.user.education.length + 1;
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      user: {
+        ...state.user,
+        education: [...state.user.education, education],
+      },
+    };
+  }),
 
   on(editEducation, (state, { id, editedEducation }) => ({
     ...state,
@@ -177,6 +180,7 @@ const _usersReducer = createReducer(
       ...state.user,
       education: state.user.education.map((education) => {
         if (education.id === id) {
+          editedEducation.id = id;
           return editedEducation;
         } else {
           return education;

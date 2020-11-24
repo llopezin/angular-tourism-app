@@ -84,12 +84,14 @@ export class EducationFormComponent implements OnInit {
   onSubmit() {
     this.educationSelectedId == 0
       ? this.addEducation(this.educationForm.value)
-      : this.editEducation();
+      : this.editEducation(this.educationForm.value);
     /* this.pushEducation(); */
     /*     this.userService.updateUser(this.user).subscribe((data) => { */
     /*     this.updateStoredUser(); */
     this.showForm = false;
     this.showSuccessMsg = true;
+    console.log(this.educationForm.value);
+
     /*     }); */
   }
 
@@ -111,11 +113,13 @@ export class EducationFormComponent implements OnInit {
     );
   }
 
-  editEducation() {
+  editEducation(education) {
+    console.log('about to edit education');
+
     this.store.dispatch(
       editEducation({
         id: this.educationSelectedId,
-        editedEducation: this.educationForm.value,
+        editedEducation: education,
       })
     );
   }
