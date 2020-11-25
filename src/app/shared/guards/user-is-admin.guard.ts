@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AppState } from 'src/app/app.reducers';
 import { StoreUserService } from '../services/store-user.service';
 
@@ -15,13 +17,20 @@ export class adminGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(): boolean {
-    /*   this.store.select("usersApp").subscribe( userResponse=>
-      if(userResponse.user.isAdmin){ return true}else{
-        this.router.navigate(["/home"])
-      };
-     
-      )  */
-    return true;
+  canActivate(): Observable<boolean> {
+    let canActivate = this.store.select('usersApp').pipe(
+      map((userResponse) => {
+        let user = userResponse.user;
+
+        if (user.isAdmin == true) {
+          return true;
+        }
+
+        console.log('Access denied');
+        this.router.navigate(['/home']);
+        return false;
+      })
+    );
+    return canActivate;
   }
 }

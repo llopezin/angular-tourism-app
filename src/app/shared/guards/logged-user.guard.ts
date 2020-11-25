@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AppState } from 'src/app/app.reducers';
 import User from '../models/user.model';
 import { StoreUserService } from '../services/store-user.service';
@@ -11,19 +13,22 @@ import { StoreUserService } from '../services/store-user.service';
 })
 export class LoggedUserGuard implements CanActivate {
   public user: User;
-  constructor(private userStore: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
-  canActivate(): any {
-    return true;
-  }
+  canActivate(): Observable<boolean> {
+    let canActivate = this.store.select('usersApp').pipe(
+      map((userResponse) => {
+        let user = userResponse.user;
 
-  activate(): boolean {
-    if (this.user) {
-      return true;
-    } else {
-      this.router.navigate(['login']);
-      console.log('Access denied');
-      return false;
-    }
+        if (user !== undefined) {
+          return true;
+        }
+
+        console.log('Access denied');
+        this.router.navigate(['/home']);
+        return false;
+      })
+    );
+    return canActivate;
   }
 }

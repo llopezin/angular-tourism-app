@@ -56,6 +56,7 @@ const _activitiesReducer = createReducer(
     activities: state.activities.map((activity) => {
       if (activity.id === id) {
         editedActivity.id = id;
+        editedActivity.usersEnrolled = activity.usersEnrolled;
         return editedActivity;
       } else {
         return activity;

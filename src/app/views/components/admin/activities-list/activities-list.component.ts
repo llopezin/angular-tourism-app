@@ -13,7 +13,7 @@ import { deleteActivity } from 'src/app/shared/store/activities-store/actions';
 })
 export class ActivitiesListComponent implements OnInit {
   public activities: Activity[];
-  public selectedActivitiesId: number;
+  public selectedActivityId: number;
 
   @Output() ActivitiesEvent = new EventEmitter<number>();
 
@@ -50,8 +50,8 @@ export class ActivitiesListComponent implements OnInit {
   } */
 
   updateActivity(id) {
-    this.selectedActivitiesId = id;
-    this.ActivitiesEvent.emit(this.selectedActivitiesId);
+    this.selectedActivityId = id;
+    this.ActivitiesEvent.emit(this.selectedActivityId);
   }
 
   addActivity() {

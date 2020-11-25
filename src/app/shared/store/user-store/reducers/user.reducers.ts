@@ -59,7 +59,6 @@ const _usersReducer = createReducer(
     ...state,
     loading: false,
     loaded: false,
-    user: user,
     users: [...state.users, user],
   })),
 
@@ -77,12 +76,15 @@ const _usersReducer = createReducer(
     }),
   })),
 
-  on(signUserIn, (state, { user }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    user: user,
-  })),
+  on(signUserIn, (state, { user }) => {
+    let { password, ...noPswUser } = user;
+    return {
+      ...state,
+      loading: false,
+      loaded: false,
+      user: noPswUser,
+    };
+  }),
 
   on(logUserOut, (state) => ({
     ...state,
