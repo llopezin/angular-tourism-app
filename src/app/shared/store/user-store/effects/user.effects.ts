@@ -6,6 +6,11 @@ import {
   getAllUsersError,
   signUserIn,
   createUser,
+  createUserSuccess,
+  createUserError,
+  editUser,
+  editUserSuccess,
+  editUserError,
 } from '../actions';
 import { mergeMap, map, catchError, exhaustMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -35,14 +40,24 @@ export class UsersEffects {
   createUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createUser),
-      exhaustMap((action) =>
+      mergeMap((action) =>
         this.userService.createUser(action.user).pipe(
           map((user) => createUserSuccess({ user: user })),
-          catchError((error) => createUserError({ payload: error }))
+          catchError((err) => of(createUserError({ payload: err })))
         )
       )
     )
   );
 
-  editUser$;
+  /*   editUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editUser),
+      mergeMap((action) =>
+        this.userService.updateUser(action.user, action.id).pipe(
+          map((user) => editUserSuccess({ user: user })),
+          catchError((err) => of(editUserError({ payload: err })))
+        )
+      )
+    )
+  ); */
 }
