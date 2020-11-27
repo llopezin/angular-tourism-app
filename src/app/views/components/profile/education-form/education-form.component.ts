@@ -9,10 +9,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import { Education } from 'src/app/shared/models/education';
 import User from 'src/app/shared/models/user.model';
-import {
-  addEducation,
-  editEducation,
-} from 'src/app/shared/store/user-store/actions';
+import { editUser } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-education-form',
@@ -94,21 +91,26 @@ export class EducationFormComponent implements OnInit {
       .subscribe((userResponse) => (this.user = userResponse.user));
   }
 
-  addEducation(newLanguage) {
-    this.store.dispatch(
-      addEducation({
-        education: newLanguage,
-      })
-    );
+  addEducation(newEducationData) {
+    newEducationData.id = this.user.education.length + 1;
+    this.user = {
+      ...this.user,
+      education: [...this.user.education, newEducationData],
+    };
+    this.store.dispatch(editUser({ editedUser: this.user, id: this.user.id }));
   }
 
-  editEducation(education) {
-    console.log('about to edit education');
+  editEducation(newEducationData) {
+    let id = this.educationSelectedId;
+    this.user.education = this.user.education.map((education) => {
+      if (education.id == id) return { ...newEducationData, id: id };
+      return education;
+    });
 
     this.store.dispatch(
-      editEducation({
-        id: this.educationSelectedId,
-        editedEducation: education,
+      editUser({
+        editedUser: this.user,
+        id: this.user.id,
       })
     );
   }

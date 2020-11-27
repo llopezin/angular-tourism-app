@@ -2,8 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import User from 'src/app/shared/models/user.model';
-import { StoreUserService } from 'src/app/shared/services/store-user.service';
-import { removeEducation } from 'src/app/shared/store/user-store/actions';
+import { editUser } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-education-list',
@@ -16,10 +15,7 @@ export class EducationListComponent implements OnInit {
 
   @Output() educationEvent = new EventEmitter<number>();
 
-  constructor(
-    private storeUserService: StoreUserService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store
@@ -37,8 +33,12 @@ export class EducationListComponent implements OnInit {
   }
 
   deleteEducation(e) {
-    const id = e.target.dataset.id;
-    this.store.dispatch(removeEducation({ educationId: id }));
+    let id = e.target.dataset.id;
+    this.user.education = this.user.education.filter((education) => {
+      return education.id != id;
+    });
+
+    this.store.dispatch(editUser({ editedUser: this.user, id: this.user.id }));
   }
 
   getEducationIndexById(id: number): any {
@@ -49,13 +49,5 @@ export class EducationListComponent implements OnInit {
       }
     });
     return index;
-  }
-
-  updateStoredUser() {
-    this.storeUserService.user = this.user;
-  }
-
-  updateLocalUser() {
-    this.user = this.storeUserService.user;
   }
 }
