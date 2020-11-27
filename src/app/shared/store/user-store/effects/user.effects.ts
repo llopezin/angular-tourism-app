@@ -11,8 +11,15 @@ import {
   editUser,
   editUserSuccess,
   editUserError,
+  removeActivityFromUser,
 } from '../actions';
-import { mergeMap, map, catchError, exhaustMap } from 'rxjs/operators';
+import {
+  mergeMap,
+  map,
+  catchError,
+  exhaustMap,
+  switchMap,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
@@ -49,15 +56,22 @@ export class UsersEffects {
     )
   );
 
-  /*   editUser$ = createEffect(() =>
+  /*   signUserIn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(signUserIn),
+      map((action) => (this.storeUserService.user = action.user))
+    )
+  ); */
+
+  editUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(editUser),
       mergeMap((action) =>
-        this.userService.updateUser(action.user, action.id).pipe(
-          map((user) => editUserSuccess({ user: user })),
+        this.userService.updateUser(action.editedUser, action.id).pipe(
+          map((user) => editUserSuccess({ editedUser: user })),
           catchError((err) => of(editUserError({ payload: err })))
         )
       )
     )
-  ); */
+  );
 }

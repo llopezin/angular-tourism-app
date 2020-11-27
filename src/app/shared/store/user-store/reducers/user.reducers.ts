@@ -8,8 +8,8 @@ import {
   createUser,
   signUserIn,
   logUserOut,
-  removeActivityFromUser,
-  removeLanguage,
+  /* removeActivityFromUser,
+  removeLanguage, */
   addLanguage,
   removeEducation,
   addEducation,
@@ -68,7 +68,7 @@ const _usersReducer = createReducer(
     loaded: false,
     user: editedUser,
     users: state.users.map((user) => {
-      if (user.id === id) {
+      if (user.id == id) {
         return editedUser;
       } else {
         return user;
@@ -93,7 +93,7 @@ const _usersReducer = createReducer(
     user: undefined,
   })),
 
-  on(removeActivityFromUser, (state, { activityId }) => ({
+  /*   on(removeActivityFromUser, (state, { activityId }) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -105,9 +105,9 @@ const _usersReducer = createReducer(
         }
       ),
     },
-  })),
+  })), */
 
-  on(removeLanguage, (state, { languageId }) => ({
+  /*   on(removeLanguage, (state, { languageId }) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -117,7 +117,7 @@ const _usersReducer = createReducer(
         return language.id != languageId;
       }),
     },
-  })),
+  })), */
 
   on(addLanguage, (state, { language }) => {
     language.id = state.user.languages.length + 1;

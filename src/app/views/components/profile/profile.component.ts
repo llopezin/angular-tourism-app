@@ -96,9 +96,7 @@ export class ProfileComponent implements OnInit {
         editedUser: editedUser,
       })
     );
-    /*   this.userService.updateUser(this.user).subscribe(() => {
-      this.updateStoredUser();
-    }); */
+
     this.successMsg = true;
   }
 

@@ -4,7 +4,10 @@ import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
 import { decreaseEnrolledCounter } from 'src/app/shared/store/activities-store/actions';
-import { removeActivityFromUser } from 'src/app/shared/store/user-store/actions';
+import {
+  editUser,
+  removeActivityFromUser,
+} from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-my-activities',
@@ -75,7 +78,11 @@ export class MyActivitiesComponent implements OnInit {
   }
 
   removeActivityFromUser(id: number) {
-    this.store.dispatch(removeActivityFromUser({ activityId: id }));
+    this.user.activitiesEnrolled.splice(
+      this.user.activitiesEnrolled.indexOf(id),
+      1
+    );
+    this.store.dispatch(editUser({ editedUser: this.user, id: this.user.id }));
   }
 
   updateEnrrolledAmount() {

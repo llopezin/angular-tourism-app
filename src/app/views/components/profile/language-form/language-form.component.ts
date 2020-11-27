@@ -8,12 +8,7 @@ import {
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import User from 'src/app/shared/models/user.model';
-import { StoreUserService } from 'src/app/shared/services/store-user.service';
-import { UserService } from 'src/app/shared/services/user.service';
-import {
-  addLanguage,
-  editLanguage,
-} from 'src/app/shared/store/user-store/actions';
+import { editUser } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-language-form',
@@ -40,8 +35,7 @@ export class LanguageFormComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private formBuilder: FormBuilder,
-    private userService: UserService
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -66,8 +60,6 @@ export class LanguageFormComponent implements OnInit {
   onSubmit() {
     let newLanguageData = this.languageForm.value;
 
-    console.log(newLanguageData);
-
     this.languageSelectedId == 0
       ? this.addLanguage(newLanguageData)
       : this.editLanguage(newLanguageData);
@@ -77,14 +69,25 @@ export class LanguageFormComponent implements OnInit {
   }
 
   addLanguage(newLanguageData) {
-    this.store.dispatch(addLanguage({ language: newLanguageData }));
+    newLanguageData.id = this.user.languages.length + 1;
+    this.user = {
+      ...this.user,
+      languages: [...this.user.languages, newLanguageData],
+    };
+    this.store.dispatch(editUser({ editedUser: this.user, id: this.user.id }));
   }
 
   editLanguage(newLanguageData) {
+    let id = this.languageSelectedId;
+    this.user.languages = this.user.languages.map((language) => {
+      if (language.id == id) return { ...newLanguageData, id: id };
+      return language;
+    });
+
     this.store.dispatch(
-      editLanguage({
-        id: this.languageSelectedId,
-        editedLanguage: newLanguageData,
+      editUser({
+        editedUser: this.user,
+        id: this.user.id,
       })
     );
   }
@@ -94,12 +97,8 @@ export class LanguageFormComponent implements OnInit {
       this.user = userResponse.user;
     });
   }
-  /* updateStoredUser() {
-    this.storeUserService.user = this.user;
-  } */
 
   recieveLanguageEvent($event) {
-    //this.user = this.storeUserService.user;
     this.languageSelectedId = $event;
     if ($event > 0) {
       this.setFormValues();
@@ -120,25 +119,4 @@ export class LanguageFormComponent implements OnInit {
       return language.id == id;
     });
   }
-
-  /*   pushLanguage() {
-    let languages = this.user.languages;
-    let edited = this.languageSelectedId - 1;
-    let newLanguageData = this.languageForm.value;
-
-    edited < 0
-      ? this.pushNewLanguage(languages, newLanguageData)
-      : this.pushEditedLanguage(languages, edited, newLanguageData);
-  } */
-
-  /*  pushEditedLanguage(languages, edited, newLanguageData) {
-    languages[edited] = {
-      ...languages[edited],
-      ...newLanguageData,
-    };
-  } */
-  /*   pushNewLanguage(languages, newLanguage) {
-    newLanguage.id = languages.length + 1 || 1;
-    languages.push(newLanguage);
-  } */
 }

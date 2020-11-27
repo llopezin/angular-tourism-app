@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
   }
 
   signUpToActivity(id) {
-    if (this.activityIsSignedUp(id)) {
+    /*     if (this.activityIsSignedUp(id)) {
       this.handleAlreadySignedUpError(id);
       return;
     }
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
       this.storeUserService.user = this.user;
       this.showSuccessMsg = true;
       this.updateActivityEnrolledCounter();
-    });
+    }); */
   }
 
   addToFavourites(id) {

@@ -24,7 +24,7 @@ export const editUser = createAction(
 
 export const editUserSuccess = createAction(
   '[USER] Edit User Success',
-  props<{ id: number; editedUser: User }>()
+  props<{ editedUser: User }>()
 );
 
 export const editUserError = createAction(
@@ -59,10 +59,10 @@ export const removeActivityFromUser = createAction(
 );
 
 //User Languages
-export const removeLanguage = createAction(
+/* export const removeLanguage = createAction(
   '[USER] remove language',
   props<{ languageId: number }>()
-);
+); */
 
 export const addLanguage = createAction(
   '[USER] add language',
