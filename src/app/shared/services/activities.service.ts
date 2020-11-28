@@ -27,7 +27,8 @@ export class ActivitiesService {
     return this.http.post<Activity>('api/activities', activity);
   }
 
-  updateActivity(activity: Activity) {
+  updateActivity(activity: Activity, id: number) {
+    activity.id = id;
     return this.http.put<Activity>(
       'api/activities',
       activity,

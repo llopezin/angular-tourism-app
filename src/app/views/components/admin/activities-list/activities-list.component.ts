@@ -17,24 +17,11 @@ export class ActivitiesListComponent implements OnInit {
 
   @Output() ActivitiesEvent = new EventEmitter<number>();
 
-  constructor(
-    /*    private storeActivitiesService: StoreactivitiesService,
-    private activitiesService: ActivitiesService */
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.subscribeToActivitiesStore();
   }
-
-  /*   setLocalActivities() {
-    this.storeActivitiesService.activities.length === 0
-      ? this.activitiesService.getActivities().subscribe((activities) => {
-          this.afterActivitiesSet(activities);
-          this.storeActivitiesService.activities = activities;
-        })
-      : this.afterActivitiesSet(this.storeActivitiesService.activities);
-  } */
 
   subscribeToActivitiesStore() {
     this.store
@@ -44,10 +31,6 @@ export class ActivitiesListComponent implements OnInit {
           (this.activities = activitiesResponse.activities)
       );
   }
-
-  /*  afterActivitiesSet(activities) {
-    this.activities = activities;
-  } */
 
   updateActivity(id) {
     this.selectedActivityId = id;
@@ -60,11 +43,6 @@ export class ActivitiesListComponent implements OnInit {
 
   deleteActivity(id) {
     this.store.dispatch(deleteActivity({ id: id }));
-    /*    this.activitiesService.deleteActivity(id).subscribe(() => {
-      const index = this.getActivitiesIndexById(id);
-      this.activities.splice(index, 1);
-      this.storeActivitiesService.activities = this.activities;
-    }); */
   }
 
   getActivitiesIndexById(id: number): any {

@@ -4,7 +4,6 @@ import {
   getAllUsers,
   getAllUsersSuccess,
   getAllUsersError,
-  signUserIn,
   createUser,
   createUserSuccess,
   createUserError,
@@ -13,24 +12,14 @@ import {
   editUserError,
   removeActivityFromUser,
 } from '../actions';
-import {
-  mergeMap,
-  map,
-  catchError,
-  exhaustMap,
-  switchMap,
-} from 'rxjs/operators';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user.service';
 import { StoreUserService } from 'src/app/shared/services/store-user.service';
 
 @Injectable()
 export class UsersEffects {
-  constructor(
-    private actions$: Actions,
-    private userService: UserService,
-    private storeUserService: StoreUserService
-  ) {}
+  constructor(private actions$: Actions, private userService: UserService) {}
 
   getUsers$ = createEffect(() =>
     this.actions$.pipe(
@@ -55,13 +44,6 @@ export class UsersEffects {
       )
     )
   );
-
-  /*   signUserIn$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(signUserIn),
-      map((action) => (this.storeUserService.user = action.user))
-    )
-  ); */
 
   editUser$ = createEffect(() =>
     this.actions$.pipe(

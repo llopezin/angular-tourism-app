@@ -4,12 +4,9 @@ import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
 import { StorageService } from 'src/app/shared/services/local-storage-service';
-import { StoreUserService } from 'src/app/shared/services/store-user.service';
+import { ActivitiesService } from 'src/app/shared/services/activities.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import {
-  getAllActivities,
-  increaseEnrolledCounter,
-} from 'src/app/shared/store/activities-store/actions';
+import { getAllActivities } from 'src/app/shared/store/activities-store/actions';
 
 @Component({
   selector: 'app-home',
@@ -26,8 +23,8 @@ export class HomeComponent implements OnInit {
   public favouriteSuccess: boolean;
 
   constructor(
-    private storeUserService: StoreUserService,
     private userService: UserService,
+    private activitiesService: ActivitiesService,
     private storage: StorageService,
     private store: Store<AppState>
   ) {}
@@ -37,6 +34,14 @@ export class HomeComponent implements OnInit {
     this.subscribeToUserStore();
 
     this.store.dispatch(getAllActivities());
+
+    this.userService.getUsers().subscribe((users) => {
+      console.log(users);
+    });
+
+    this.activitiesService.getActivities().subscribe((activities) => {
+      console.log(activities);
+    });
   }
 
   subscribeToActivitiesStore() {
@@ -109,11 +114,11 @@ export class HomeComponent implements OnInit {
   }
 
   updateActivityEnrolledCounter() {
-    this.store.dispatch(
+    /*   this.store.dispatch(
       increaseEnrolledCounter({
         id: this.activitySelected.id,
       })
-    );
+    ); */
   }
 
   handleAlreadySignedUpError(id) {

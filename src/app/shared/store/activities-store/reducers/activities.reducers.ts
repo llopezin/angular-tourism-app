@@ -6,8 +6,6 @@ import {
   getAllActivitiesError,
   getAllActivitiesSuccess,
   editActivity,
-  increaseEnrolledCounter,
-  decreaseEnrolledCounter,
   addActivity,
   deleteActivity,
 } from '../actions';
@@ -80,9 +78,9 @@ const _activitiesReducer = createReducer(
     activities: state.activities.filter((activity) => {
       return activity.id != id;
     }),
-  })),
+  }))
 
-  on(increaseEnrolledCounter, (state, { id }) => ({
+  /*   on(increaseEnrolledCounter, (state, { id }) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -95,9 +93,9 @@ const _activitiesReducer = createReducer(
         return activity;
       }
     }),
-  })),
+  })), */
 
-  on(decreaseEnrolledCounter, (state, { id }) => ({
+  /*   on(decreaseEnrolledCounter, (state, { id }) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -110,7 +108,7 @@ const _activitiesReducer = createReducer(
         return activity;
       }
     }),
-  }))
+  }))*/
 );
 
 export function activitiesReducer(state, action) {

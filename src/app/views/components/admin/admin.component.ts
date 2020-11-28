@@ -105,14 +105,7 @@ export class AdminComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activitySelectedId === 0
-      ? this.store.dispatch(addActivity({ activity: this.activityForm.value }))
-      : this.store.dispatch(
-          editActivity({
-            id: this.activitySelectedId,
-            editedActivity: this.activityForm.value,
-          })
-        );
+    this.activitySelectedId === 0 ? this.createActivity() : this.editActivity();
 
     this.showForm = false;
     this.showSuccessMsg = true;
@@ -122,6 +115,19 @@ export class AdminComponent implements OnInit {
     this.store.select('activitiesApp').subscribe((activitesResponse) => {
       this.activities = activitesResponse.activities;
     });
+  }
+
+  createActivity() {
+    this.store.dispatch(addActivity({ activity: this.activityForm.value }));
+  }
+
+  editActivity() {
+    this.store.dispatch(
+      editActivity({
+        id: this.activitySelectedId,
+        editedActivity: this.activityForm.value,
+      })
+    );
   }
 
   recieveActivitiesEvent($event) {

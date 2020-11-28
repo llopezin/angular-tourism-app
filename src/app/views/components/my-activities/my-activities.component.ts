@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
-import { decreaseEnrolledCounter } from 'src/app/shared/store/activities-store/actions';
+import { editActivity } from 'src/app/shared/store/activities-store/actions';
 import {
   editUser,
   removeActivityFromUser,
@@ -69,8 +69,16 @@ export class MyActivitiesComponent implements OnInit {
   }
 
   cancelActivity(id: number) {
+    let editedActivity = {
+      ...this.activitySelected,
+      usersEnrolled: this.activitySelected.usersEnrolled - 1,
+    };
+
     this.store.dispatch(
-      decreaseEnrolledCounter({ id: this.activitySelected.id })
+      editActivity({
+        editedActivity: editedActivity,
+        id: this.activitySelected.id,
+      })
     );
 
     this.removeActivityFromUser(id);
