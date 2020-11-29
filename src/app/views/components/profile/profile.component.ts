@@ -87,8 +87,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.successMsg = false; /* 
-    this.saveFormInput(); */
+    this.successMsg = false;
     let editedUser = this.buildEditedUser();
     this.store.dispatch(
       editUser({

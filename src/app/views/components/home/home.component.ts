@@ -6,7 +6,11 @@ import User from 'src/app/shared/models/user.model';
 import { StorageService } from 'src/app/shared/services/local-storage-service';
 import { ActivitiesService } from 'src/app/shared/services/activities.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { getAllActivities } from 'src/app/shared/store/activities-store/actions';
+import {
+  editActivity,
+  getAllActivities,
+} from 'src/app/shared/store/activities-store/actions';
+import { editUser } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-home',
@@ -73,17 +77,17 @@ export class HomeComponent implements OnInit {
   }
 
   signUpToActivity(id) {
-    /*     if (this.activityIsSignedUp(id)) {
+    if (this.activityIsSignedUp(id)) {
       this.handleAlreadySignedUpError(id);
       return;
     }
 
     this.user.activitiesEnrolled.push(id);
-    this.userService.updateUser(this.user).subscribe(() => {
-      this.storeUserService.user = this.user;
-      this.showSuccessMsg = true;
-      this.updateActivityEnrolledCounter();
-    }); */
+
+    this.store.dispatch(editUser({ editedUser: this.user, id: this.user.id }));
+
+    this.showSuccessMsg = true;
+    this.updateActivityEnrolledCounter();
   }
 
   addToFavourites(id) {
@@ -114,11 +118,14 @@ export class HomeComponent implements OnInit {
   }
 
   updateActivityEnrolledCounter() {
-    /*   this.store.dispatch(
-      increaseEnrolledCounter({
+    this.activitySelected.usersEnrolled++;
+
+    this.store.dispatch(
+      editActivity({
+        editedActivity: this.activitySelected,
         id: this.activitySelected.id,
       })
-    ); */
+    );
   }
 
   handleAlreadySignedUpError(id) {

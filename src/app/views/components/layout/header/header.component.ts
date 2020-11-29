@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.userStore.dispatch(logUserOut());
 
-    //Avoid reloading when log out at home component
+    //Avoid redirecting when log out at home component
     if (this.router.url === '/home') {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;

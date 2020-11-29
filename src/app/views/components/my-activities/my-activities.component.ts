@@ -4,10 +4,7 @@ import { AppState } from 'src/app/app.reducers';
 import Activity from 'src/app/shared/models/activity.model';
 import User from 'src/app/shared/models/user.model';
 import { editActivity } from 'src/app/shared/store/activities-store/actions';
-import {
-  editUser,
-  removeActivityFromUser,
-} from 'src/app/shared/store/user-store/actions';
+import { editUser } from 'src/app/shared/store/user-store/actions';
 
 @Component({
   selector: 'app-my-activities',
@@ -69,14 +66,11 @@ export class MyActivitiesComponent implements OnInit {
   }
 
   cancelActivity(id: number) {
-    let editedActivity = {
-      ...this.activitySelected,
-      usersEnrolled: this.activitySelected.usersEnrolled - 1,
-    };
+    this.activitySelected.usersEnrolled--;
 
     this.store.dispatch(
       editActivity({
-        editedActivity: editedActivity,
+        editedActivity: this.activitySelected,
         id: this.activitySelected.id,
       })
     );

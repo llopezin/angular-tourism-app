@@ -79,36 +79,6 @@ const _activitiesReducer = createReducer(
       return activity.id != id;
     }),
   }))
-
-  /*   on(increaseEnrolledCounter, (state, { id }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    activities: state.activities.map((activity) => {
-      if (activity.id === id) {
-        let newActivity = { ...activity };
-        newActivity.usersEnrolled++;
-        return newActivity;
-      } else {
-        return activity;
-      }
-    }),
-  })), */
-
-  /*   on(decreaseEnrolledCounter, (state, { id }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    activities: state.activities.map((activity) => {
-      if (activity.id === id) {
-        let newActivity = { ...activity };
-        newActivity.usersEnrolled--;
-        return newActivity;
-      } else {
-        return activity;
-      }
-    }),
-  }))*/
 );
 
 export function activitiesReducer(state, action) {
