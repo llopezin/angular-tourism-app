@@ -103,6 +103,9 @@ export class HomeComponent implements OnInit {
 
   calculateState(activity: Activity) {
     if (!activity) return;
+    if (activity.state == true) {
+      return 'cancelled';
+    }
     return activity.maxEnrolled - activity.usersEnrolled;
   }
 

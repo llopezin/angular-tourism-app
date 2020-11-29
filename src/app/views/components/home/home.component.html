@@ -36,7 +36,7 @@
                     <span>Category: {{activitySelected?.category}}</span>
                     <span>Subategory: {{activitySelected?.subcategory}}</span>
                     <span>Price: {{activitySelected?.price}}</span>
-                    <span>State: {{activitySelected?.state || calculateState(activitySelected)}}</span>
+                    <span>State: {{calculateState(activitySelected)}}</span>
                 </div>
                 <div class="detail-info__group">
                     <span>Maximum Capacity: {{activitySelected?.maxEnrolled}}</span>
